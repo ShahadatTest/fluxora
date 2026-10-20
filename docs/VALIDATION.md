@@ -4,6 +4,10 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
+### Local bot contention, source 0.26.2
+
+The [broader application review](APP-REVIEW-2026-10-20.md) records **91 affected tests passed in 70.90s**, a new deployed 90-page/10-asset HTTP audit, and a complete isolated public Telegram-practice preparation/approval/replay flow with zero provider or real Telegram calls. It preserves the preceding Linux failure and the bounded lock-acquisition correction. Complete-suite evidence for 0.26.1 below remains explicitly historical; consult Actions for the subsequently published cross-platform result. Rendered app review is still unavailable, and slide/video work is deferred.
+
 ### Final acceptance, source 0.26.1
 
 The [final acceptance report](FINAL-REVIEW-2026-10-20.md) records **2,211 passed in 425.31s**, **97 affected tests in 61.51s** and **143 hosted tests in 117.70s**. It includes a new actual VPS scheduler/decision/restart canary, one fresh public live model forecast and replay, 15 HTTP routes, a bounded Windows early-refusal correction, preserved shared services and the still-blocked rendered desktop/360px/390px check. The fresh-user walkthrough is now **user-reported complete with no problems found**. Detailed observations were not supplied, so this is not relabelled as a documented independent study. Earlier pending statements below describe their historical checks.

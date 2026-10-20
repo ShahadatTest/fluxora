@@ -47,10 +47,15 @@ def secret(value,required=True):
     return value
 
 
+# Idle polling briefly takes the same lock for SQLite housekeeping. Allow that
+# section to finish while retaining a bounded refusal for a real active request.
+BOT_IDLE_WAIT_SECONDS=.25
+
+
 def idle_bot(fn):
     def guarded(self,*args,**kwargs):
         bot=self.server.telegram
-        if bot and not bot.lock.acquire(False):raise CashflowError('Bot request in progress. Wait for its result before changing connections.')
+        if bot and not bot.lock.acquire(timeout=BOT_IDLE_WAIT_SECONDS):raise CashflowError('Bot request in progress. Wait for its result before changing connections.')
         try:return fn(self,*args,**kwargs)
         finally:
             if bot:bot.lock.release()
@@ -133,7 +138,7 @@ class Connections:
         return self.adapters[ident]
     def _bot_idle(self):
         bot=self.server.telegram
-        if bot and not bot.lock.acquire(False):raise CashflowError('The bot is processing a request. Wait for its result, then change connections.')
+        if bot and not bot.lock.acquire(timeout=BOT_IDLE_WAIT_SECONDS):raise CashflowError('The bot is processing a request. Wait for its result, then change connections.')
         if bot:bot.lock.release()
     def _invalidate(self):
         self.server.visitors.state.staged.clear()
@@ -218,7 +223,7 @@ class Connections:
     def stop_bot(self):
         bot=self.server.telegram
         if not bot:return
-        if not bot.lock.acquire(False):raise CashflowError('Bot request in progress. Wait for its result before stopping.')
+        if not bot.lock.acquire(timeout=BOT_IDLE_WAIT_SECONDS):raise CashflowError('Bot request in progress. Wait for its result before stopping.')
         try:bot.stop.set()
         finally:bot.lock.release()
         bot.close();self.server.telegram=None

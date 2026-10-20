@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.26.2 — Local bot settings concurrency
+
+- Allow up to 250 ms for short bot housekeeping to release its existing lock before stopping the bot or changing local model settings. Persistent in-flight requests still refuse changes, and the same lock protects every configuration mutation.
+- Add controlled-contention regressions for stop and profile activation. Keep existing busy-request refusal and configuration-revocation tests.
+- Record a broader deployed 90-page/10-asset HTTP audit and an isolated public Telegram-practice DRAFT/snapshot/replay flow. No new slide/video work or financial behavior change.
+
 ## 0.26.1 — Final acceptance and presentation refresh
 
 - Deliver early hosted refusals before a bounded discard of small unread request bodies. This addresses a Windows connection-reset failure on locked settings POSTs without dispatching the rejected input or weakening the lock.

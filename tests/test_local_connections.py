@@ -221,6 +221,38 @@ def test_bot_configuration_change_revokes_old_link_reviews_and_queue(settings):
     assert not _load(app.workspace_database).actions
 
 
+@pytest.mark.parametrize('operation',['stop','activate'])
+def test_short_bot_housekeeping_finishes_before_connection_change(settings,monkeypatch,operation):
+    from cashflow_copilot.telegram_bridge import TelegramBridge
+    app,c=settings;m=app.local_connections;m.api_factory=lambda token:Stub()
+    assert add(c)[0]==200;ident=m.public()[0]['id']
+    # Control the housekeeping section directly; no polling/network timing is
+    # needed to reproduce a busy lock between two otherwise idle operations.
+    monkeypatch.setattr(TelegramBridge,'start',lambda self:None)
+    m.save_bot(token=TOKEN,owner=str(OWNER),name='FluxoraTestBot');m.start_bot();bot=app.telegram
+    lock=bot.lock;acquired=threading.Event();release=threading.Event()
+    def housekeeping():
+        with lock:acquired.set();release.wait(5)
+    worker=threading.Thread(target=housekeeping);worker.start();assert acquired.wait(3)
+    class FinishingHousekeeping:
+        def acquire(self,blocking=True,timeout=-1):
+            if blocking:
+                assert 0<timeout<=.25
+                release.set()
+                return lock.acquire(timeout=timeout)
+            return lock.acquire(False)
+        def release(self):lock.release()
+        def __enter__(self):lock.acquire();return self
+        def __exit__(self,*args):lock.release()
+    bot.lock=FinishingHousekeeping()
+    try:
+        if operation=='stop':m.stop_bot();assert app.telegram is None and bot.stop.is_set()
+        else:m.activate(ident);assert m.data['active']==ident and app.telegram is bot
+    finally:
+        release.set();worker.join(5);bot.lock=lock
+    assert not worker.is_alive()
+
+
 @pytest.mark.skipif(os.name!='nt',reason='Windows current-user DPAPI')
 def test_remembered_bot_does_not_autostart_or_call_telegram(settings):
     app,c=settings;m=app.local_connections;api=Stub();m.api_factory=lambda token:api
