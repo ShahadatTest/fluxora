@@ -5,6 +5,7 @@ import pytest
 from cashflow_copilot import agent_web,agent_tasks_web,task_qualification,web
 from tests.test_web import live_server,csrf,_post,_get,_load
 from tests.test_guided_tasks import Parser,save
+from cashflow_copilot.workspace_ui import Markup
 
 
 @pytest.fixture
@@ -21,10 +22,29 @@ def direct(live_server,csrf,monkeypatch):
 def test_composer_discloses_destination_and_direct_authority_before_submission(direct):
     base,db,p,fields=direct
     status,html=_get(base,'/agent/tasks')
-    assert status==200 and "action='/agent/tasks/start'" in html and 'Run task' in html
-    assert "formaction='/agent/tasks/preview'" in html and 'Review first' in html
-    assert 'http://loopback-only' in html and 'provider billing and retention apply' in html
+    assert status==200 and "action='/agent/tasks/start'" in html and '>Send ' in html
+    assert "formaction='/agent/tasks/preview'" in html and 'Preview before sending' in html
+    assert 'http://loopback-only' in html and 'provider billing and retention apply' in html.lower()
     assert 'DRAFT/pending preparation only' in html and p.calls==0
+    tree=Markup(html)
+    form=next(n for n in tree.elements if n.tag=='form' and n.attrs.get('action')=='/agent/tasks/start')
+    options=next(n for n in tree.descendants(form,'details') if n.attrs.get('class')=='task-options')
+    assert 'open' not in options.attrs
+    buttons=list(tree.descendants(form,'button'))
+    assert len([n for n in buttons if options not in list(n.ancestors())])==1
+    assert buttons[0].attrs.get('formaction') is None and 'Send' in html[buttons[0].open_end:buttons[0].close_start]
+    skill=tree.descendants(form,'select')[0]
+    assert options in list(skill.ancestors()) and skill.attrs['name']=='skill_id'
+
+
+def test_explicit_skill_link_keeps_selected_focus_visible_without_model_call(direct):
+    base,db,p,fields=direct
+    status,html=_get(base,'/agent/tasks?skill=cash-review')
+    tree=Markup(html)
+    options=next(n for n in tree.elements if n.tag=='details' and n.attrs.get('class')=='task-options')
+    assert status==200 and 'open' in options.attrs
+    chosen=next(n for n in tree.descendants(options,'option') if 'selected' in n.attrs)
+    assert chosen.attrs['value']=='cash-review' and p.calls==0
 
 
 def test_one_submit_returns_deterministic_report_and_replay_survives_lost_stage(direct,monkeypatch):

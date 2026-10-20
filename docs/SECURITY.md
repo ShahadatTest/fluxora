@@ -1,6 +1,6 @@
 # Fluxora security self-assessment
 
-Source 0.25.11. Reviewed 20 October 2026. Synthetic demonstration only.
+Source 0.25.12. Reviewed 20 October 2026. Synthetic demonstration only.
 
 ## Assets and trusted boundaries
 
@@ -21,7 +21,7 @@ External model and Telegram providers form separate trust boundaries. Questions 
 
 An agent can prepare supported local changes for review. This does not let it approve itself. A server executor may apply the reviewed local scope after the owner decides. Documents never grant a permission. A receipt, acceptance event or bank observation cannot be invented to make a plan feasible.
 
-The one-submit route may prepare an unintended but schema-valid DRAFT/pending instruction. Literal values, deterministic validation and the read/DRAFT boundary constrain it; they do not prove intent. Exact selected terms are shown in results and require separate owner approval before any supported local execution. Use Review first when interpretation needs checking before preparation. A changed ledger or expired deadline rejects candidate work. Durable replay prevents a repeated completed submission from contacting the provider or creating another draft.
+The one-submit route may prepare an unintended but schema-valid DRAFT/pending instruction. Literal values, deterministic validation and the read/DRAFT boundary constrain it; they do not prove intent. Exact selected terms are shown in results and require separate owner approval before any supported local execution. Use Options → Preview before sending when interpretation needs checking before preparation. A changed ledger or expired deadline rejects candidate work. Durable replay prevents a repeated completed submission from contacting the provider or creating another draft.
 
 ## Implemented controls and evidence
 

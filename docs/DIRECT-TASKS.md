@@ -1,10 +1,10 @@
 # Run a guided task in one submission
 
-Open **Agent** at `/agent/tasks`, describe a supported task and select **Run task**. The provider destination and data notice appear beside the controls before submission. This authorizes a read-only report or preparation of DRAFT/pending work. It never authorizes final approval, external sending or payment.
+Open **Agent** at `/agent/tasks`, describe a supported task and select **Send**. The provider destination and data notice appear beside the controls before submission. This authorizes a read-only report or preparation of DRAFT/pending work. It never authorizes final approval, external sending or payment.
 
 The server sends the typed question and static task definitions for one bounded interpretation, discards all model prose, validates the instruction and runs deterministic local tools. It shows the selected task, exact terms, computed answer and evidence in the saved result. A schema-valid instruction can still misunderstand intent: inspect that result, especially before approving proposed work.
 
-Choose **Review first** instead to retain the separate outbound-data preview and exact interpretation confirmation. Floating guidance still makes no model call: **Continue in Agent** opens an editable task with the same two choices and disclosure.
+Choose **Options → Preview before sending** instead to retain the separate outbound-data preview and exact interpretation confirmation. Floating guidance still makes no model call: **Continue in Agent** opens an editable task with the same Send control, optional preview and disclosure.
 
 Examples for the bundled Atlas fixture:
 

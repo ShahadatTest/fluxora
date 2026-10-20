@@ -126,3 +126,6 @@
 
 /* Direct task controls remain usable on narrow screens. */
 .composer-disclosure{font-size:.78rem;line-height:1.6;color:var(--muted,#526363);margin:12px 0}.task-submit-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.task-submit-actions button{white-space:nowrap}@media(max-width:540px){.copilot-composer .composer-footer{align-items:stretch;flex-direction:column;gap:12px}.task-submit-actions{width:100%;display:grid;grid-template-columns:1fr 1fr}.task-submit-actions button{min-width:0;width:100%;padding:12px 10px}}
+
+/* A single primary send control; optional preview uses native details. */
+.app .copilot-composer .task-options{margin:18px 0 0;padding:12px 0 0;border:0;border-top:1px solid var(--line,#dbe4e1);border-radius:0;background:transparent}.app .task-options>summary{font-size:13px;color:var(--mut);cursor:pointer;padding:4px 0}.app .task-options>p{font-size:12px;line-height:1.7;margin:12px 0}.app .task-options>button{margin-top:12px}.app .copilot-composer .composer-footer>.primary{width:auto;min-width:104px}@media(max-width:540px){.app .copilot-composer .composer-footer>.primary{width:100%}}

@@ -4,6 +4,16 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
+### Single Send composer, source 0.25.12
+
+The default composer and assistant handoff now expose only **Send**. Skill selection and optional preview are inside a closed native Options disclosure. An explicit skill-selection link opens those options to show its selected focus. The one-submit backend, model contract, financial tools, deadline, retry policy and approval boundary are unchanged.
+
+The affected selection passed **135 tests in 58.89s**, using synthetic records, mocked selectors and local HTTP stubs. It ran `python -X utf8 -m pytest -q tests/test_direct_tasks.py tests/test_floating_assistant_local.py tests/test_workspace_ui.py tests/test_public_ai.py tests/test_guided_tasks.py tests/test_floating_assistant.py tests/test_fluxora_ui.py` with `PYTHONDONTWRITEBYTECODE=1`, external cache and short basetemp `C:/Users/shaha/Documents/Codex/t264final`. The preceding run returned 1 failed / 134 passed because the disclosure assertion expected lowercase provider at the start of a sentence; its case-independent wording check now retains destination, billing/retention, authority and default-control assertions. No permission or data-disclosure control was removed.
+
+The disposable hosted canary passed HTTP/HTML checks with **zero model calls**. Its unchanged core contract independently matched the existing qualification. A real public HTTPS Send submission then passed forecast in **4.86s** with **one actual Qwen call**, no intermediate disclosure/interpretation confirmation page, selected-task/results rendering and saved-result replay. The floating handoff also showed one primary Send and optional preview. This is one latency/compatibility sample, not universal language accuracy or a speed guarantee.
+
+The previous complete suite was **2,172 passed in 393.71s for 0.25.11**, with the published GitHub workflow also passing. It is not relabeled as a new complete run for this UI-only change. Current rendered browser checks remain unavailable because local browser use is disabled in Work settings; HTTP/markup/DOM tests are not a screenshot review. Final owner approval, missing-fact clarification and independent fresh-user feedback retain their separate boundaries.
+
 ### One-submit guided tasks, source 0.25.11
 
 The final complete local suite returned **2172 passed in 393.71s (0:06:33)** on 20 October 2026. It includes mocked-provider selectors, real local HTTP stubs and synthetic deterministic/domain tests; it makes no live-provider claim. The preceding complete run returned **2 failed / 2,170 passed in 397.57s** because two assertions expected the old selected-skill label and old floating-handoff form. Those assertions were updated for the intended interface while keeping qualification, escaped input, unchanged ledger and authority checks. Their focused selection passed **36 tests in 4.76s**. The final complete rerun passed. The direct/guided/public/UI selection passed **118 tests in 46.68s**; the deployed-source selection passed **193 tests in 80.84s**.

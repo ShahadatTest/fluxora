@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.25.12 — Single Send control
+
+- The default Agent composer and assistant handoff show one Send button. Skill selection and optional preview stay in a closed native Options disclosure; a link selecting a specific skill opens it for inspection.
+- Keep provider/data disclosure before submission and preserve the existing one-submit report/DRAFT route. Final owner approval stays separate. No model, financial tool, deadline, retry or permission behavior changes.
+
+
 ## 0.25.11 — Direct guided task submission
 
 - Run a supported report or prepare only DRAFT/pending work in one submission after inline provider/data disclosure. Review first keeps the existing explicit previews.

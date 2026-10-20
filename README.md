@@ -24,9 +24,9 @@
 
 Fluxora helps a small-business owner understand **when cash becomes tight, which facts support the forecast, and what can be prepared for review**. Deterministic Python tools calculate the financial results; an optional constrained model helps interpret supported requests.
 
-Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.25.11**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.25.12**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
 
-Use **Run task** for a one-submit report or DRAFT/pending preparation after the inline provider/data disclosure. **Review first** retains the full outbound and interpretation previews. Final approval stays separate; missing facts still require clarification. Inspect the selected task and exact terms in the result. For immediate answers without a provider, use the direct report links.
+Use **Send** for a one-submit report or DRAFT/pending preparation after the inline provider/data disclosure. **Options → Preview before sending** retains the full outbound and interpretation previews. Final approval stays separate; missing facts still require clarification. Inspect the selected task and exact terms in the result. For immediate answers without a provider, use the direct report links.
 
 **Explore:** [Why Fluxora](#why-fluxora) · [Product tour](#product-tour) · [Features](#features) · [Quickstart](#quickstart) · [AI & Telegram](#ai--telegram) · [Architecture](#architecture) · [Verification](#verification) · [Documentation](#documentation) · [Contributing](#contributing)
 
@@ -62,7 +62,7 @@ Recorded cash, conditional collections, floor checks and source references remai
 
 ![Guided agent with direct reports and explicit model status](docs/media/agent.jpg)
 
-Direct reports work without a model. Optional interpretation requires a qualified configuration and provider/data disclosure. Run task prepares a result in one submission; Review first retains exact interpretation confirmation. This earlier screenshot predates the one-submit controls.
+Direct reports work without a model. Optional interpretation requires a qualified configuration and provider/data disclosure. Send prepares a result in one submission; Options → Preview before sending retains exact interpretation confirmation. This earlier screenshot predates the one-submit controls.
 
 ### Telegram browser practice
 
@@ -167,8 +167,8 @@ These are variable names, not values. Enter credentials only through private set
 flowchart LR
     E[Evidence and recorded facts] --> V[Local scope and input validation]
     B[Browser or private Telegram] --> V
-    M[Optional external model] -->|Run task: untrusted instruction| V
-    M -->|Review first| R[Exact interpretation review]
+    M[Optional external model] -->|Send: untrusted instruction| V
+    M -->|Options → Preview before sending| R[Exact interpretation review]
     R -->|Read or prepare only| V
     V --> F[Deterministic financial tools]
     F --> D[DRAFT or pending work]
@@ -186,7 +186,7 @@ The badge at the top reports the actual GitHub Actions workflow. Local measured 
 
 | Evidence | Recorded outcome | Scope |
 | --- | --- | --- |
-| **Fresh complete source suite** | **2,172 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
+| **Previous complete source suite (0.25.11)** | **2,172 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
 | **Clean build & install** | Source package, wheel and fresh offline installation passed | Assets, fixture examples and bundled skills present |
 | **Focused browser checks** | Settings navigation passed at desktop, 360px and 390px | Not a complete device/accessibility audit |
 | **Public live guided AI** | One-submit forecast: 4.312s; exact DRAFT: 9.094s over public HTTPS | Two measured live tasks plus separate canary/restart checks; samples, not a latency or language-accuracy guarantee |
@@ -238,7 +238,7 @@ deploy/vps/        Optional container deployment, backup and rollback
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change. Use invented data in a [bug report](https://github.com/ShahadatTest/fluxora/issues/new/choose), preserve financial/permission boundaries and include relevant verification. The [security policy](SECURITY.md) explains what must stay out of public issues and screenshots.
 
-Application source is **0.25.11**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
+Application source is **0.25.12**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
 
 ---
 

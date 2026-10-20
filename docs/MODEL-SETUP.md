@@ -5,7 +5,7 @@ Direct reports and reviewed owner forms need no model. Public guided AI is disab
 1. Save a compatible provider profile with a precise model ID and private API key. Save makes no provider call. Multiple profiles may exist; one is active.
 2. Activate the profile, inspect the destination/cost disclosure and explicitly test the connection.
 3. Run the current synthetic qualification when requested. Passing finite cases does not establish universal question understanding or uptime.
-4. Read the inline provider/data notice and choose Run task for a report or DRAFT/pending preparation in one submission. Inspect the selected task and exact terms in the result. Choose Review first instead for outbound preview and exact interpretation confirmation before preparation. Final approval remains separate. Use deterministic financial cards as the authoritative result; advanced model prose remains unverified.
+4. Read the inline provider/data notice and choose Send for a report or DRAFT/pending preparation in one submission. Inspect the selected task and exact terms in the result. Choose Options → Preview before sending instead for outbound preview and exact interpretation confirmation before preparation. Final approval remains separate. Use deterministic financial cards as the authoritative result; advanced model prose remains unverified.
 
 Environment configuration is an alternative: `CASHFLOW_MODEL_API_KEY`, `CASHFLOW_MODEL_BASE_URL`, and `CASHFLOW_MODEL_NAME`. The model name is required for chat. Never commit values or put credentials in command arguments, questions, screenshots or public issues. The [local setup guide](LOCAL-SETUP.md) documents hidden prompts and optional Windows Remember storage.
 

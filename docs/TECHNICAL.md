@@ -1,6 +1,6 @@
 # Fluxora: technical documentation
 
-Cashflow Action Copilot. Complete local source 0.25.11. Reviewed 20 October 2026.
+Cashflow Action Copilot. Complete local source 0.25.12. Reviewed 20 October 2026.
 
 ## Purpose and contribution
 
@@ -16,7 +16,7 @@ The project targets Topic E, SME Finance Copilot. The current demonstrator conce
 | Hosted public demo | HTTPS and a separate expiring synthetic workspace for each browser cookie. Records live on the server. | Visitor guided requests can use a privately configured provider only with the explicit public-AI operator flag, qualification, disclosure and bounded allowances. API/Telegram settings are a disabled static preview. Browser Telegram practice is simulated. |
 | Optional private companion | One allowlisted Telegram account explicitly pairs one workspace. Pairing does not extend the workspace lifetime. | Opt-in real bot delivery about synthetic data. A separately enabled model requires the existing verification and qualification process. |
 
-The deployed UI uses a minimal hosted release, 0.23.14-721c0acca60a, with the same reviewed product refinement. The complete downloadable local source is 0.25.11 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
+The deployed UI uses a minimal hosted release, 0.23.15-613369295ce1, with the same reviewed product refinement. The complete downloadable local source is 0.25.12 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
 
 ## Architecture
 
@@ -72,7 +72,7 @@ The deck's editable chart uses these exact daily engine outputs. It displays USD
 
 ## Model and task execution
 
-A direct report needs no model. In the private guided flow, the owner sees the intended outbound question and task catalog. The model selects a supported task, supplies structured parameters, requests clarification or declines. Local code treats that response as untrusted and checks schema, scope, literal supplied details and permitted capabilities. Run task immediately executes only the validated read/DRAFT path under a shared deadline and displays its exact selection in the result. Review first instead requires exact interpretation confirmation before execution. Final owner approval stays separate. See [one-submit tasks](DIRECT-TASKS.md).
+A direct report needs no model. In the private guided flow, the owner sees the intended outbound question and task catalog. The model selects a supported task, supplies structured parameters, requests clarification or declines. Local code treats that response as untrusted and checks schema, scope, literal supplied details and permitted capabilities. Send immediately executes only the validated read/DRAFT path under a shared deadline and displays its exact selection in the result. Options → Preview before sending instead requires exact interpretation confirmation before execution. Final owner approval stays separate. See [one-submit tasks](DIRECT-TASKS.md).
 
 Financial results come from successful deterministic tools and server-authored rendering. The guided model does not receive those results for a final rewrite. Optional prose in the advanced mode remains explicitly unverified. A schema-valid interpretation may still misunderstand the user. Qualification and finite language guards do not establish semantic correctness for arbitrary questions.
 
