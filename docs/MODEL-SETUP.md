@@ -1,6 +1,6 @@
 # Optional model setup
 
-Direct reports and reviewed owner forms need no model. The public hosted Web demo is model-free. For private local use, start through `python -m tools.local_setup --start`, then open Settings & help → API & Telegram.
+Direct reports and reviewed owner forms need no model. Public guided AI is disabled by default. The hosted operator can explicitly enable it with the controls in [public AI deployment](PUBLIC-AI.md). For private local use, start through `python -m tools.local_setup --start`, then open Settings & help → API & Telegram.
 
 1. Save a compatible provider profile with a precise model ID and private API key. Save makes no provider call. Multiple profiles may exist; one is active.
 2. Activate the profile, inspect the destination/cost disclosure and explicitly test the connection.

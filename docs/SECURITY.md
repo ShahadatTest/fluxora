@@ -1,6 +1,6 @@
 # Fluxora security self-assessment
 
-Source 0.25.9. Reviewed 20 October 2026. Synthetic demonstration only.
+Source 0.25.10. Reviewed 20 October 2026. Synthetic demonstration only.
 
 ## Assets and trusted boundaries
 
@@ -62,3 +62,6 @@ The GitHub publication tree includes source, design assets and summarized verifi
 - No real-bank integration, real payment execution, lender matching integration or real-business pilot is demonstrated.
 
 Use this release for synthetic demonstrations and controlled evaluation. Further identity, operational, data-authentication and independent security work is required before a real-business pilot.
+
+
+Public guided AI in 0.25.10 is an explicit operator option. See [public AI controls](PUBLIC-AI.md) for the durable daily attempt counter, zero retries, qualification, data disclosure and endpoint restrictions. The model still cannot approve work, invent source events or move money. Private Telegram model use has a separate scope from the public allowance.

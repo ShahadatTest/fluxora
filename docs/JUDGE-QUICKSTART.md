@@ -1,6 +1,6 @@
 # Fluxora judge quickstart
 
-This is a synthetic SME cash-flow demonstration. It has no real bank feed or payment rail. Public visitor Web requests are model-free.
+This is a synthetic SME cash-flow demonstration. It has no real bank feed or payment rail. The hosted operator can explicitly enable bounded live guided task translation. Direct reports and browser Telegram practice need no model.
 
 1. Open [the guided start](https://fluxora.sklab.cc/start), or [the product website](https://fluxora.sklab.cc/welcome).
 2. On the product preview, compare recorded timing with the seven-day-delay example. These figures come from a separate Atlas fixture and do not change a visitor ledger.
@@ -18,3 +18,6 @@ For the full directory, open [All workspace features](https://fluxora.sklab.cc/w
 Clone or extract this repository and enter its root directory. On Windows with Python 3.10+, double-click `START_FLUXORA.cmd`. Runtime uses the standard library and requires no provider key for direct reports. README and `docs/LOCAL-SETUP.md` explain other platforms, persistent data paths and optional private connections. Keep secrets in private local settings/environment, never in this package or a shared screen.
 
 Hosted sessions expire after 24 hours and clearing cookies loses their access. Local private data persists at the selected database path. The public admission/storage limits are finite. If a new session cannot be admitted, the product's read-only examples remain the fallback; this does not establish a passing full workflow for that visitor.
+
+
+Public guided AI in 0.25.10 is an explicit operator option. See [public AI controls](PUBLIC-AI.md) for the durable daily attempt counter, zero retries, qualification, data disclosure and endpoint restrictions. The model still cannot approve work, invent source events or move money. Private Telegram model use has a separate scope from the public allowance.

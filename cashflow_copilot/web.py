@@ -243,7 +243,7 @@ def match_route(method: str, path: str):
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "CashflowCopilot/0.25.9"
+    server_version = "CashflowCopilot/0.25.10"
 
     def log_message(self, fmt, *args):  # keep the console quiet-ish
         pass

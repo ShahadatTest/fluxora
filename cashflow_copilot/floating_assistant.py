@@ -42,7 +42,9 @@ def render(path,public_demo=False):
     payload['page']['links']=[('/docs/'+doc,'Read this page guide')]
     data=json.dumps(dict(context=title,intents=payload,public=public_demo)).replace('<',chr(92)+'u003c')
     composer='<label for="fluxora-assistant-question">What do you need help with?</label><textarea id="fluxora-assistant-question" name="question" rows="2" maxlength="2000" placeholder="Try: where can I review a draft?"></textarea><button type="button" data-assistant-send>Get local guidance</button>'
-    if public_demo:composer='<div class="assistant-composer">'+composer+'<p>This public demo is model-free. Open full Agent for deterministic reports.</p></div>'
+    from .ui import REQUEST
+    public_ai=bool(getattr(REQUEST,'public_ai',False))
+    if public_demo and not public_ai:composer='<div class="assistant-composer">'+composer+'<p>This public demo is model-free. Open full Agent for deterministic reports.</p></div>'
     else:
         from .web import csrf_field
         composer='<form class="assistant-composer" method="post" action="/assistant/continue">'+csrf_field()+composer+'<button type="submit" class="assistant-continue">Continue in Agent</button><p>Continue sends only your typed question to this local/server app. Provider disclosure and confirmation follow in Agent; no model call occurs here.</p></form>'
@@ -63,7 +65,7 @@ def mount(web):
         question=req.field('question').strip()
         if not 1<=len(question)<=2000:raise CashflowError('Write a question of 1–2,000 characters. Do not enter credentials.')
         from . import ui
-        if bool(getattr(getattr(handler.server,'config',None),'public_demo',False)):
+        if bool(getattr(getattr(handler.server,'config',None),'public_demo',False)) and not bool(getattr(handler.server.config,'public_ai',False)):
             return handler._send_html(200,ui.app_page('Guided demo help','<h1>This hosted demo is model-free</h1><p>No question was sent to a provider or executed. Use <a href="/agent/tasks">deterministic Agent reports</a>, <a href="/telegram/demo">Telegram practice</a> or <a href="/docs">documentation</a>.</p>','/assistant/continue','Public guided demo — no model call.'))
         from . import agent_web,task_qualification
         adapter=agent_web.live_adapter()

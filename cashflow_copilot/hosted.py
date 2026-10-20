@@ -41,12 +41,16 @@ class Config:
     workers: int = 8
     public_demo: bool = False
     visitor_capacity: int = 128
+    public_ai: bool = False
+    public_ai_daily_limit: int = 1000
 
     def __post_init__(self):
         if len(self.domain)>253 or '.' not in self.domain or any(not re.fullmatch(r'[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?',part) for part in self.domain.split('.')):
             raise ValueError('Set one public DNS hostname without scheme, port or path.')
         if type(self.public_demo) is not bool:raise ValueError('Invalid public demo mode.')
         if type(self.visitor_capacity) is not int or not 1<=self.visitor_capacity<=256:raise ValueError('Visitor capacity must be between 1 and 256.')
+        if type(self.public_ai) is not bool or (self.public_ai and not self.public_demo):raise ValueError('Public AI requires explicit public demo mode.')
+        if type(self.public_ai_daily_limit) is not int or not 1<=self.public_ai_daily_limit<=1000:raise ValueError('Public AI daily limit must be between 1 and 1000.')
         if not self.public_demo:
             if not re.fullmatch(r'[A-Za-z0-9_-]{1,40}',self.username):raise ValueError('Invalid owner username.')
             if not re.fullmatch(r'scrypt\$[a-f0-9]{32}\$[a-f0-9]{64}',self.verifier):raise ValueError('A valid owner password verifier is required.')
@@ -56,7 +60,12 @@ class Config:
 def environment_config():
     mode=os.environ.get('FLUXORA_PUBLIC_DEMO','0')
     if mode not in {'0','1'}:raise ValueError('Set FLUXORA_PUBLIC_DEMO to 0 or 1.')
-    if mode=='1' and os.environ.get('CASHFLOW_MODEL_API_KEY','').strip():
+    ai=os.environ.get('FLUXORA_PUBLIC_AI','0')
+    if ai not in {'0','1'}:raise ValueError('Set FLUXORA_PUBLIC_AI to 0 or 1.')
+    daily=os.environ.get('FLUXORA_PUBLIC_AI_DAILY_LIMIT','1000')
+    if not re.fullmatch('[0-9]{1,4}',daily):raise ValueError('Invalid public AI daily limit.')
+    if ai=='1' and not all(os.environ.get(k,'').strip() for k in ['CASHFLOW_MODEL_API_KEY','CASHFLOW_MODEL_BASE_URL','CASHFLOW_MODEL_NAME']):raise ValueError('Public AI needs a complete private model configuration.')
+    if mode=='1' and ai!='1' and os.environ.get('CASHFLOW_MODEL_API_KEY','').strip():
         from .telegram_bridge import configured
         private=configured()
         if not private or not private[0].use_model:
@@ -64,7 +73,7 @@ def environment_config():
     capacity=os.environ.get('FLUXORA_VISITOR_CAPACITY','128')
     if not re.fullmatch('[0-9]{1,3}',capacity):raise ValueError('Visitor capacity must be between 1 and 256.')
     return Config(os.environ.get('FLUXORA_DOMAIN',''),os.environ.get('FLUXORA_OWNER_USER',''),
-        os.environ.get('FLUXORA_OWNER_HASH',''),os.environ.get('FLUXORA_DATABASE','/data/state.sqlite'),public_demo=mode=='1',visitor_capacity=int(capacity))
+        os.environ.get('FLUXORA_OWNER_HASH',''),os.environ.get('FLUXORA_DATABASE','/data/state.sqlite'),public_demo=mode=='1',visitor_capacity=int(capacity),public_ai=ai=='1',public_ai_daily_limit=int(daily))
 
 
 class WindowLimits:
@@ -84,6 +93,10 @@ class DemoServer(ThreadingHTTPServer):
     def __init__(self,address,handler,config):
         self.config=config;self.limits=WindowLimits();self.auth_cache=None
         self.telegram=None
+        self.public_ai_adapter=None
+        if config.public_ai:
+            from .public_ai import create
+            self.public_ai_adapter=create(config.database,config.public_ai_daily_limit)
         self.visitors=Visitors(Path(config.database).resolve().parent/'visitors',capacity=config.visitor_capacity) if config.public_demo else None
         self.slots=threading.BoundedSemaphore(config.workers)
         super().__init__(address,handler)
@@ -113,7 +126,7 @@ class DemoServer(ThreadingHTTPServer):
 
 
 class Handler(web.Handler):
-    server_version='FluxoraDemo/0.25.9'
+    server_version='FluxoraDemo/0.25.10'
     sys_version=''
     def version_string(self):return self.server_version
     def setup(self):super().setup();self.connection.settimeout(15)
@@ -181,13 +194,19 @@ class Handler(web.Handler):
         if self.command=='POST':
             if self.headers.get_all('Origin',[])!=['https://'+config.domain]:return self._reply(403,'Same-origin form required')
             if not self.server.limits.allow('post',40):return self._reply(429,'Operation rate limit')
-            if self.path in {'/agent/ask','/agent/verify','/agent/tasks/translate','/agent/tasks/qualify'} and not self.server.limits.allow('model',6):
+            if urlsplit(self.path).path in {'/agent/ask','/agent/verify','/agent/tasks/translate','/agent/tasks/qualify'} and not self.server.limits.allow('model',6):
                 return self._reply(429,'Agent request rate limit')
         if not self.server.limits.allow('all',600):return self._reply(429,'Request rate limit')
         if self.path=='/healthz':return self._reply(200,'ok')
         parsed=urlsplit(self.path);path=parsed.path
         from .ui import REQUEST
         REQUEST.path=path;REQUEST.hosted=True;REQUEST.public_demo=config.public_demo
+        REQUEST.public_ai=self.server.public_ai_adapter is not None
+        REQUEST.public_ai_adapter=self.server.public_ai_adapter
+        REQUEST.public_ai_qualification_path=(self.server.public_ai_adapter.qualification_path if self.server.public_ai_adapter else None)
+        if config.public_ai and self.command=='POST' and path in {'/agent/verify','/agent/tasks/qualify','/agent/ask'}:
+            return self._reply(403,'Public AI uses reviewed guided tasks only; operator checks are private')
+        if config.public_ai and self.command=='GET' and path=='/agent':return self._redirect('/agent/tasks')
         if path.startswith('/settings/connections'):
             if self.command!='GET':return self._reply(403,'Hosted connection settings are locked; no operation was performed')
             if path!='/settings/connections':return self._reply(404,'Settings preview not found')
@@ -234,6 +253,9 @@ class Handler(web.Handler):
         return self._dispatch_workspace()
 
     def _dispatch_workspace(self):
+        if self.server.config.public_ai and self.command=='POST' and urlsplit(self.path).path=='/agent/tasks/translate':
+            identity=hashlib.sha256(web.database_path().encode()).hexdigest()
+            if not self.server.limits.allow('public-ai:'+identity,20,3600):return self._reply(429,'This visitor has reached the hourly AI allowance; direct reports remain available')
         with web.LOCK:
             # Bounded staging is hosted-only. Never evict a currently executing
             # interpretation; old unsubmitted previews can safely expire.

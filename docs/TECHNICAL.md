@@ -1,12 +1,12 @@
 # Fluxora: technical documentation
 
-Cashflow Action Copilot. Complete local source 0.25.9. Reviewed 20 October 2026.
+Cashflow Action Copilot. Complete local source 0.25.10. Reviewed 20 October 2026.
 
 ## Purpose and contribution
 
 Fluxora supports an SME owner's cash timing decisions using synthetic records. It connects deterministic forecasting and bounded plan comparison with evidence-linked preparation of work for owner review. Its specific contribution is the connection between analysis, explicit source facts and constrained action preparation. This document makes no claim of global uniqueness, competition eligibility, selection, certification or readiness for real-business money movement.
 
-The project targets Topic E, SME Finance Copilot. The current demonstrator concentrates on cash-flow management, risk alerts, recorded funding positions and financial analysis. It has no lender marketplace, underwriting integration or independently validated financing recommendation service. Its account-free public demo remains model-free. The optional private model interprets supported tasks.
+The project targets Topic E, SME Finance Copilot. The current demonstrator concentrates on cash-flow management, risk alerts, recorded funding positions and financial analysis. It has no lender marketplace, underwriting integration or independently validated financing recommendation service. The account-free public demo can use an operator-enabled model for guided task interpretation, with outbound-data confirmation and exact review. Direct tools remain available without a model.
 
 ## Runtime and deployment modes
 
@@ -16,7 +16,7 @@ The project targets Topic E, SME Finance Copilot. The current demonstrator conce
 | Hosted public demo | HTTPS and a separate expiring synthetic workspace for each browser cookie. Records live on the server. | Visitor Web requests cannot use a paid model. API/Telegram settings are a disabled static preview. Browser Telegram practice is simulated. |
 | Optional private companion | One allowlisted Telegram account explicitly pairs one workspace. Pairing does not extend the workspace lifetime. | Opt-in real bot delivery about synthetic data. A separately enabled model requires the existing verification and qualification process. |
 
-The deployed UI uses a minimal hosted release, 0.23.12-06c745b55b7d, with the same reviewed product refinement. The complete downloadable local source is 0.25.9 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
+The deployed UI uses a minimal hosted release, 0.23.13-6069750c3753, with the same reviewed product refinement. The complete downloadable local source is 0.25.10 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
 
 ## Architecture
 
@@ -120,3 +120,6 @@ The evidence distinguishes automated local/stub tests, scripted mock providers a
 The local launcher binds to loopback. Hosted publication requires deliberate operator configuration. The current demo runs non-root with a read-only container root behind the existing HTTPS proxy. It has no host port bindings. The public slot limit is 256 unexpired workspaces and aggregate visitor storage is bounded at 256 MiB, with 24-hour expiry. This is finite anonymous session separation, not production identity or abuse-resistant admission.
 
 Keep financial databases, backups, local credential vaults and virtual environments outside source packages. Restore in an isolated test before relying on a backup. The hosted release has a private server-side backup and rollback path; no production data or credentials are included here. Real-business use would require further identity, operations, independent security and financial/source validation.
+
+
+Public guided AI in 0.25.10 is an explicit operator option. See [public AI controls](PUBLIC-AI.md) for the durable daily attempt counter, zero retries, qualification, data disclosure and endpoint restrictions. The model still cannot approve work, invent source events or move money. Private Telegram model use has a separate scope from the public allowance.

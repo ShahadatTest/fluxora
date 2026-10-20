@@ -2,6 +2,12 @@
 
 This summary records implemented behavior. Test results and their boundaries live in [validation](docs/VALIDATION.md); no entry here certifies production readiness or universal model accuracy.
 
+## 0.25.10 - 20 October 2026
+
+- Add opt-in public guided AI, operator-managed qualification and exact visitor review.
+- Retain a durable UTC daily allowance of at most 1,000 provider attempts, no public retries and per-visitor request limits.
+- Keep hosted connection settings locked and advanced live-agent/operator endpoints unavailable to public visitors.
+
 ## 0.25.9 — 20 October 2026
 
 - Reveal Settings & help links within their sidebar/mobile navigation scrollport after expansion.

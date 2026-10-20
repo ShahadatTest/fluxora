@@ -34,7 +34,7 @@ def reset_live_adapter():
 
 def live_adapter():
     from .ui import REQUEST
-    if getattr(REQUEST,'public_demo',False):return _public_adapter
+    if getattr(REQUEST,'public_demo',False):return getattr(REQUEST,'public_ai_adapter',None) or _public_adapter
     manager=getattr(REQUEST,'local_connections',None)
     if manager is not None:return manager.active_adapter()
     global _active_adapter

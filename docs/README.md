@@ -19,3 +19,5 @@ Start with [local setup](LOCAL-SETUP.md) or the [judge quickstart](JUDGE-QUICKST
 | [Deployment](../deploy/vps/README.md) | Optional Docker setup, backup and rollback |
 
 Bundled skill instructions are under `cashflow_copilot/skills/`. They narrow existing tools; uploaded documents cannot install skills or grant authority. This publication tree omits historical development reports and old presentation/demo scripts. Those are not current product instructions.
+
+- [Public guided AI controls](PUBLIC-AI.md)

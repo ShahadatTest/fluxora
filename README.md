@@ -24,7 +24,7 @@
 
 Fluxora helps a small-business owner understand **when cash becomes tight, which facts support the forecast, and what can be prepared for review**. Deterministic Python tools calculate the financial results; an optional constrained model helps interpret supported requests.
 
-Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.25.9**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.25.10**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
 
 **Explore:** [Why Fluxora](#why-fluxora) · [Product tour](#product-tour) · [Features](#features) · [Quickstart](#quickstart) · [AI & Telegram](#ai--telegram) · [Architecture](#architecture) · [Verification](#verification) · [Documentation](#documentation) · [Contributing](#contributing)
 
@@ -39,7 +39,7 @@ Fluxora brings that work into one multipage workspace:
 3. **Explore the options.** Preview timing changes and compare bounded plans while protecting payroll and consent requirements.
 4. **Prepare the next step.** Create a DRAFT or pending workflow, then review its exact terms through a separate owner decision.
 
-> **For judges:** start with the [five-minute guided tour](https://fluxora.sklab.cc/start). It combines direct financial tools with a separate Telegram practice lesson. No Telegram account or API key is needed. Public visitor Web requests are model-free.
+> **For judges:** start with the [five-minute guided tour](https://fluxora.sklab.cc/start). It combines direct financial tools with a separate Telegram practice lesson. No Telegram account or API key is needed. The hosted operator can enable bounded live guided task translation. Direct reports and Telegram browser practice need no model.
 
 ## Product tour
 
@@ -135,7 +135,7 @@ The launcher creates a no-pip runtime and binds to loopback. Data persists in `.
 | Mode | Available behavior | Access |
 | --- | --- | --- |
 | **Direct local tools** | Deterministic reports, scenarios and reviewed owner forms | No model key required |
-| **Public hosted demo** | Separate expiring synthetic visitor workspace and browser Telegram practice | No login; paid live Web AI is disabled |
+| **Public hosted demo** | Separate expiring synthetic visitor workspace and browser Telegram practice | No login; optional operator-enabled guided live AI with a daily allowance |
 | **Private local AI** | Supported request interpretation with explicit disclosure and exact review | Configure and verify a compatible model privately |
 | **Private Telegram companion** | Allowlisted commands, opt-in messages and exact reviewed buttons | Configure your own bot and pair your workspace |
 
@@ -183,10 +183,10 @@ The badge at the top reports the actual GitHub Actions workflow. Local measured 
 
 | Evidence | Recorded outcome | Scope |
 | --- | --- | --- |
-| **Fresh complete source suite** | **2,136 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
+| **Fresh complete source suite** | **2,153 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
 | **Clean build & install** | Source package, wheel and fresh offline installation passed | Assets, fixture examples and bundled skills present |
 | **Focused browser checks** | Settings navigation passed at desktop, 360px and 390px | Not a complete device/accessibility audit |
-| **Live-model smoke** | Forecast and exact DRAFT translation passed | Two measured tasks in the corrected harness; not universal language accuracy |
+| **Public live guided AI** | 13 qualification cases passed, then forecast and exact DRAFT passed over public HTTPS | Eight qualification model calls and five local guards, plus two measured HTTPS tasks; not universal language accuracy |
 | **Telegram checks** | Identity API and browser practice passed | New real private delivery/callback checks remain pending |
 
 The earlier deep-path Windows test failure, its reproduction and the short-path workaround are retained in [validation](docs/VALIDATION.md). Independent fresh-user feedback, broad live-language evaluation and a real-business security/operations review remain open.
@@ -235,7 +235,7 @@ deploy/vps/        Optional container deployment, backup and rollback
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change. Use invented data in a [bug report](https://github.com/ShahadatTest/fluxora/issues/new/choose), preserve financial/permission boundaries and include relevant verification. The [security policy](SECURITY.md) explains what must stay out of public issues and screenshots.
 
-Application source is **0.25.9**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
+Application source is **0.25.10**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
 
 ---
 

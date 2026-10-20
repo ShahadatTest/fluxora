@@ -32,6 +32,9 @@ def case_digest():
 
 
 def report_path(db):
+    from .ui import REQUEST
+    shared=getattr(REQUEST,'public_ai_qualification_path',None) if getattr(REQUEST,'public_demo',False) else None
+    if shared is not None:return Path(shared)
     return Path(db).resolve().parent/'.runtime'/'guided-model-qualification.json'
 
 

@@ -35,7 +35,7 @@ def test_product_navigation_and_examples_remain_read_only(live_server):
         assert 'Inspect the computed daily data' in html
         assert 'Illustrative artwork · no financial data.' in html
         assert 'Concept illustration · not financial data or evidence' in html
-        assert 'Public visitor Web sessions are model-free.' in html
+        assert 'The hosted operator can explicitly enable bounded public guided AI.' in html
         for href in ['/ledger','/cash-accounts','/actions','/telegram/demo','/docs','/docs/model-configuration']:
             assert href in doc.links
         # The existing floating local guide has a client-only question form;
