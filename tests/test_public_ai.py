@@ -150,7 +150,7 @@ def test_public_guided_request_requires_disclosure_then_exact_review_and_reuses_
     assert CANARY_KEY not in json.dumps(_StubHandler.requests[0]['body'])
 
 
-@pytest.mark.parametrize('translate_path',['/agent/tasks/translate','/agent/tasks/translate?ignored=1'])
+@pytest.mark.parametrize('translate_path',['/agent/tasks/translate','/agent/tasks/translate?ignored=1','/agent/tasks/start','/agent/tasks/start?ignored=1'])
 def test_locked_connections_remain_static_and_public_ai_rate_limit_blocks_before_network(public_live,monkeypatch,translate_path):
     app,_=public_live
     body=request(public_live,'/settings/connections',auth=False)[1]
@@ -159,4 +159,30 @@ def test_locked_connections_remain_static_and_public_ai_rate_limit_blocks_before
     monkeypatch.setattr(app.limits,'allow',lambda key,*args:False if key.startswith('public-ai:') else allow(key,*args))
     fields={'csrf':csrf(request(public_live,'/agent/tasks',auth=False)[1])}
     assert request(public_live,translate_path,auth=False,method='POST',origin='https://'+DOMAIN,fields=fields)[0]==429
+    assert not _StubHandler.requests
+
+
+def test_public_one_submit_uses_real_http_stub_once_and_still_isolates_visitors(public_live):
+    app,db=public_live
+    body=request(public_live,'/agent/tasks',auth=False)[1]
+    fields=dict(csrf=csrf(body),question='Show the baseline cash forecast for every currency. Read only.',
+                business_id='demo-agency',request_id='c'*32,skill_id='auto')
+    args=dict(task='forecast',parameters_json='{}',reason='none')
+    _StubHandler.responses=[(200,_completion(text='INVENTED USD 999999',tool_calls=[{'id':'x','function':{'name':'select_task','arguments':json.dumps(args)}}]))]
+    status,answer,_=request(public_live,'/agent/tasks/start',auth=False,method='POST',origin='https://'+DOMAIN,fields=fields)
+    assert len(_StubHandler.requests)==1
+    assert status==200 and b'USD 6,000.00' in answer and b'INVENTED' not in answer
+    assert request(public_live,'/agent/tasks/start',auth=False,method='POST',origin='https://'+DOMAIN,fields=fields)[0]==200
+    assert len(_StubHandler.requests)==1
+    old=app.test_cookie;app.test_cookie=None
+    request(public_live,'/agent/tasks',auth=False)
+    assert request(public_live,'/agent/tasks/start',auth=False,method='POST',origin='https://'+DOMAIN,fields=fields)[0]==403
+    app.test_cookie=old
+
+
+@pytest.mark.parametrize('path',['/agent/tasks/start','/agent/tasks/start?ignored=1'])
+def test_direct_route_cannot_bypass_global_model_rate_limit(public_live,monkeypatch,path):
+    app,_=public_live;allow=app.limits.allow
+    monkeypatch.setattr(app.limits,'allow',lambda key,*args:False if key=='model' else allow(key,*args))
+    assert request(public_live,path,auth=False,method='POST',origin='https://'+DOMAIN,fields={})[0]==429
     assert not _StubHandler.requests

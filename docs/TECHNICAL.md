@@ -1,22 +1,22 @@
 # Fluxora: technical documentation
 
-Cashflow Action Copilot. Complete local source 0.25.10. Reviewed 20 October 2026.
+Cashflow Action Copilot. Complete local source 0.25.11. Reviewed 20 October 2026.
 
 ## Purpose and contribution
 
 Fluxora supports an SME owner's cash timing decisions using synthetic records. It connects deterministic forecasting and bounded plan comparison with evidence-linked preparation of work for owner review. Its specific contribution is the connection between analysis, explicit source facts and constrained action preparation. This document makes no claim of global uniqueness, competition eligibility, selection, certification or readiness for real-business money movement.
 
-The project targets Topic E, SME Finance Copilot. The current demonstrator concentrates on cash-flow management, risk alerts, recorded funding positions and financial analysis. It has no lender marketplace, underwriting integration or independently validated financing recommendation service. The account-free public demo can use an operator-enabled model for guided task interpretation, with outbound-data confirmation and exact review. Direct tools remain available without a model.
+The project targets Topic E, SME Finance Copilot. The current demonstrator concentrates on cash-flow management, risk alerts, recorded funding positions and financial analysis. It has no lender marketplace, underwriting integration or independently validated financing recommendation service. The account-free public demo can use an operator-enabled model for guided task interpretation, with inline provider/data disclosure, one-submit report or DRAFT/pending preparation and optional exact review. Direct tools remain available without a model.
 
 ## Runtime and deployment modes
 
 | Mode | Data and access | Model and Telegram boundary |
 | --- | --- | --- |
 | Private local launcher | Python 3.10+, SQLite and loopback HTTP. A trusted owner keeps a persistent database. No production login. | Optional local Web connection profiles. Credentials stay in memory by default. Windows Remember uses a separate OS-account DPAPI vault. A bot requires explicit configuration and start. |
-| Hosted public demo | HTTPS and a separate expiring synthetic workspace for each browser cookie. Records live on the server. | Visitor Web requests cannot use a paid model. API/Telegram settings are a disabled static preview. Browser Telegram practice is simulated. |
+| Hosted public demo | HTTPS and a separate expiring synthetic workspace for each browser cookie. Records live on the server. | Visitor guided requests can use a privately configured provider only with the explicit public-AI operator flag, qualification, disclosure and bounded allowances. API/Telegram settings are a disabled static preview. Browser Telegram practice is simulated. |
 | Optional private companion | One allowlisted Telegram account explicitly pairs one workspace. Pairing does not extend the workspace lifetime. | Opt-in real bot delivery about synthetic data. A separately enabled model requires the existing verification and qualification process. |
 
-The deployed UI uses a minimal hosted release, 0.23.13-6069750c3753, with the same reviewed product refinement. The complete downloadable local source is 0.25.10 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
+The deployed UI uses a minimal hosted release, 0.23.14-721c0acca60a, with the same reviewed product refinement. The complete downloadable local source is 0.25.11 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
 
 ## Architecture
 
@@ -72,7 +72,7 @@ The deck's editable chart uses these exact daily engine outputs. It displays USD
 
 ## Model and task execution
 
-A direct report needs no model. In the private guided flow, the owner sees the intended outbound question and task catalog. The model selects a supported task, supplies structured parameters, requests clarification or declines. Local code treats that response as untrusted and checks schema, scope, literal supplied details and permitted capabilities. An owner then reviews the interpretation before the normal execution path.
+A direct report needs no model. In the private guided flow, the owner sees the intended outbound question and task catalog. The model selects a supported task, supplies structured parameters, requests clarification or declines. Local code treats that response as untrusted and checks schema, scope, literal supplied details and permitted capabilities. Run task immediately executes only the validated read/DRAFT path under a shared deadline and displays its exact selection in the result. Review first instead requires exact interpretation confirmation before execution. Final owner approval stays separate. See [one-submit tasks](DIRECT-TASKS.md).
 
 Financial results come from successful deterministic tools and server-authored rendering. The guided model does not receive those results for a final rewrite. Optional prose in the advanced mode remains explicitly unverified. A schema-valid interpretation may still misunderstand the user. Qualification and finite language guards do not establish semantic correctness for arbitrary questions.
 
@@ -122,4 +122,4 @@ The local launcher binds to loopback. Hosted publication requires deliberate ope
 Keep financial databases, backups, local credential vaults and virtual environments outside source packages. Restore in an isolated test before relying on a backup. The hosted release has a private server-side backup and rollback path; no production data or credentials are included here. Real-business use would require further identity, operations, independent security and financial/source validation.
 
 
-Public guided AI in 0.25.10 is an explicit operator option. See [public AI controls](PUBLIC-AI.md) for the durable daily attempt counter, zero retries, qualification, data disclosure and endpoint restrictions. The model still cannot approve work, invent source events or move money. Private Telegram model use has a separate scope from the public allowance.
+Public guided AI in 0.25.11 is an explicit operator option. See [public AI controls](PUBLIC-AI.md) for the durable daily attempt counter, zero retries, qualification, data disclosure and endpoint restrictions. The model still cannot approve work, invent source events or move money. Private Telegram model use has a separate scope from the public allowance.

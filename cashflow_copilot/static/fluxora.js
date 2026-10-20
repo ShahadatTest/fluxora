@@ -90,13 +90,13 @@
       if (event.defaultPrevented || !form.checkValidity()) return;
       if (form.getAttribute('aria-busy') === 'true') { event.preventDefault(); return; }
       form.setAttribute('aria-busy', 'true');
-      const button = form.querySelector('button[type=submit],button:not([type])');
+      const button = event.submitter || form.querySelector('button[type=submit],button:not([type])');
       if (button) button.setAttribute('aria-disabled', 'true');
       if (button && !form.querySelector('.loading-note')) {
         const note = document.createElement('p');
         note.className = 'loading-note';
         note.setAttribute('role', 'status');
-        note.textContent = 'Request submitted. Waiting for the server response; completion is not confirmed yet. Avoid submitting again. If the response is lost, check saved records and action history before retrying. No background retry is scheduled.';
+        note.textContent = (form.hasAttribute('data-direct-task') && !event.submitter?.hasAttribute('formaction')) ? 'Selecting your task and running local tools. Reports run now; new actions stay DRAFT or pending approval. Waiting for the server; no success is confirmed yet. Do not resubmit. No background retry is scheduled.' : 'Request submitted. Waiting for the server response; completion is not confirmed yet. Avoid submitting again. If the response is lost, check saved records and action history before retrying. No background retry is scheduled.';
         form.append(note);
       }
       // Do not disable controls: submitted button values can be meaningful.
@@ -114,8 +114,7 @@
     });
     document.querySelectorAll('form[aria-busy]').forEach(form => {
       form.removeAttribute('aria-busy');
-      const button = form.querySelector('button[type=submit],button:not([type])');
-      if (button) button.removeAttribute('aria-disabled');
+      form.querySelectorAll('button[aria-disabled]').forEach(button => button.removeAttribute('aria-disabled'));
     });
     document.querySelectorAll('.loading-note').forEach(note => note.remove());
   });

@@ -143,7 +143,7 @@ def test_explicit_skill_is_bound_to_http_preview_and_cannot_be_overridden(live_s
     assert _post(base,'/agent/tasks/translate',dict(fields,skill_id='collections-preparation'))[0]==400
     assert _post(base,'/agent/tasks/translate',fields)[0]==200 and parser.calls==1
     status,html=_post(base,'/agent/tasks/run',fields)
-    assert status==200 and 'Reviewed skill: Cash Review' in html and 'USD 6,000.00' in html
+    assert status==200 and 'Selected skill: Cash Review' in html and 'USD 6,000.00' in html
     assert _post(base,'/agent/tasks/run',fields)[0]==200 and parser.calls==1
 
 

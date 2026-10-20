@@ -19,7 +19,7 @@ SCREENS = {
     '/today': ('Work through the current priorities, then open the supporting records.', 'review', 'getting-started'),
     '/review': ('Review cash pressure, missing facts and pending decisions in one place.', 'review', 'getting-started'),
     '/decision-brief': ('Prepare a source-linked brief for the next owner decision.', 'report', 'forecasts'),
-    '/agent/tasks': ('Describe a supported task, review its interpretation, then choose the next step.', 'agent', 'guided-agent'),
+    '/agent/tasks': ('Run a supported task in one step, or review its interpretation first. Final approval stays separate.', 'agent', 'guided-agent'),
     '/agent': ('Inspect the advanced agent, provider status and saved request history.', 'agent', 'guided-agent'),
     '/forecast': ('Inspect the cash outlook, assumptions and lowest balance for each currency.', 'report', 'forecasts'),
     '/weekly-cashflow': ('Follow cash timing across thirteen weeks without combining currencies.', 'report', 'forecasts'),

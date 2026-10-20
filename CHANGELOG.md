@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.25.11 — Direct guided task submission
+
+- Run a supported report or prepare only DRAFT/pending work in one submission after inline provider/data disclosure. Review first keeps the existing explicit previews.
+- Show the exact selected task in saved results; schema validation is not a claim of semantic correctness. Final approval, consent, observed payment and reconciliation stay separate.
+- Share a 30-second deadline across interpretation and deterministic execution. Replays use the saved SQLite request before another provider call, including after restart.
+- Apply existing global/per-visitor model limits to the new endpoint, including query variants. Avoid unused operator-check staging in public mode.
+
+
 This summary records implemented behavior. Test results and their boundaries live in [validation](docs/VALIDATION.md); no entry here certifies production readiness or universal model accuracy.
 
 ## 0.25.10 - 20 October 2026

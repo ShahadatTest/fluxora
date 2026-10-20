@@ -211,7 +211,7 @@ def test_copilot_home_has_one_task_focus_and_keeps_model_gate_and_local_reports(
     tree=workspace_ui.Markup(body)
     assert body.count('<h1>Ask Fluxora</h1>')==1
     assert 'copilot-home' in body and 'copilot-composer' in body and 'agent-layout' not in body
-    form=next(n for n in tree.elements if n.tag=='form' and n.attrs.get('action')=='/agent/tasks/preview')
+    form=next(n for n in tree.elements if n.tag=='form' and n.attrs.get('action')=='/agent/tasks/start')
     submit=next(n for n in tree.descendants(form,'button'))
     assert ('disabled' in submit.attrs)==(qualified!='qualified')
     reports=[n for n in tree.elements if n.tag=='a' and (n.attrs.get('href') or '').startswith('/agent/tasks/report/')]

@@ -6,6 +6,7 @@ Start with [local setup](LOCAL-SETUP.md) or the [judge quickstart](JUDGE-QUICKST
 | --- | --- |
 | [Architecture](TECHNICAL.md) | Deterministic engine, SQLite, task interpretation, lifecycle and runtime modes |
 | [Security self-assessment](SECURITY.md) | Threat boundaries, controls, evidence and known limitations |
+| [One-submit tasks](DIRECT-TASKS.md) | Run task, optional preview, saved results and limits |
 | [Model setup](MODEL-SETUP.md) | Private profiles/environment, verification and qualification |
 | [Telegram](TELEGRAM.md) | Simulated public practice versus a private allowlisted bot |
 | [Local connections](LOCAL-CONNECTIONS-0.25.0.md) | Session memory, optional Windows DPAPI and configuration changes |

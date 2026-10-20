@@ -194,7 +194,7 @@ class Handler(web.Handler):
         if self.command=='POST':
             if self.headers.get_all('Origin',[])!=['https://'+config.domain]:return self._reply(403,'Same-origin form required')
             if not self.server.limits.allow('post',40):return self._reply(429,'Operation rate limit')
-            if urlsplit(self.path).path in {'/agent/ask','/agent/verify','/agent/tasks/translate','/agent/tasks/qualify'} and not self.server.limits.allow('model',6):
+            if urlsplit(self.path).path in {'/agent/ask','/agent/verify','/agent/tasks/translate','/agent/tasks/start','/agent/tasks/qualify'} and not self.server.limits.allow('model',6):
                 return self._reply(429,'Agent request rate limit')
         if not self.server.limits.allow('all',600):return self._reply(429,'Request rate limit')
         if self.path=='/healthz':return self._reply(200,'ok')
@@ -253,7 +253,7 @@ class Handler(web.Handler):
         return self._dispatch_workspace()
 
     def _dispatch_workspace(self):
-        if self.server.config.public_ai and self.command=='POST' and urlsplit(self.path).path=='/agent/tasks/translate':
+        if self.server.config.public_ai and self.command=='POST' and urlsplit(self.path).path in {'/agent/tasks/translate','/agent/tasks/start'}:
             identity=hashlib.sha256(web.database_path().encode()).hexdigest()
             if not self.server.limits.allow('public-ai:'+identity,20,3600):return self._reply(429,'This visitor has reached the hourly AI allowance; direct reports remain available')
         with web.LOCK:

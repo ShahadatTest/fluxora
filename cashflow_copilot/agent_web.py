@@ -427,7 +427,12 @@ def mount(web) -> None:
             from .agent_task_reports import report_html
             financial_body=web.read_state(lambda ledger:report_html(web,ledger,result.tool_calls))
             skill=result.disclosure.get('skill')
-            if skill:financial_body="<p>Reviewed skill: "+web.esc(skill['title'])+" · v"+web.esc(skill['version'])+" · "+web.esc(skill['selection'])+". <a href='/agent/skills'>Skill scope</a></p>"+financial_body
+            if skill:financial_body="<p>Selected skill: "+web.esc(skill['title'])+" · v"+web.esc(skill['version'])+" · "+web.esc(skill['selection'])+". <a href='/agent/skills'>Skill scope</a></p>"+financial_body
+            plan=result.disclosure.get('task_plan')
+            if plan:
+                from .ui import task_review
+                from .agent_tasks import title
+                financial_body="<section class='card' data-selected-task><h2>Selected task: "+web.esc(title(plan['task']))+"</h2><p>Inspect this interpretation and exact terms. Local validation does not prove that the model understood your intent. New actions remain DRAFT or pending approval.</p>"+task_review(plan)+"</section>"+financial_body
         else:
             financial_body=_deterministic_answer_html(web,result.tool_calls)+_sources_html(web,result.tool_calls)+_answer_html(web,result.answer)
         next_panel=("<p><a class='btn primary' href='/agent/tasks'>Choose another guided task</a></p>"

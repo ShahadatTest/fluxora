@@ -10,6 +10,7 @@ class Element {
   dispatchEvent(event) { if (this.events[event.type]) this.events[event.type](event); }
   setAttribute(key, value) { this.attrs[key] = value; }
   getAttribute(key) { return this.attrs[key]; }
+  hasAttribute(key) { return Object.hasOwn(this.attrs, key); }
   removeAttribute(key) { delete this.attrs[key]; }
   remove() { this.removed = true; }
   querySelector() { return null; }
@@ -43,6 +44,7 @@ function fixture() {
   const button = new Element('Confirm'); button.disabled = false;
   let loading = null;
   form.querySelector = selector => selector === '.loading-note' ? loading : button;
+  form.querySelectorAll = selector => selector === 'button[aria-disabled]' && button.hasAttribute('aria-disabled') ? [button] : [];
   form.append = note => { loading = note; };
   const doc = new Element();
   doc.getElementById = id => id === 'table-1' ? host : blockedHost;
@@ -99,4 +101,14 @@ const cancelled = fixture(); cancelled.form.dispatchEvent({ type: 'submit', defa
 assert.equal(cancelled.form.attrs['aria-busy'], undefined, 'cancelled submissions stay editable');
 const invalid = fixture(); invalid.form.checkValidity = () => false; invalid.form.dispatchEvent({ type: 'submit' });
 assert.equal(invalid.form.attrs['aria-busy'], undefined, 'invalid form never becomes busy');
+const direct = fixture(); direct.form.setAttribute('data-direct-task', '');
+direct.form.dispatchEvent({ type: 'submit', submitter: direct.button });
+assert.match(direct.getLoading().textContent, /new actions stay DRAFT or pending approval/);
+assert.match(direct.getLoading().textContent, /no success is confirmed yet/);
+direct.win.dispatchEvent({ type: 'pageshow' });
+const review = fixture(); review.form.setAttribute('data-direct-task', '');
+const reviewButton = new Element('Review first'); reviewButton.setAttribute('formaction', '/agent/tasks/preview');
+review.form.dispatchEvent({ type: 'submit', submitter: reviewButton });
+assert.equal(reviewButton.attrs['aria-disabled'], 'true');
+assert.match(review.getLoading().textContent, /Request submitted/);
 console.log('PASS: local filtering, editable-table exclusion, unchanged order/controls, no requests, and back-navigation reset. DOM doubles only; no visual/browser claim.');

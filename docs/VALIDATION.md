@@ -4,6 +4,26 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
+### One-submit guided tasks, source 0.25.11
+
+The final complete local suite returned **2172 passed in 393.71s (0:06:33)** on 20 October 2026. It includes mocked-provider selectors, real local HTTP stubs and synthetic deterministic/domain tests; it makes no live-provider claim. The preceding complete run returned **2 failed / 2,170 passed in 397.57s** because two assertions expected the old selected-skill label and old floating-handoff form. Those assertions were updated for the intended interface while keeping qualification, escaped input, unchanged ledger and authority checks. Their focused selection passed **36 tests in 4.76s**. The final complete rerun passed. The direct/guided/public/UI selection passed **118 tests in 46.68s**; the deployed-source selection passed **193 tests in 80.84s**.
+
+Measured full-suite command from the publication checkout (the existing Python 3.12.14 development environment):
+
+```powershell
+../../../work/venv/Scripts/python.exe -X utf8 -m pytest -q --basetemp C:/Users/shaha/Documents/Codex/t263final -o cache_dir=../../../work/fast263/final-cache
+```
+
+Bytecode was disabled with `PYTHONDONTWRITEBYTECODE=1`. A normal fresh checkout can use `python -m pytest -q` after installing test dependencies; the short basetemp avoids the documented Windows path-depth issue. The hosted selection was `python -X utf8 -m pytest -q tests/test_direct_tasks.py tests/test_guided_tasks.py tests/test_public_ai.py tests/test_agent_skills.py tests/test_workspace_ui.py tests/test_floating_assistant.py tests/test_hosted.py` with external cache/temp paths.
+
+A disposable VPS canary used **two actual Qwen calls**, returning forecast in **3.786s** and an exact USD 100 DRAFT in **4.101s**. Its direct local forecast took **0.038s**. It created one DRAFT, zero approvals, receipts, observed payments or real messages. Local missing-fact refusal made no provider call. Foreign CSRF was refused. After an actual container restart, both submissions replayed with zero extra calls and no duplicate draft. The final candidate differs from that tested candidate only in an updated test assertion; all application-file hashes match. Its unchanged model/tool/skill contract independently matched the existing qualification report; no new qualification run is claimed.
+
+After rollout, **two further actual Qwen calls** over public HTTPS passed one-submit forecast (**4.312s**) and exact USD 100 DRAFT (**9.094s**), selected-task display, deterministic results and duplicate submission. Missing-fact handling made no call; connection reload showed verified, settings stayed locked, the operator-only endpoint returned 403 and floating handoff offered Run task/Review first. These four live samples are compatibility/latency observations, not a guarantee for arbitrary questions or future provider capacity.
+
+Only Fluxora was replaced, with a stopped-state private backup and retained rollback. The first rollout guard compared environment-list ordering and rolled back; comparing all key/value pairs then passed with the private environment file unchanged. The base ledger and public attempt counter were preserved. Unrelated containers and proxy configuration were unchanged; seven domain canaries returned 200. No competition submission, business-counterparty message or payment occurred.
+
+Browser inventory returned `Local browser use is disabled in Work settings`. New rendered 360px/390px/desktop checks were therefore **not run**. Responsive CSS, HTML disclosure and offline DOM behavior were checked; these do not replace rendered inspection or an independent human study. Existing screenshot assets predate the one-submit controls.
+
 ### Public guided AI, source 0.25.10
 
 The fresh complete local suite passed **2,153 tests in 382.41s** after adding public AI controls. The preceding run returned 2 failed / 2,150 passed: one stale model-free product-copy assertion and one Windows loopback WinError 10053. The copy assertion now describes the explicit operator option. The passing full rerun retained all domain and security checks. The deployed-branch targeted selection passed **142 tests in 74.22s** using local HTTP stubs and mocked providers. `python -m tools.local_setup --check` passed with zero model/Telegram calls.

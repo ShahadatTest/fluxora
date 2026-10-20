@@ -24,7 +24,9 @@
 
 Fluxora helps a small-business owner understand **when cash becomes tight, which facts support the forecast, and what can be prepared for review**. Deterministic Python tools calculate the financial results; an optional constrained model helps interpret supported requests.
 
-Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.25.10**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.25.11**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+
+Use **Run task** for a one-submit report or DRAFT/pending preparation after the inline provider/data disclosure. **Review first** retains the full outbound and interpretation previews. Final approval stays separate; missing facts still require clarification. Inspect the selected task and exact terms in the result. For immediate answers without a provider, use the direct report links.
 
 **Explore:** [Why Fluxora](#why-fluxora) · [Product tour](#product-tour) · [Features](#features) · [Quickstart](#quickstart) · [AI & Telegram](#ai--telegram) · [Architecture](#architecture) · [Verification](#verification) · [Documentation](#documentation) · [Contributing](#contributing)
 
@@ -60,7 +62,7 @@ Recorded cash, conditional collections, floor checks and source references remai
 
 ![Guided agent with direct reports and explicit model status](docs/media/agent.jpg)
 
-Direct reports work without a model. Optional interpretation requires the existing destination disclosure, verification, qualification and exact review.
+Direct reports work without a model. Optional interpretation requires a qualified configuration and provider/data disclosure. Run task prepares a result in one submission; Review first retains exact interpretation confirmation. This earlier screenshot predates the one-submit controls.
 
 ### Telegram browser practice
 
@@ -136,7 +138,7 @@ The launcher creates a no-pip runtime and binds to loopback. Data persists in `.
 | --- | --- | --- |
 | **Direct local tools** | Deterministic reports, scenarios and reviewed owner forms | No model key required |
 | **Public hosted demo** | Separate expiring synthetic visitor workspace and browser Telegram practice | No login; optional operator-enabled guided live AI with a daily allowance |
-| **Private local AI** | Supported request interpretation with explicit disclosure and exact review | Configure and verify a compatible model privately |
+| **Private local AI** | Supported request interpretation with disclosure, one-submit preparation and optional exact preview | Configure and verify a compatible model privately |
 | **Private Telegram companion** | Allowlisted commands, opt-in messages and exact reviewed buttons | Configure your own bot and pair your workspace |
 
 In a private local installation, open **Settings & help → API & Telegram**. Multiple compatible model profiles can be saved, with one active profile. Save, activation, potentially billed verification and synthetic qualification are separate actions. Restart starts verification unverified. Hosted connection settings remain a locked preview.
@@ -165,7 +167,8 @@ These are variable names, not values. Enter credentials only through private set
 flowchart LR
     E[Evidence and recorded facts] --> V[Local scope and input validation]
     B[Browser or private Telegram] --> V
-    M[Optional external model] -->|Untrusted task interpretation| R[Exact interpretation review]
+    M[Optional external model] -->|Run task: untrusted instruction| V
+    M -->|Review first| R[Exact interpretation review]
     R -->|Read or prepare only| V
     V --> F[Deterministic financial tools]
     F --> D[DRAFT or pending work]
@@ -183,10 +186,10 @@ The badge at the top reports the actual GitHub Actions workflow. Local measured 
 
 | Evidence | Recorded outcome | Scope |
 | --- | --- | --- |
-| **Fresh complete source suite** | **2,153 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
+| **Fresh complete source suite** | **2,172 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
 | **Clean build & install** | Source package, wheel and fresh offline installation passed | Assets, fixture examples and bundled skills present |
 | **Focused browser checks** | Settings navigation passed at desktop, 360px and 390px | Not a complete device/accessibility audit |
-| **Public live guided AI** | 13 qualification cases passed, then forecast and exact DRAFT passed over public HTTPS | Eight qualification model calls and five local guards, plus two measured HTTPS tasks; not universal language accuracy |
+| **Public live guided AI** | One-submit forecast: 4.312s; exact DRAFT: 9.094s over public HTTPS | Two measured live tasks plus separate canary/restart checks; samples, not a latency or language-accuracy guarantee |
 | **Telegram checks** | Identity API and browser practice passed | New real private delivery/callback checks remain pending |
 
 The earlier deep-path Windows test failure, its reproduction and the short-path workaround are retained in [validation](docs/VALIDATION.md). Independent fresh-user feedback, broad live-language evaluation and a real-business security/operations review remain open.
@@ -235,7 +238,7 @@ deploy/vps/        Optional container deployment, backup and rollback
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change. Use invented data in a [bug report](https://github.com/ShahadatTest/fluxora/issues/new/choose), preserve financial/permission boundaries and include relevant verification. The [security policy](SECURITY.md) explains what must stay out of public issues and screenshots.
 
-Application source is **0.25.10**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
+Application source is **0.25.11**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
 
 ---
 

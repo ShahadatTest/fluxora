@@ -1,6 +1,7 @@
 """Guided task review, zero-model reports and explicit model qualification."""
 import json
 import time
+from pathlib import Path
 from uuid import uuid4
 
 from . import agent_tasks as tasks,agent_skills as skills
@@ -20,18 +21,19 @@ def mount(web):
     check_running=[False]
 
     def page(handler,req):
+        from .ui import REQUEST
         adapter=live_adapter();qualified=qualification.status(qualification.report_path(web.database_path()),adapter)
-        checks_token=web._stage(dict(kind='guided_qualification',created=time.monotonic(),configuration_id=id(adapter)))
+        checks_token='' if getattr(REQUEST,'public_ai',False) else web._stage(dict(kind='guided_qualification',created=time.monotonic(),configuration_id=id(adapter)))
         def build(ledger):
             from .ui import icon
             buttons=''.join(f"<a class='report-link report-shortcut' href='/agent/tasks/report/{task}'><span class='report-glyph'>{icon('chart' if task in {'forecast','weekly_cashflow','account_funding'} else 'file')}</span><span>{web.esc(tasks.title(task))}</span>{icon('arrow')}</a>" for task in tasks.QUICK_TASKS)
             disabled=' disabled' if qualified!='qualified' else ''
             requested=req.query.get('skill',['auto'])[0]
             if requested!='auto':skills.load(requested)
-            skill_options="<option value='auto'>Automatic focus (review the interpretation)</option>"+''.join(
+            skill_options="<option value='auto'>Automatic focus</option>"+''.join(
                 "<option value='"+s['id']+"'"+(' selected' if s['id']==requested else '')+">"+web.esc(s['title'])+"</option>" for s in skills.catalog())
             body="<div class='copilot-home'><header class='feature-header copilot-intro'><div class='copilot-symbol'>"+icon('spark')+"</div><div class='eyebrow'>YOUR CASH-FLOW WORKSPACE</div><h1>Ask Fluxora</h1><p>A clearer view of your cash.<br>And a practical next step.</p></header>"
-            body+="<section class='card copilot-composer'><form method='post' action='/agent/tasks/preview'>"+web.csrf_field()+f"<input type='hidden' name='request_id' value='{uuid4().hex}'><input type='hidden' name='business_id' value='{web.esc(ledger.business_id)}'><label for='task-question'>What would you like to work on?</label><textarea id='task-question' name='question' rows='4' maxlength='2000' placeholder='Ask about your cash outlook, compare a plan, or prepare a draft…' required></textarea><div class='composer-footer'><span class='composer-review-note'>{icon('check')} Review before anything runs</span><button class='primary'{disabled}>Review task {icon('arrow')}</button></div></form>"
+            body+="<section class='card copilot-composer'><form method='post' action='/agent/tasks/start' data-direct-task>"+web.csrf_field()+f"<input type='hidden' name='request_id' value='{uuid4().hex}'><input type='hidden' name='business_id' value='{web.esc(ledger.business_id)}'><label for='task-question'>What would you like to work on?</label><textarea id='task-question' name='question' rows='4' maxlength='2000' placeholder='Ask about your cash outlook, compare a plan, or prepare a draft…' required></textarea><p class='composer-disclosure'>Run task sends your question and static task definitions to {web.esc(adapter.status().base_url or 'the configured provider')}. Your question may contain private data; provider billing and retention apply. Ledger contents and attachments are excluded. Run task authorizes read-only reports and DRAFT/pending preparation only. Inspect the selected task in the result; interpretation can be wrong.</p><div class='composer-footer'><span class='composer-review-note'>{icon('check')} Final approvals stay with you</span><div class='task-submit-actions'><button type='submit' class='primary'{disabled}>Run task {icon('arrow')}</button><button type='submit' formaction='/agent/tasks/preview'{disabled}>Review first</button></div></div></form>"
             body=body.replace("<label for='task-question'>","<label for='task-skill'>Task skill</label><select id='task-skill' name='skill_id'>"+skill_options+"</select><label for='task-question'>",1)
             body+=f"<div class='composer-status'><span>Model: <b>{web.esc(adapter.status().model or 'Not configured')}</b></span><span>Task check: <b>{qualified}</b></span><a href='/agent/skills'>Browse 6 task skills</a><a href='/agent'>Connection settings</a></div></section>"
             if qualified!='qualified':body+="<div class='copilot-availability'>"+icon('file')+"<div><b>Start with a local report</b><p>Natural-language tasks need a qualified model configuration. The reports below work now, without a model.</p></div><a href='#local-reports'>View reports ↓</a></div>"
@@ -42,7 +44,7 @@ def mount(web):
             body+="<aside class='copilot-boundary'>"+icon('check')+"<div><b>Prepared by the agent. Decided by you.</b><p>The model reads supported reports and prepares DRAFT or pending work. It cannot approve, move money, send real messages, or invent consent or receipts. Advanced-agent prose remains unverified.</p><a href='/docs/guided-agent'>How guided tasks work →</a></div></aside>"
             from .ui import REQUEST
             if getattr(REQUEST,'public_ai',False):
-                body+="<p class='public-ai-notice'>LIVE AI TASK TRANSLATION · synthetic data only. Only your question and static task definitions reach the provider after confirmation. Financial results come from local tools. Shared daily allowance: up to 1,000 attempts. No self-approval or real payments. Model checks are managed by the operator.</p>"
+                body+="<p class='public-ai-notice'>LIVE AI TASK TRANSLATION · synthetic data only. Only your question and static task definitions reach the provider when you choose Run task or confirm a preview. Financial results come from local tools. Shared daily allowance: up to 1,000 attempts. No self-approval or real payments. Model checks are managed by the operator.</p>"
             else:
                 body+=f"<details class='qualification-panel'><summary>Model qualification <span>{qualified}</span></summary><div><h2>Check a model for guided tasks</h2><p>{len(qualification.CASES)} synthetic cases check task selection, exact parameters, clarification and refusal. Explicit unsafe/missing-fact cases may be handled locally. No business ledger is sent. This may incur provider charges. Passing does not certify arbitrary questions, source truth or future availability. A check expires after seven days and is invalidated by relevant configuration/code changes.</p>"
                 body+=f"<form method='post' action='/agent/tasks/qualify'>{web.csrf_field()}<input type='hidden' name='token' value='{checks_token}'><label><input type='checkbox' name='confirmed' value='yes' required> I understand this runs up to {len(qualification.CASES)} potentially billed synthetic model checks.</label><button{' disabled' if adapter.status().state=='disconnected' else ''}>Run synthetic model check</button></form></div></details>"
@@ -88,18 +90,46 @@ def mount(web):
     def raw_calls(calls):
         return "<details><summary>Full deterministic tool result</summary><pre class='dump'>"+web.esc(json.dumps(calls,indent=2))+"</pre></details>"
 
-    def preview(handler,req):
+    def prepare(req):
         _fields(req,{'question','business_id','request_id','skill_id'})
         from .agent_requests import _validate
         question=req.field('question').strip();ident=req.field('request_id');_validate(ident,question)
-        skill_id=req.field('skill_id') or 'auto';selected=skills.select(question,skill_id)
+        skill_id=req.field('skill_id') or 'auto';skills.select(question,skill_id)
         adapter=live_adapter()
+        def current(ledger):
+            if req.field('business_id')!=ledger.business_id:raise CashflowError('The active business changed. Reload the task form.')
+            return web._owner_ctx(ledger)
+        ctx=web.read_state(current)
+        from .agent_requests import has_guided_request
+        if has_guided_request(web.database_path(),ident,question,ctx=ctx,lock=web.LOCK):return None,None
         if qualification.status(qualification.report_path(web.database_path()),adapter)!='qualified':raise CashflowError('This configuration has not passed the current guided-task check. Direct reports remain available.')
         def build(ledger):
             if req.field('business_id')!=ledger.business_id:raise CashflowError('The active business changed. Reload the task form.')
+            with web.LOCK:
+                for token,stage in web.staged().items():
+                    if stage.get('kind')=='guided_task' and stage.get('request_id')==ident and stage.get('database')==str(Path(web.database_path()).resolve()):
+                        if stage['question']!=question or stage.get('skill_id')!=skill_id or stage['business_id']!=ledger.business_id:
+                            raise CashflowError('This request identity belongs to another task. Reload the task form.')
+                        check_stage(stage,'guided_task')
+                        return token,stage
             token=web._stage(dict(kind='guided_task',created=time.monotonic(),configuration_id=id(adapter),
+                database=str(Path(web.database_path()).resolve()),
                 request_id=ident,business_id=ledger.business_id,revision=disclosure_revision(ledger),question=question,translation_provider=adapter.provider_label,
                 skill_id=skill_id,skills_fingerprint=skills.fingerprint()))
+            return token,web.staged()[token]
+        return web.read_state(build)
+
+    def start(handler,req):
+        deadline=time.monotonic()+30
+        token,stage=prepare(req)
+        if stage is None:return handler._redirect('/agent/requests/'+req.field('request_id'))
+        return interpret(handler,stage,token,direct=True,deadline=deadline)
+
+    def preview(handler,req):
+        token,stage=prepare(req)
+        if stage is None:return handler._redirect('/agent/requests/'+req.field('request_id'))
+        adapter=live_adapter();question=stage['question'];skill_id=stage['skill_id'];selected=skills.select(question,skill_id)
+        def build(ledger):
             body=f"<h1>Review task translation data</h1><p>Destination: {web.esc(adapter.status().base_url)} · model: {web.esc(adapter.status().model)}.</p><p>Only the question below and the server's static task/operation definitions are sent. No ledger, tool results, original attachments or credentials are included in model context. Your question itself may contain identifying or financial information. Provider billing and retention still apply.</p><blockquote>{web.esc(question)}</blockquote>"
             if selected:body+=f"<p>Skill focus: {web.esc(selected['title'])} · v{web.esc(selected['version'])} · {web.esc(selected['selection'])}. A suggested focus is not proof of your intent.</p>"
             body+="<details><summary>Exact outbound messages and task schema</summary><pre class='dump'>"+web.esc(json.dumps(dict(messages=tasks.messages(question,skill_id),tools=[tasks.schema(skill_id)]),indent=2))+"</pre></details>"
@@ -111,13 +141,21 @@ def mount(web):
         _fields(req,{'token','confirmed'})
         if req.field('confirmed')!='yes':raise CashflowError('Confirm the current reviewed form.')
         stage=web.staged().get(req.field('token'))
-        if not stage or stage.get('kind')!=kind or time.monotonic()-stage['created']>900:raise CashflowError('Task review expired. Start a fresh task; saved results remain in history.')
-        if stage['configuration_id']!=id(live_adapter()):raise CashflowError('Model configuration changed. Review a fresh task.')
-        if stage.get('skills_fingerprint') and stage['skills_fingerprint']!=skills.fingerprint():raise CashflowError('Bundled skills changed. Review a fresh task.')
+        check_stage(stage,kind)
         return stage
 
+    def check_stage(stage,kind):
+        if not stage or stage.get('kind')!=kind or time.monotonic()-stage['created']>900:raise CashflowError('Task review expired. Start a fresh task; saved results remain in history.')
+        if stage.get('database') and stage['database']!=str(Path(web.database_path()).resolve()):raise CashflowError('The active workspace changed. Start a fresh task.')
+        if stage['configuration_id']!=id(live_adapter()):raise CashflowError('Model configuration changed. Review a fresh task.')
+        if stage.get('skills_fingerprint') and stage['skills_fingerprint']!=skills.fingerprint():raise CashflowError('Bundled skills changed. Review a fresh task.')
+
     def translate(handler,req):
-        stage=get_stage(req,'guided_task');adapter=live_adapter()
+        stage=get_stage(req,'guided_task')
+        return interpret(handler,stage,req.field('token'))
+
+    def interpret(handler,stage,token,*,direct=False,deadline=None):
+        adapter=live_adapter()
         if qualification.status(qualification.report_path(web.database_path()),adapter)!='qualified':raise CashflowError('Run the current guided-task check or use a direct report.')
         with web.LOCK:
             if stage.get('parsing'):raise CashflowError('This translation is already running. Do not submit it again.')
@@ -129,7 +167,7 @@ def mount(web):
                     if ledger.business_id!=stage['business_id'] or disclosure_revision(ledger)!=stage['revision']:raise CashflowError('Recorded data changed. Review a fresh task.')
                     return ledger,web._owner_ctx(ledger)
                 ledger,ctx=web.read_state(snapshot)
-                result=tasks.translate(ledger,stage['question'],adapter,ctx=ctx,skill_id=stage.get('skill_id','auto'))
+                result=tasks.translate(ledger,stage['question'],adapter,ctx=ctx,skill_id=stage.get('skill_id','auto'),deadline=deadline)
                 with web.LOCK:stage['translation']=result
             finally:
                 with web.LOCK:stage['parsing']=False
@@ -139,13 +177,14 @@ def mount(web):
             if result.get('selection')=='local_guard':body+='<p>Handled locally before contacting a model. This task made zero provider calls.</p>'
         else:
             plan=result['plan']
+            if direct:return execute(handler,stage,plan,deadline=deadline)
             proposal=plan['task'] in {'proposal','action_proposal'}
             body=f"<h1>Review interpreted task</h1><blockquote>{web.esc(stage['question'])}</blockquote><h2>{web.esc(tasks.title(plan['task']))}</h2><p>Check the selected task and exact parameters below. A valid instruction can still misunderstand your question. Nothing has run against the saved ledger.</p>"
             if result.get('skill'):body+=f"<p>Bundled skill: {web.esc(result['skill']['title'])} · v{web.esc(result['skill']['version'])} · {web.esc(result['skill']['selection'])}. <a href='/agent/skills'>View scope</a></p>"
             from .ui import task_review
             body+=task_review(plan)
             body+=f"<details><summary>Exact structured parameters</summary><pre class='dump'>{web.esc(json.dumps(plan,indent=2))}</pre></details><p>{'This creates only a pending workflow or DRAFT action; execution requires separate owner approval and any required source-fact/counterparty confirmations.' if proposal else 'This is read-only; no record or proposal will be changed.'}</p>"
-            body+=f"<form method='post' action='/agent/tasks/run'>{web.csrf_field()}<input type='hidden' name='token' value='{web.esc(req.field('token'))}'><label><input type='checkbox' name='confirmed' value='yes' required> This is the task and exact parameters I intended.</label><button>{'Prepare draft for review' if proposal else 'Run reviewed report'}</button></form><p><a href='/agent/tasks'>Change task</a></p>"
+            body+=f"<form method='post' action='/agent/tasks/run'>{web.csrf_field()}<input type='hidden' name='token' value='{web.esc(token)}'><label><input type='checkbox' name='confirmed' value='yes' required> This is the task and exact parameters I intended.</label><button>{'Prepare draft for review' if proposal else 'Run reviewed report'}</button></form><p><a href='/agent/tasks'>Change task</a></p>"
         return handler._send_html(200,web.page('Task interpretation',body,active='/agent'))
 
     def run(handler,req):
@@ -153,8 +192,11 @@ def mount(web):
         if result.get('status')!='review':raise CashflowError('Review a valid interpreted task first.')
         return execute(handler,stage,result['plan'])
 
-    def execute(handler,stage,plan):
+    def execute(handler,stage,plan,*,deadline=None):
         from .agent_requests import run_request
+        from .agent import TIME_BUDGET_S
+        remaining=TIME_BUDGET_S if deadline is None else min(TIME_BUDGET_S,deadline-time.monotonic())
+        if remaining<=0:raise CashflowError('Task deadline expired. No draft was created. Use a fresh task form.')
         ctx=web.read_state(web._owner_ctx)
         if ctx.business_id!=stage['business_id']:raise CashflowError('The active business changed. Review a fresh task.')
         translated_by=stage.get('translation_provider')
@@ -162,7 +204,7 @@ def mount(web):
             provider='local deterministic execution'+(' after live task translation' if translated_by else '; no model'),
             translation_provider=translated_by,translation_usage=stage.get('translation',{}).get('usage'),skill=stage.get('translation',{}).get('skill'))
         run_request(web.database_path(),stage['request_id'],stage['question'],'guided',adapter,ctx=ctx,lock=web.LOCK,
-            data_mode='minimized',expected_revision=stage['revision'])
+            data_mode='minimized',expected_revision=stage['revision'],time_budget_s=remaining)
         return handler._redirect('/agent/requests/'+stage['request_id'])
 
     def snapshot(handler,req):
@@ -197,6 +239,7 @@ def mount(web):
     web.route('GET','/agent/tasks/report/<id>')(quick)
     web.route('POST','/agent/tasks/snapshot')(snapshot)
     web.route('POST','/agent/tasks/preview')(preview)
+    web.route('POST','/agent/tasks/start')(start)
     web.route('POST','/agent/tasks/translate')(translate)
     web.route('POST','/agent/tasks/run')(run)
     web.route('POST','/agent/tasks/qualify')(qualify)

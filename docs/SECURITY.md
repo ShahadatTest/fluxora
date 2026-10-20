@@ -1,6 +1,6 @@
 # Fluxora security self-assessment
 
-Source 0.25.10. Reviewed 20 October 2026. Synthetic demonstration only.
+Source 0.25.11. Reviewed 20 October 2026. Synthetic demonstration only.
 
 ## Assets and trusted boundaries
 
@@ -21,6 +21,8 @@ External model and Telegram providers form separate trust boundaries. Questions 
 
 An agent can prepare supported local changes for review. This does not let it approve itself. A server executor may apply the reviewed local scope after the owner decides. Documents never grant a permission. A receipt, acceptance event or bank observation cannot be invented to make a plan feasible.
 
+The one-submit route may prepare an unintended but schema-valid DRAFT/pending instruction. Literal values, deterministic validation and the read/DRAFT boundary constrain it; they do not prove intent. Exact selected terms are shown in results and require separate owner approval before any supported local execution. Use Review first when interpretation needs checking before preparation. A changed ledger or expired deadline rejects candidate work. Durable replay prevents a repeated completed submission from contacting the provider or creating another draft.
+
 ## Implemented controls and evidence
 
 | Threat | Implemented control | Evidence and limit |
@@ -28,7 +30,7 @@ An agent can prepare supported local changes for review. This does not let it ap
 | Provider body leaks a secret | Discard arbitrary provider error bodies and use local diagnostics before display/history | Dummy-key 401 regressions inspect HTML, answers and SQLite bytes. This does not scan every possible dependency or log path. |
 | Wrong configuration appears verified | Server-side adapter state follows the active configuration and restarts unverified | Loopback HTTP verification/reload/configuration-change regressions. Verification does not promise provider capacity. |
 | Late response creates work | Remaining deadline reaches requests/retries, response bytes are bounded, and late results are rejected before tools | Late-answer, late-DRAFT, byte-limit and retry-exhaustion regressions. Remote work/billing may outlive the local timeout. |
-| Prompt or document authorizes a change | Fixed tool/schema surface, code authorization and exact review | Forbidden tools, document-injection and business-role tests. Finite language guards do not recognize every paraphrase. |
+| Prompt or document authorizes a change | Fixed tool/schema surface, code authorization and separate final owner decisions; optional exact interpretation preview | Forbidden tools, document-injection and business-role tests. Finite language guards do not recognize every paraphrase. |
 | Cross-business access | Business-scoped contexts, visitor separation and scoped identifiers | Cross-CSRF, preview, backup and history canaries on isolated sessions. Cookies and administrators remain trusted. |
 | Repeated or stale request creates effects | Durable identities, transaction boundaries and revision-bound review | Lifecycle/restart/replay tests, stale-button and duplicate-review practice checks. Users should inspect history after uncertain responses. |
 | Public visitor changes or reads credentials | Locked static hosted preview with disabled empty fields and server refusal before admission | 15 empty disabled controls, zero forms and 11 refused POST variants in the prior byte-verified release checks. |

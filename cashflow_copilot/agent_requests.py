@@ -94,6 +94,25 @@ def request_status(db,request_id,*,ctx,lock):
         finally:s.close()
 
 
+def has_guided_request(db,request_id,question,*,ctx,lock):
+    """Recognize a saved submission before another translation, including restart.
+
+    A changed focus never re-executes an old identity; its original result is
+    historical. A different question/provider must use a new identity.
+    """
+    _validate(request_id,question)
+    with lock:
+        store=SQLiteStore(db)
+        try:
+            ledger=store.load_ledger();require_access(ctx,ledger,OP_READ)
+            row=_row(store,ledger.business_id,request_id)
+            if row is None:return False
+            if row['question']!=question or row['provider']!='guided' or row['data_mode']!='minimized':
+                raise IdempotencyConflict('This request identity belongs to another submission. Reload the task form.')
+            return True
+        finally:store.close()
+
+
 def _draft_only(before,after):
     if {k:v for k,v in vars(before).items() if k not in {'actions','audit','agent_workflows'}}!={k:v for k,v in vars(after).items() if k not in {'actions','audit','agent_workflows'}}:
         return False
