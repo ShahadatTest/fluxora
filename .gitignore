@@ -1,0 +1,47 @@
+# Local credentials and private connection storage
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.dpapi
+
+# Runtime databases, attachments, backups and generated reports
+/.runtime/
+/data/
+/work/
+/outputs/
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.backups/
+*.runlock
+*.log
+cookies*.txt
+
+# Environments, caches, builds and editor/OS files
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+/build/
+/dist/
+*.egg-info/
+node_modules/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

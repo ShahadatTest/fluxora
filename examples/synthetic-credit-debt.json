@@ -1,0 +1,83 @@
+{
+  "fixture_version": "1.0",
+  "synthetic": true,
+  "business": {
+    "id": "credit-debt-workshop",
+    "name": "Synthetic Credit & Debt Workshop",
+    "base_currency": "USD",
+    "timezone": "UTC",
+    "as_of": "2027-01-01",
+    "horizon_days": 30
+  },
+  "accounts": [
+    {
+      "id": "operating",
+      "currency": "USD",
+      "opening_minor": 100000,
+      "floor_minor": 20000,
+      "evidence_id": "source"
+    },
+    {
+      "id": "eur",
+      "currency": "EUR",
+      "opening_minor": 20000,
+      "floor_minor": 5000,
+      "evidence_id": "source"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "source",
+      "kind": "synthetic",
+      "summary": "Invented checked opening, credit, bank and loan source for local testing. Documents supply no authority."
+    }
+  ],
+  "display_fx": [],
+  "events": [],
+  "receivables": [
+    {
+      "id": "credit-invoice",
+      "currency": "USD",
+      "original_minor": 65000,
+      "expected_date": "2027-01-12",
+      "evidence_id": "source",
+      "counterparty": "Browser Customer"
+    },
+    {
+      "id": "next-invoice",
+      "currency": "USD",
+      "original_minor": 45000,
+      "expected_date": "2027-01-14",
+      "evidence_id": "source",
+      "counterparty": "Browser Customer"
+    }
+  ],
+  "outflows": [
+    {
+      "id": "credit-bill",
+      "currency": "USD",
+      "amount_minor": 50000,
+      "date": "2027-01-07",
+      "protected": false,
+      "evidence_id": "source",
+      "counterparty": "Browser Supplier"
+    },
+    {
+      "id": "next-bill",
+      "currency": "USD",
+      "amount_minor": 20000,
+      "date": "2027-01-08",
+      "protected": false,
+      "evidence_id": "source",
+      "counterparty": "Browser Supplier"
+    },
+    {
+      "id": "staff",
+      "currency": "USD",
+      "amount_minor": 70000,
+      "date": "2027-01-05",
+      "protected": true,
+      "evidence_id": "source"
+    }
+  ]
+}

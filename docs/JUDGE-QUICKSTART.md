@@ -1,0 +1,20 @@
+# Fluxora judge quickstart
+
+This is a synthetic SME cash-flow demonstration. It has no real bank feed or payment rail. Public visitor Web requests are model-free.
+
+1. Open [the guided start](https://fluxora.sklab.cc/start), or [the product website](https://fluxora.sklab.cc/welcome).
+2. On the product preview, compare recorded timing with the seven-day-delay example. These figures come from a separate Atlas fixture and do not change a visitor ledger.
+3. Open the workspace and inspect its business, snapshot date, currencies, forecast and evidence. Read its own displayed values; visitor examples may differ.
+4. Open [Telegram browser practice](https://fluxora.sklab.cc/telegram/demo). No bot account is needed. Delivery and language interpretation are simulated. Prepare a practice DRAFT and inspect its exact terms.
+5. Request a separate forecast snapshot in that lesson. Its owner approval saves the snapshot, not the earlier DRAFT, and does not create acceptance or a payment.
+6. Read [security boundaries](https://fluxora.sklab.cc/docs/security). The [hosted connection preview](https://fluxora.sklab.cc/settings/connections) is deliberately locked and exposes no actual private configuration.
+
+The private companion and model have a separate environment and authority boundary. The accompanying validation records a fresh two-task live smoke on invented in-memory data and a bot identity check. It does not claim new private message delivery, every live-language operation, or independent source authentication.
+
+For the full directory, open [All workspace features](https://fluxora.sklab.cc/workspace/features). Hosted API settings and private Telegram access are deliberately restricted.
+
+## Local alternative
+
+Clone or extract this repository and enter its root directory. On Windows with Python 3.10+, double-click `START_FLUXORA.cmd`. Runtime uses the standard library and requires no provider key for direct reports. README and `docs/LOCAL-SETUP.md` explain other platforms, persistent data paths and optional private connections. Keep secrets in private local settings/environment, never in this package or a shared screen.
+
+Hosted sessions expire after 24 hours and clearing cookies loses their access. Local private data persists at the selected database path. The public admission/storage limits are finite. If a new session cannot be admitted, the product's read-only examples remain the fallback; this does not establish a passing full workflow for that visitor.

@@ -1,0 +1,8 @@
+id,date,currency,amount,reference
+s-p1,2027-01-01,USD,-150.00,First distinct payment
+s-p2,2027-01-01,USD,-150.00,Second distinct payment
+s-split,2027-01-01,USD,1100.00,Corrected whole payment
+s-fee,2027-01-01,USD,-8.00,Current source fee
+s-capital,2027-01-01,USD,500.00,"Owner capital, not revenue"
+s-fee-alias,2027-01-01,USD,-10.00,Separate source fee
+s-unknown,2027-01-01,USD,-99.00,Unmatched source row

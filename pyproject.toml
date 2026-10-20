@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cashflow-copilot"
+version = "0.25.9"
+description = "Synthetic SME cashflow decision support with a constrained draft-only agent"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cashflow_copilot*"]
+
+[tool.setuptools.package-data]
+cashflow_copilot = ["data/*.json", "static/*.css", "static/*.js", "static/*.svg", "static/*.png", "skills/*/SKILL.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

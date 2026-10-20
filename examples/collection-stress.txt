@@ -1,0 +1,6 @@
+Synthetic scenario only; no actual entries.
+Delays: a,7
+Collections: a,50
+Collections: b,0
+Expense: Extra stock,USD,1.00,2027-01-10
+Percent applies to current unpaid remainder, rounds down in integer minor units, and is not a probability.

@@ -1,0 +1,110 @@
+{
+  "accounts": [
+    {
+      "currency": "USD",
+      "floor_minor": 300000,
+      "id": "usd-main",
+      "opening_minor": 1000000
+    },
+    {
+      "currency": "EUR",
+      "floor_minor": 50000,
+      "id": "eur-main",
+      "opening_minor": 100000
+    }
+  ],
+  "business": {
+    "as_of": "2026-10-16",
+    "base_currency": "USD",
+    "horizon_days": 30,
+    "id": "demo-agency",
+    "name": "Demo Atlas Agency",
+    "timezone": "UTC"
+  },
+  "display_fx": [
+    {
+      "as_of": "2026-10-16",
+      "from": "EUR",
+      "rate": "1.10",
+      "source": "synthetic-fixture",
+      "to": "USD"
+    }
+  ],
+  "events": [
+    {
+      "evidence_id": "ev-delay-message",
+      "id": "evt-delay-001",
+      "new_expected_date": "2026-11-05",
+      "observed_date": "2026-10-16",
+      "receivable_id": "inv-client-001",
+      "type": "client_delay"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-client-invoice",
+      "kind": "synthetic_invoice",
+      "summary": "USD 8,000 outstanding, originally expected 20 October."
+    },
+    {
+      "id": "ev-payroll",
+      "kind": "owner_verified_schedule",
+      "summary": "USD 6,000 due 23 October. Hard date."
+    },
+    {
+      "id": "ev-supplier-invoice",
+      "kind": "synthetic_invoice",
+      "summary": "USD 4,500 due 25 October. No extension accepted yet."
+    },
+    {
+      "id": "ev-ops-budget",
+      "kind": "owner_verified_budget",
+      "summary": "USD 1,500 due 28 October. Up to USD 500 may be moved to 6 November after approval."
+    },
+    {
+      "id": "ev-delay-message",
+      "kind": "synthetic_counterparty_message",
+      "summary": "Client now expects full payment on 5 November. This is not a receipt."
+    }
+  ],
+  "fixture_version": "1.0",
+  "outflows": [
+    {
+      "amount_minor": 600000,
+      "currency": "USD",
+      "date": "2026-10-23",
+      "evidence_id": "ev-payroll",
+      "id": "payroll-001",
+      "protected": true
+    },
+    {
+      "amount_minor": 450000,
+      "counterparty_consent_required_for_change": true,
+      "currency": "USD",
+      "date": "2026-10-25",
+      "evidence_id": "ev-supplier-invoice",
+      "id": "supplier-001",
+      "protected": false
+    },
+    {
+      "amount_minor": 150000,
+      "currency": "USD",
+      "date": "2026-10-28",
+      "evidence_id": "ev-ops-budget",
+      "id": "ops-001",
+      "maximum_deferrable_minor": 50000,
+      "protected": false
+    }
+  ],
+  "receivables": [
+    {
+      "currency": "USD",
+      "evidence_id": "ev-client-invoice",
+      "expected_date": "2026-10-20",
+      "id": "inv-client-001",
+      "original_minor": 800000,
+      "received_minor": 0
+    }
+  ],
+  "synthetic": true
+}

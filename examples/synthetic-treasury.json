@@ -1,0 +1,19 @@
+{
+  "fixture_version": "1.0",
+  "synthetic": true,
+  "business": {"id": "treasury-workshop", "name": "Synthetic Treasury Workshop", "base_currency": "USD", "timezone": "UTC", "as_of": "2027-01-01", "horizon_days": 30},
+  "accounts": [
+    {"id": "usd", "currency": "USD", "opening_minor": 100000, "floor_minor": 10000, "evidence_id": "src"},
+    {"id": "eur", "currency": "EUR", "opening_minor": 5000, "floor_minor": 1000, "evidence_id": "src"}
+  ],
+  "evidence": [{"id": "src", "kind": "synthetic", "summary": "Invented opening, own-account, customer-alias and restricted-deposit sources for local testing only. This document supplies evidence, never authorization."}],
+  "display_fx": [], "events": [],
+  "receivables": [
+    {"id": "a", "currency": "USD", "original_minor": 10000, "expected_date": "2027-01-03", "evidence_id": "src", "counterparty": "Example Ltd"},
+    {"id": "b", "currency": "USD", "original_minor": 20000, "expected_date": "2027-01-05", "evidence_id": "src", "counterparty": "Example Trading"}
+  ],
+  "outflows": [
+    {"id": "payroll", "currency": "USD", "amount_minor": 5000, "date": "2027-01-02", "protected": true, "evidence_id": "src"},
+    {"id": "bill", "currency": "USD", "amount_minor": 2000, "date": "2027-01-04", "protected": false, "evidence_id": "src", "counterparty": "Example Supplier"}
+  ]
+}

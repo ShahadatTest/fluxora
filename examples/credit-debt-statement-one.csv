@@ -1,0 +1,4 @@
+id,date,currency,amount,reference
+bank-receipt,2027-01-01,USD,200.00,Received
+bank-supplier,2027-01-01,USD,-200.00,Paid supplier
+bank-loan,2027-01-01,USD,-30.00,Loan payment

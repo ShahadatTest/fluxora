@@ -1,0 +1,12 @@
+**
+!cashflow_copilot/
+!cashflow_copilot/**
+!deploy/
+!deploy/vps/
+!deploy/vps/healthcheck.py
+**/__pycache__/
+**/*.pyc
+**/.env*
+**/*.sqlite*
+**/*.db
+**/*.dpapi

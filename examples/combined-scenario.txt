@@ -1,0 +1,12 @@
+Synthetic example after loading synthetic-collections.json (business date 2027-01-01).
+Paste only the data rows into the matching textarea, without headers.
+
+Invoice delays:
+custom-x,7
+custom-y,40
+
+Additional hypothetical expenses:
+New stock,USD,80.00,2027-01-10
+Local fee,EUR,10.00,2027-01-10
+
+These are assumptions only. No expense, payment, consent or draft is recorded.

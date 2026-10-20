@@ -1,0 +1,2 @@
+record_type,reference,amount,currency,date,counterparty,note
+receipt,received,200.00,USD,2027-01-01,credit-invoice,Invented observed receipt; owner review required

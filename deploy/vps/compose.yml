@@ -1,0 +1,32 @@
+services:
+  app:
+    image: ${FLUXORA_IMAGE:?Choose an immutable release image}
+    container_name: fluxora-demo
+    restart: unless-stopped
+    env_file:
+      - /opt/fluxora/private/runtime.env
+    volumes:
+      - /opt/fluxora/data:/data
+    networks:
+      edge:
+        aliases:
+          - fluxora-demo-app
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    user: "10001:10001"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    cpus: 1.5
+    pids_limit: 96
+    stop_grace_period: 120s
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+networks:
+  edge:
+    external: true
+    name: fluxora_front

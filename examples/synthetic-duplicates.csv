@@ -1,0 +1,2 @@
+record_type,reference,amount_major,currency,date,counterparty,note,due_date,invoice_reference
+invoice,copy-of-custom-x,650.00,USD,2027-01-12,Synthetic customer custom-x,Synthetic source copy - review before keeping,2026-12-01,INV-custom-x

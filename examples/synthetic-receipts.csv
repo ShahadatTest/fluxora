@@ -1,0 +1,2 @@
+record_type,reference,amount,currency,date,counterparty,note
+receipt,workshop-observed-001,100.00,USD,2027-01-02,custom-x,Invented observed receipt for owner review; not a real bank statement

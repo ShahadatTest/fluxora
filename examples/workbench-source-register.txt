@@ -1,0 +1,1 @@
+SYNTHETIC training source register. Invoice inv-x USD 650.00 expected 2027-01-12 due 2027-01-10; invoice inv-y USD 450.00 expected 2027-01-14 due 2027-01-14. Both customer Browser Customer. Materials supplier bill USD 500.00 due 2027-01-07, party Browser Supplier. Protected staff bill USD 700.00 due 2027-01-05. All records invented for testing.

@@ -1,0 +1,159 @@
+{
+  "fixture_version": "1.0",
+  "synthetic": true,
+  "business": {
+    "id": "own-synthetic",
+    "name": "Synthetic Collections Workshop",
+    "base_currency": "USD",
+    "timezone": "UTC",
+    "as_of": "2027-01-01",
+    "horizon_days": 30
+  },
+  "accounts": [
+    {
+      "id": "operating",
+      "currency": "USD",
+      "opening_minor": 100000,
+      "floor_minor": 20000,
+      "evidence_id": "opening-usd"
+    },
+    {
+      "id": "euro",
+      "currency": "EUR",
+      "opening_minor": 20000,
+      "floor_minor": 5000,
+      "evidence_id": "opening-eur"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "pay",
+      "kind": "synthetic",
+      "summary": "Synthetic source: pay"
+    },
+    {
+      "id": "supplier-source",
+      "kind": "synthetic",
+      "summary": "Synthetic source: supplier-source"
+    },
+    {
+      "id": "ops-source",
+      "kind": "synthetic",
+      "summary": "Synthetic source: ops-source"
+    },
+    {
+      "id": "customer-x",
+      "kind": "synthetic",
+      "summary": "Synthetic source: customer-x"
+    },
+    {
+      "id": "customer-y",
+      "kind": "synthetic",
+      "summary": "Synthetic source: customer-y"
+    },
+    {
+      "id": "opening-usd",
+      "kind": "synthetic_cash_snapshot",
+      "summary": "USD 1,000 opening cash; USD 200 floor at 2027-01-01. Invented training data."
+    },
+    {
+      "id": "opening-eur",
+      "kind": "synthetic_cash_snapshot",
+      "summary": "EUR 200 opening cash; EUR 50 floor at 2027-01-01. Invented training data."
+    },
+    {
+      "id": "eu-invoice-source",
+      "kind": "synthetic_invoice",
+      "summary": "EUR 200 expected 2027-01-15; this expectation is not a receipt."
+    },
+    {
+      "id": "eu-payroll-source",
+      "kind": "synthetic_payroll",
+      "summary": "EUR 250 protected obligation due 2027-01-10."
+    }
+  ],
+  "events": [],
+  "display_fx": [],
+  "receivables": [
+    {
+      "id": "custom-x",
+      "currency": "USD",
+      "original_minor": 65000,
+      "expected_date": "2027-01-12",
+      "evidence_id": "customer-x",
+      "due_date": "2026-12-01",
+      "counterparty": "Synthetic customer custom-x",
+      "invoice_reference": "INV-custom-x"
+    },
+    {
+      "id": "custom-y",
+      "currency": "USD",
+      "original_minor": 45000,
+      "expected_date": "2027-01-14",
+      "evidence_id": "customer-y",
+      "due_date": "2026-12-22",
+      "counterparty": "Synthetic customer custom-y",
+      "invoice_reference": "INV-custom-y"
+    },
+    {
+      "id": "eu-client",
+      "currency": "EUR",
+      "original_minor": 20000,
+      "expected_date": "2027-01-15",
+      "evidence_id": "eu-invoice-source",
+      "due_date": "2026-12-15",
+      "counterparty": "Synthetic customer eu-client",
+      "invoice_reference": "INV-eu-client"
+    }
+  ],
+  "outflows": [
+    {
+      "id": "staff",
+      "currency": "USD",
+      "amount_minor": 70000,
+      "date": "2027-01-05",
+      "protected": true,
+      "evidence_id": "pay",
+      "counterparty_consent_required_for_change": false,
+      "maximum_deferrable_minor": 0,
+      "counterparty": "Synthetic supplier staff",
+      "invoice_reference": "BILL-staff"
+    },
+    {
+      "id": "materials",
+      "currency": "USD",
+      "amount_minor": 50000,
+      "date": "2027-01-07",
+      "protected": false,
+      "evidence_id": "supplier-source",
+      "counterparty_consent_required_for_change": true,
+      "maximum_deferrable_minor": 0,
+      "counterparty": "Synthetic supplier materials",
+      "invoice_reference": "BILL-materials"
+    },
+    {
+      "id": "overhead",
+      "currency": "USD",
+      "amount_minor": 20000,
+      "date": "2027-01-08",
+      "protected": false,
+      "evidence_id": "ops-source",
+      "counterparty_consent_required_for_change": false,
+      "maximum_deferrable_minor": 10000,
+      "counterparty": "Synthetic supplier overhead",
+      "invoice_reference": "BILL-overhead"
+    },
+    {
+      "id": "eu-staff",
+      "currency": "EUR",
+      "amount_minor": 25000,
+      "date": "2027-01-10",
+      "protected": true,
+      "evidence_id": "eu-payroll-source",
+      "counterparty_consent_required_for_change": false,
+      "maximum_deferrable_minor": 0,
+      "counterparty": "Synthetic supplier eu-staff",
+      "invoice_reference": "BILL-eu-staff"
+    }
+  ]
+}
