@@ -1,0 +1,19 @@
+{
+  "source_version": "0.26.1",
+  "local_full": {
+    "passed": 2211,
+    "seconds": 425.31
+  },
+  "local_affected": {
+    "passed": 97,
+    "seconds": 61.51
+  },
+  "hosted_affected": {
+    "passed": 143,
+    "seconds": 117.7
+  },
+  "scheduled_model_calls": 0,
+  "new_public_model_task_calls": 1,
+  "rendered_app_review": "blocked: local browser disabled in Work settings",
+  "human_walkthrough": "user-reported complete; no problems reported; detailed study log not supplied"
+}

@@ -1,5 +1,7 @@
 # Independent-user walkthrough
 
+Latest feedback, 20 October 2026: the project owner reports that a fresh person completed the walkthrough and found no problems. Participant count, device, task-by-task observations and measured timings were not supplied. Treat this as user-reported feedback, not a fully documented usability study. The protocol below remains available for structured follow-up sessions.
+
 Use an adult participant who did not build the app, on a separate synthetic workspace. Do not use real financial records, secrets or identity documents. This protocol is preparation, not a completed user study. Agent-operated browser checks must be recorded separately.
 
 Suggested tasks: find the snapshot date and separate currency cash; trace one evidence source; read a forecast assumption; preview an invoice delay; distinguish a practice DRAFT from separate snapshot approval; find history and documentation; open Settings & help. Give tasks without explaining the location of controls first.

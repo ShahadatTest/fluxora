@@ -161,6 +161,32 @@ class Handler(web.Handler):
         if challenge:self.send_header('WWW-Authenticate','Basic realm="Fluxora owner demo", charset="UTF-8"')
         if code==429:self.send_header('Retry-After','60')
         self.end_headers();self.wfile.write(body);self.close_connection=True
+        self._finish_rejected_body()
+    def _read_body(self):
+        body=super()._read_body();self._body_consumed=True
+        return body
+    def _finish_rejected_body(self):
+        # An early refusal can leave POST bytes unread. Half-close the reply
+        # first, then discard a small, correctly framed body so Windows clients
+        # receive the refusal instead of a connection reset. Never parse it,
+        # dispatch it, or wait indefinitely for a client that withholds bytes.
+        if getattr(self,'_body_consumed',False):return
+        lengths=self.headers.get_all('Content-Length',[])
+        if self.headers.get_all('Transfer-Encoding') or len(lengths)!=1:return
+        if not re.fullmatch('[0-9]{1,10}',lengths[0]):return
+        remaining=int(lengths[0])
+        if not 0<remaining<=65536:return
+        try:
+            self.wfile.flush();self.connection.shutdown(socket.SHUT_WR)
+            deadline=time.monotonic()+.25
+            while remaining:
+                budget=deadline-time.monotonic()
+                if budget<=0:break
+                self.connection.settimeout(min(.05,budget))
+                chunk=self.rfile.read1(min(8192,remaining))
+                if not chunk:break
+                remaining-=len(chunk)
+        except OSError:pass
     def _authorized(self):
         values=self.headers.get_all('Authorization',[])
         if len(values)!=1 or len(values[0])>512:return False

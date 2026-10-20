@@ -4,6 +4,10 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
+### Final acceptance, source 0.26.1
+
+The [final acceptance report](FINAL-REVIEW-2026-10-20.md) records **2,211 passed in 425.31s**, **97 affected tests in 61.51s** and **143 hosted tests in 117.70s**. It includes a new actual VPS scheduler/decision/restart canary, one fresh public live model forecast and replay, 15 HTTP routes, a bounded Windows early-refusal correction, preserved shared services and the still-blocked rendered desktop/360px/390px check. The fresh-user walkthrough is now **user-reported complete with no problems found**. Detailed observations were not supplied, so this is not relabelled as a documented independent study. Earlier pending statements below describe their historical checks.
+
 ### Autopilot, source 0.26.0
 
 Final complete local suite: **2209 passed in 426.26s (0:07:06)**. The command from this checkout was `../../../work/venv/Scripts/python.exe -X utf8 -m pytest -q --basetemp C:/Users/shaha/Documents/Codex/t265release -o cache_dir=../../../work/autopilot265/release-cache`, with `PYTHONDONTWRITEBYTECODE=1`. The new Autopilot selection passed **59 tests in 36.84s**, including all private local-connection regressions. The hosted-branch selection passed **123 passed in 99.18s (0:01:39)**, using `python -X utf8 -m pytest -q tests/test_autopilot_web_telegram.py tests/test_telegram.py tests/test_public_ai.py tests/test_hosted.py` with a short external basetemp/cache. Local setup readiness passed with six skills, three synthetic fixtures and zero model/Telegram calls. Automated tests use local SQLite/HTTP stubs, selector doubles and simulated Telegram APIs; these are not real-delivery evidence.

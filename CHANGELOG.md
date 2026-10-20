@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.26.1 — Final acceptance and presentation refresh
+
+- Deliver early hosted refusals before a bounded discard of small unread request bodies. This addresses a Windows connection-reset failure on locked settings POSTs without dispatching the rejected input or weakening the lock.
+- Verify scheduler, distinct owner decisions and actual container restart on disposable synthetic data. Record fresh-user feedback as a user report and retain the rendered-browser limitation.
+- Update the editable English deck and timed narration to describe Single Send, deterministic Autopilot and private Telegram decision boundaries.
+
 ## 0.26.0 — Opt-in bounded Autopilot
 
 - Persist workspace/business-scoped owner policies, scheduled jobs, separate currency DRAFT limits and conditional deterministic planning. Changed financial inputs prepare eligible DRAFTs and pending snapshot review; status changes and periodic digests are read-only.

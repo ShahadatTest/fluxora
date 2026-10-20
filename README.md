@@ -24,7 +24,9 @@
 
 Fluxora helps a small-business owner understand **when cash becomes tight, which facts support the forecast, and what can be prepared for review**. Deterministic Python tools calculate the financial results; an optional constrained model helps interpret supported requests.
 
-Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.0**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.1**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+
+**Presentation:** [Editable deck, PDF and timed English scripts](presentation/README.md). [Current acceptance evidence](docs/FINAL-REVIEW-2026-10-20.md) separates real provider checks, simulated transport and remaining visual review.
 
 Use **Send** for a one-submit report or DRAFT/pending preparation after the inline provider/data disclosure. **Options → Preview before sending** retains the full outbound and interpretation previews. Final approval stays separate; missing facts still require clarification. Inspect the selected task and exact terms in the result. For immediate answers without a provider, use the direct report links.
 
@@ -192,13 +194,14 @@ The badge at the top reports the actual GitHub Actions workflow. Local measured 
 
 | Evidence | Recorded outcome | Scope |
 | --- | --- | --- |
-| **Fresh complete source suite (0.26.0)** | **2,209 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
+| **Fresh complete source suite (0.26.1)** | **2,211 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
 | **Clean build & install** | Source package, wheel and fresh offline installation passed | Assets, fixture examples and bundled skills present |
 | **Focused browser checks** | Settings navigation passed at desktop, 360px and 390px | Not a complete device/accessibility audit |
 | **Public live guided AI** | One-submit forecast: 4.312s; exact DRAFT: 9.094s over public HTTPS | Two measured live tasks plus separate canary/restart checks; samples, not a latency or language-accuracy guarantee |
-| **Telegram checks** | Identity API and browser practice passed | New real private delivery/callback checks remain pending |
+| **Telegram checks** | Browser practice, real private API delivery acknowledgments and simulated decision/restart tests passed | Real API acknowledgment does not prove reading; latest approval/rejection transport was simulated |
+| **Fresh-user walkthrough** | User reports completion with no problems found | Detailed participant/device/task/timing records were not supplied |
 
-The earlier deep-path Windows test failure, its reproduction and the short-path workaround are retained in [validation](docs/VALIDATION.md). Independent fresh-user feedback, broad live-language evaluation and a real-business security/operations review remain open.
+The earlier deep-path Windows test failure, its reproduction and the short-path workaround are retained in [validation](docs/VALIDATION.md). New rendered desktop/360px/390px review remains blocked by browser availability. Broad live-language evaluation and a real-business security/operations review remain open. The user-reported walkthrough is useful feedback, rather than a documented usability study.
 
 <details>
 <summary><strong>Run the tests yourself</strong></summary>

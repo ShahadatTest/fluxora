@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "real_scheduled_worker": true,
+  "scheduled_completion_seconds": 0.225,
+  "initial_drafts": 2,
+  "snapshot_saved_only_after_synthetic_owner_button": true,
+  "action_states_after_synthetic_owner_decisions": [
+    "cancelled",
+    "owner_approved"
+  ],
+  "changed_cash": 0,
+  "observed_payments": 0,
+  "foreign_job_access_blocked": true,
+  "telegram_transport": "simulated API; no real Telegram calls",
+  "simulated_sent": 10,
+  "private_live_model": "not run: final worker-only check; earlier live qualification/task evidence is separate",
+  "actual_provider_calls": 0,
+  "model": null
+}

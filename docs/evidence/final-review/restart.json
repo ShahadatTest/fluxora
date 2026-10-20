@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "actual_container_restart": true,
+  "enabled_policy_retained": true,
+  "draft_ids_and_owner_states_retained": true,
+  "duplicate_drafts": 0,
+  "observed_payments": 0
+}

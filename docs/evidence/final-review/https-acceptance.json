@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "public_visitor_autopilot": true,
+  "default_off": true,
+  "automatic_analysis_and_draft_preparation": true,
+  "private_owner_approval_or_payment": false,
+  "foreign_history_refused": true,
+  "operator_private_chat_unavailable_to_visitor": true,
+  "policy_paused_after_check": true,
+  "background_provider_calls": 0,
+  "actual_public_live_task_calls": 1,
+  "public_live_task_and_replay": "passed",
+  "connection_verified": true,
+  "docs_and_telegram_navigation": "passed",
+  "rendered_mobile_review": "unavailable: local browser use disabled in Work settings"
+}

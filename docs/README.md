@@ -15,6 +15,8 @@ Start with [local setup](LOCAL-SETUP.md) or the [judge quickstart](JUDGE-QUICKST
 | [Telegram practice](TELEGRAM-INTERACTIVE-DEMO.md) | Isolated lesson, DRAFT review and separate snapshot approval |
 | [Floating guide](FLOATING-ASSISTANT.md) | Local guidance, supported links and private Agent handoff |
 | [Validation](VALIDATION.md) | Actual commands/results and what remains unverified |
+| [Final acceptance](FINAL-REVIEW-2026-10-20.md) | Scheduler, separate decisions, restart, current live task and remaining visual checks |
+| [Presentation and narration](../presentation/README.md) | Editable deck, PDF viewing copy, timed pitch and demonstration storyboard |
 | [Independent-user protocol](USABILITY-SESSION.md) | Neutral tasks and honest observation recording |
 | [Asset provenance](BRAND-ASSETS-0.20.1.md) | Generated illustrations, usage and trademark limitations |
 | [Competition context](COMPETITION.md) | Official references and entry boundaries |

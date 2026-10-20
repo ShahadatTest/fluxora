@@ -9,7 +9,9 @@ This is a synthetic SME cash-flow demonstration. It has no real bank feed or pay
 5. Request a separate forecast snapshot in that lesson. Its owner approval saves the snapshot, not the earlier DRAFT, and does not create acceptance or a payment.
 6. Read [security boundaries](https://fluxora.sklab.cc/docs/security). The [hosted connection preview](https://fluxora.sklab.cc/settings/connections) is deliberately locked and exposes no actual private configuration.
 
-The private companion and model have a separate environment and authority boundary. The accompanying validation records a fresh two-task live smoke on invented in-memory data and a bot identity check. It does not claim new private message delivery, every live-language operation, or independent source authentication.
+The private companion and model have a separate environment and authority boundary. Validation distinguishes actual model qualification, real private Telegram API delivery acknowledgments and simulated approval/rejection callbacks. These finite checks do not certify every live-language operation or source authenticity. Public visitors cannot access the operator's private Telegram chat.
+
+Optional [Autopilot](https://fluxora.sklab.cc/autopilot) starts paused in each public visitor workspace. Review a strategy and separate currency limits before enabling it. Scheduled checks use deterministic local code with zero model calls. Any resulting DRAFT or pending snapshot still needs its own owner decision. See [the Autopilot guide](AUTOPILOT.md) for limits, pause and recovery behavior.
 
 For the full directory, open [All workspace features](https://fluxora.sklab.cc/workspace/features). Hosted API settings and private Telegram access are deliberately restricted.
 

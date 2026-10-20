@@ -1,0 +1,107 @@
+{
+  "status": "passed",
+  "routes": [
+    {
+      "path": "/welcome",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/start",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/app",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/workspace/features",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/forecast",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/scenarios",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/actions",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/agent/tasks",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/autopilot",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/telegram",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/telegram/demo",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/settings/connections",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/docs",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/docs/autopilot",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    },
+    {
+      "path": "/docs/security",
+      "status": 200,
+      "utf8_replacement": false,
+      "viewport_meta": true
+    }
+  ],
+  "locked_settings_post": 403,
+  "rendered_checks": {
+    "desktop": "blocked",
+    "width_360": "blocked",
+    "width_390": "blocked",
+    "reason": "Local browser use disabled in Work settings"
+  },
+  "fresh_user_walkthrough": {
+    "source": "user report",
+    "result": "completed, no problems reported",
+    "participant_device_task_and_timing_log": "not supplied"
+  }
+}

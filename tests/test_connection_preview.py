@@ -1,6 +1,7 @@
 """Hosted locked settings: no credentials, operation or workspace admission."""
 from html.parser import HTMLParser
 import sqlite3
+import http.client
 
 import pytest
 
@@ -74,3 +75,20 @@ def test_protected_hosted_mode_keeps_auth_and_server_side_lock(server):
     assert request(server,'/settings/connections',auth=False)[0]==401
     assert request(server,'/settings/connections')[0]==200
     assert request(server,'/settings/connections/profile',method='POST',origin='https://fluxora.sklab.cc',fields={'csrf':web.CSRF_TOKEN})[0]==403
+
+
+@pytest.mark.parametrize('send_body',[True,False])
+def test_locked_settings_replies_before_waiting_for_body_and_never_dispatches(public_server,monkeypatch,send_body):
+    app,_=public_server
+    def forbidden(*args,**kwargs):raise AssertionError('Rejected input must never reach application dispatch')
+    monkeypatch.setattr(web.Handler,'_handle',forbidden)
+    conn=http.client.HTTPConnection('127.0.0.1',app.server_address[1],timeout=3)
+    try:
+        conn.putrequest('POST','/settings/connections/remove',skip_host=True)
+        conn.putheader('Host','fluxora.sklab.cc');conn.putheader('Origin','https://fluxora.sklab.cc')
+        conn.putheader('Content-Length','26');conn.endheaders()
+        response=conn.getresponse()
+        assert response.status==403 and b'locked' in response.read()
+        if send_body:conn.send(b'key=dummy-only&csrf=ignored')
+        assert not response.getheader('Set-Cookie') and count(app)==0
+    finally:conn.close()
