@@ -27,7 +27,7 @@ Fluxora helps a small-business owner understand **when cash becomes tight, which
 
 Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.4**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
 
-**Presentation:** [Editable deck, PDF and timed English scripts](presentation/README.md). [Earlier acceptance evidence](docs/FINAL-REVIEW-2026-10-20.md) separates real provider checks, simulated transport and the limitations of that review. [Home and workspace routing](docs/HOME-ROUTING.md) records the current entry flow and verification.
+**Latest evidence:** [Judge walkthrough and live-model checks](docs/JUDGE-WALKTHROUGH-2026-10-20.md) · [submission review checklist](docs/SUBMISSION-CHECKLIST.md). [Existing presentation assets](presentation/README.md) are historical drafts; final slides/video remain deferred. [Home and workspace routing](docs/HOME-ROUTING.md) records the current entry flow.
 
 The [application review](docs/APP-REVIEW-2026-10-20.md) records the broader 90-page audit, deployed Telegram-practice flow and local bot-settings concurrency correction. The subsequent [rendered review](docs/VISUAL-REVIEW-2026-10-20.md) covers ten principal pages at 360px, 390px and desktop, with focused menu, assistant and conversation checks. This is browser emulation, not a real-device or all-operation usability certification.
 
@@ -78,6 +78,12 @@ This is a separate disposable lesson with **simulated delivery and no live AI**.
 See [screenshot provenance](docs/media/README.md) for the capture scope and limitations.
 
 </details>
+
+### Latest live preparation check
+
+![Actual hosted DRAFT remains unapproved after live AI preparation](docs/media/judge-draft.jpg)
+
+*Actual hosted Chrome capture, 20 October 2026: the model prepared exact USD 100 terms; owner approval remains separate. The tested snapshot approval saved a different forecast workflow and did not approve this DRAFT. See the [bounded walkthrough results](docs/JUDGE-WALKTHROUGH-2026-10-20.md).*
 
 ## Features
 
@@ -199,9 +205,9 @@ The badge at the top reports the actual GitHub Actions workflow. Local measured 
 | --- | --- | --- |
 | **Complete source suite (0.26.4)** | **2,219 passed in 429.90s** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers; separate from live-model evaluation |
 | **Clean build & install** | Source package, wheel and fresh offline installation passed | Assets, fixture examples and bundled skills present |
-| **Focused browser checks** | Ten principal pages inspected at desktop, 360px and 390px; current Home navigation also checked at 1024px | Chrome emulation and selected interactions; not a complete device/accessibility audit |
-| **Public live guided AI** | One-submit forecast: 4.312s; exact DRAFT: 9.094s over public HTTPS | Two measured live tasks plus separate canary/restart checks; samples, not a latency or language-accuracy guarantee |
-| **Telegram checks** | Browser practice, real private API delivery acknowledgments and simulated decision/restart tests passed | Real API acknowledgment does not prove reading; latest approval/rejection transport was simulated |
+| **Focused browser checks** | Latest judge journey: 24 checks across eight surfaces at desktop, 360px and 390px; no document overflow | Chrome emulation and selected interactions; earlier ten-page review remains separate |
+| **Public live guided AI** | Latest two tasks passed: forecast and exact USD 100 DRAFT; neither showed 429/timeout | OpenRouter Qwen; 14,016 provider-reported tokens; two samples, not general language accuracy or future availability |
+| **Telegram checks** | Latest rendered browser practice plus fresh HTTPS replay/rejection checks passed | Simulated transport, zero model/API calls in the HTTPS lesson; earlier real API acknowledgments are historical |
 | **Fresh-user walkthrough** | User reports completion with no problems found | Detailed participant/device/task/timing records were not supplied |
 
 The earlier deep-path Windows test failure, its reproduction and the short-path workaround are retained in [validation](docs/VALIDATION.md). The subsequent [rendered review](docs/VISUAL-REVIEW-2026-10-20.md) resolved the browser-access blocker. Broader live-language evaluation and a real-business security/operations review remain open. The user-reported walkthrough is useful feedback, rather than a documented usability study.

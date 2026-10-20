@@ -2,7 +2,7 @@
 
 This is a synthetic SME cash-flow demonstration. It has no real bank feed or payment rail. The hosted operator can explicitly enable bounded live guided task translation. Direct reports and browser Telegram practice need no model.
 
-1. Open [the guided start](https://fluxora.sklab.cc/start), or [the product website](https://fluxora.sklab.cc/welcome).
+1. Open [product Home](https://fluxora.sklab.cc/), then **Open workspace** (`/app`), or use [the guided start](https://fluxora.sklab.cc/start).
 2. On the product preview, compare recorded timing with the seven-day-delay example. These figures come from a separate Atlas fixture and do not change a visitor ledger.
 3. Open the workspace and inspect its business, snapshot date, currencies, forecast and evidence. Read its own displayed values; visitor examples may differ.
 4. Open [Telegram browser practice](https://fluxora.sklab.cc/telegram/demo). No bot account is needed. Delivery and language interpretation are simulated. Prepare a practice DRAFT and inspect its exact terms.
@@ -10,6 +10,20 @@ This is a synthetic SME cash-flow demonstration. It has no real bank feed or pay
 6. Read [security boundaries](https://fluxora.sklab.cc/docs/security). The [hosted connection preview](https://fluxora.sklab.cc/settings/connections) is deliberately locked and exposes no actual private configuration.
 
 The private companion and model have a separate environment and authority boundary. Validation distinguishes actual model qualification, real private Telegram API delivery acknowledgments and simulated approval/rejection callbacks. These finite checks do not certify every live-language operation or source authenticity. Public visitors cannot access the operator's private Telegram chat.
+
+## Optional tested Agent questions
+
+The [latest actual walkthrough](JUDGE-WALKTHROUGH-2026-10-20.md) passed these exact synthetic requests. Use the active workspace's displayed record IDs and terms if its example differs. Public model availability/allowances can change; direct reports remain the fallback.
+
+```text
+Show the baseline cash forecast for every currency. Read only.
+```
+
+```text
+Prepare a DRAFT early-payment request for invoice inv-client-001, currency USD, amount 100.00, requested date 2026-10-22. DRAFT only. Do not approve or send it.
+```
+
+Inspect the selected task and exact DRAFT terms in the result, then Action history. For a separate owner decision, Agent's **Save a forecast for review** prepares a pending snapshot. Review its exact operation in **Approval queue** before deciding. Snapshot approval does not approve the earlier DRAFT or record a payment. Hosted AI uses the operator's potentially billed provider allowance; only submit synthetic questions after reading the inline disclosure.
 
 Optional [Autopilot](https://fluxora.sklab.cc/autopilot) starts paused in each public visitor workspace. Review a strategy and separate currency limits before enabling it. Scheduled checks use deterministic local code with zero model calls. Any resulting DRAFT or pending snapshot still needs its own owner decision. See [the Autopilot guide](AUTOPILOT.md) for limits, pause and recovery behavior.
 

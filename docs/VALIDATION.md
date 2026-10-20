@@ -4,6 +4,10 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
+### Latest judge walkthrough and live smoke, application source 0.26.4
+
+The [judge walkthrough](JUDGE-WALKTHROUGH-2026-10-20.md) records the actual hosted browser journey, two fresh live OpenRouter translations (forecast and exact DRAFT), separate owner snapshot approval, saved-result reload and Telegram browser practice. Both live tasks passed without an observed 429/timeout; this is a bounded smoke sample. Eight surfaces at 360/390/1280 CSS pixels gave **24 layout checks with no document overflow**. A separate HTTPS visitor's simulated Telegram/replay/rejection checks left its main financial audit unchanged and used zero model or Telegram API calls. The fresh adapter/takeover/direct/guided/Telegram selection passed **109 tests in 40.45s**. The unchanged application commit's full Windows/Linux CI completed successfully. Source, commands, provider usage and limitations are linked from that report; earlier timings below are historical. The later documentation/package update changes no application runtime. Slides/video remain deferred.
+
 ### Home and workspace routing, source 0.26.4
 
 Complete local suite: **2,219 passed in 429.90s (0:07:09)**. Affected selection: **143 passed in 85.22s**. The [routing report](HOME-ROUTING.md) records actual local/hosted HTTP regressions, cookie-free public Home access, preserved workspace navigation and Chrome checks at 360/390/1024/1280 CSS pixels. Fresh VPS canary, actual container restart and public HTTPS routing passed without real provider or Telegram calls. Existing financial and model boundaries are unchanged.

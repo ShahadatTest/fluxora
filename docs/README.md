@@ -2,6 +2,8 @@
 
 Start with [local setup](LOCAL-SETUP.md) or the [judge quickstart](JUDGE-QUICKSTART.md).
 
+Latest: [tested judge journey and live-model evidence](JUDGE-WALKTHROUGH-2026-10-20.md) · [submission review checklist](SUBMISSION-CHECKLIST.md). Slides/video and entrant registration remain separate pending work.
+
 | Guide | What it covers |
 | --- | --- |
 | [Architecture](TECHNICAL.md) | Deterministic engine, SQLite, task interpretation, lifecycle and runtime modes |
@@ -19,7 +21,7 @@ Start with [local setup](LOCAL-SETUP.md) or the [judge quickstart](JUDGE-QUICKST
 | [Broader application review](APP-REVIEW-2026-10-20.md) | All navigation pages, local bot contention and deployed practice workflow |
 | [Rendered responsive review](VISUAL-REVIEW-2026-10-20.md) | Actual desktop/360px/390px inspection, financial cards, menus, floating guide and practice scrolling |
 | [Home and workspace routing](HOME-ROUTING.md) | Public product Home, explicit workspace entry and compatibility links |
-| [Presentation and narration](../presentation/README.md) | Editable deck, PDF viewing copy, timed pitch and demonstration storyboard |
+| [Historical presentation draft](../presentation/README.md) | Existing editable assets; final slide/video work is deferred |
 | [Independent-user protocol](USABILITY-SESSION.md) | Neutral tasks and honest observation recording |
 | [Asset provenance](BRAND-ASSETS-0.20.1.md) | Generated illustrations, usage and trademark limitations |
 | [Competition context](COMPETITION.md) | Official references and entry boundaries |

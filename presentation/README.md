@@ -1,5 +1,7 @@
 # Fluxora by SKLab, source 0.26.1
 
+> **Historical draft — not the final submission deck.** Final slide/video work is deferred at the owner's request until application review is complete. Existing binary filenames containing `Final` are retained for compatibility; they do not establish current readiness. No deck/video was generated or revised by the latest documentation/package pass. Current rendered/live evidence is in the [judge walkthrough](../docs/JUDGE-WALKTHROUGH-2026-10-20.md); browser-access and version claims below describe this older draft only.
+
 The editable PowerPoint contains **15 slides: 12 main slides and 3 hidden Q&A appendix slides**. The English pitch targets **8:30**, with 1,060 spoken words. Timings are planned, not measured. Rehearse at your natural speed. The separate demo storyboard targets 4:10 and should not be appended in full to the pitch inside a ten-minute slot.
 
 Files:

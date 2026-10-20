@@ -1,6 +1,6 @@
 # Fluxora security self-assessment
 
-Source 0.26.0. Reviewed 20 October 2026. Synthetic demonstration only.
+Source 0.26.4. Updated 20 October 2026 after the rendered judge walkthrough and two live guided tasks. Synthetic demonstration only.
 
 ## Assets and trusted boundaries
 
@@ -39,19 +39,19 @@ Autopilot adds explicitly authorized background jobs, not model approval authori
 | Payroll/consent/FX misuse | Deterministic protection, source-backed consent rules, separate currencies and display-only FX | Financial/domain regressions plus three explicit local guards in the fresh smoke. Source truth is not independently authenticated. |
 | Real money or counterparty messages | No real banking/payment rail or business-counterparty transport | Code/catalog scope. Optional private Telegram sends notifications about synthetic records separately. |
 
-The complete source contains the relevant tests. The earlier full-suite record is 2,136 passes on source 0.25.7. Focused UI checks cover the subsequent 0.25.8 and 0.25.9 changes; see VALIDATION.md for the publication-tree results. An initial Windows loopback `WinError 10053` is retained along with the subsequent passing group and full-suite run. No security control was relaxed to obtain a pass.
+The complete source contains the relevant tests. The current application source passed **2,219 tests in 429.90s**. A later adapter/takeover/direct/guided/Telegram selection passed **109 tests in 40.45s**, including local provider HTTP stubs, dummy credentials and fake/mock adapters. These are separate from actual live-provider checks. [Validation](VALIDATION.md) retains earlier failed runs and their subsequent outcomes; no security control was relaxed to obtain a pass.
 
 ## Current live evidence
 
-The final smoke used the existing server environment in a separate process and a fresh invented in-memory ledger. Forecast and exact DRAFT translations passed. The DRAFT had no approval, counterparty response, receipt or cash effect and was not saved to the active workspace. Three explicit local guard requests passed without additional model calls. This is two-case live compatibility evidence, not a new full qualification or an evaluation of all supported language/operations.
+The latest [rendered judge walkthrough](JUDGE-WALKTHROUGH-2026-10-20.md) used the actual public website and its configured OpenRouter `qwen/qwen3.7-flash` model. Two translations passed: a read-only baseline forecast and an exact USD 100 early-payment DRAFT. No 429 or timeout appeared in those two samples. Financial answers came from deterministic tools. The DRAFT remained unapproved after saved-result reload and a different forecast-snapshot approval. The snapshot was saved only through the explicit owner review form; its approval created no payment or counterparty acceptance. These synthetic records were persisted in that visitor workspace, not a real business ledger.
 
-The live bot identity API passed. The test did not poll updates, send messages or create a second bot worker. Public browser practice passed forecast, DRAFT review, separate snapshot approval, stale/repeat protection, alert deduplication and isolation over trusted HTTPS. It uses simulated delivery. New real private delivery and callback tests remain pending.
+Rendered Telegram browser practice separately passed forecast, DRAFT preparation and snapshot approval. A fresh HTTPS visitor harness also checked replay, rejection and equality of the main financial audit before/after practice. That lesson uses simulated transport and zero model calls. No new real Telegram delivery/callback test, private pairing or second bot worker was performed in this pass. Earlier private API acknowledgments remain historical and do not prove message reading.
 
 ## Credential handling and packaging
 
 Model and bot keys stay server-side. Default local Web configuration keeps secrets in process memory. Optional Windows Remember uses an OS-account DPAPI vault outside financial SQLite/export. Same-account software and administrators remain trusted. Hosted visitors cannot administer these private settings. No key is prefilled into HTML.
 
-The GitHub publication tree includes source, design assets and summarized verification evidence. It excludes API/bot/SSH credentials, runtime databases, vaults, caches, virtual environments and session-cookie jars. The live diagnostic exports no raw provider response, active ledger data, model endpoint or bot identity details. A clean manifest/scan is evidence for this package, not a universal guarantee that secrets can never leak.
+The GitHub publication tree includes source, design assets and summarized synthetic verification evidence. The reviewed package is built from the committed Git tree, with an explicit inventory and checksums. API/bot/SSH credentials, runtime databases, vaults, caches, virtual environments and session-cookie jars are excluded. Published screenshots/results contain invented task terms, model identity and provider-reported usage; they contain no raw provider error body, API key, pairing code, private bot chat or browser credential. A clean manifest/pattern scan is evidence for the inspected package, not proof that every possible secret or security defect is absent.
 
 ## Known risks and work still required
 
@@ -60,8 +60,8 @@ The GitHub publication tree includes source, design assets and summarized verifi
 - Provider 429/5xx, outages, billing and remote work after local timeout remain possible. No automatic provider switch is introduced. Direct deterministic reports remain available.
 - Private bot delivery may be uncertain. User/bot account compromise, server compromise and lost browser cookies remain outside the demonstrated source-fact guarantees.
 - Public admission is finite at 256 unexpired workspaces or the aggregate storage cap. Testing also consumes slots. Expiry and an examples fallback do not provide production denial-of-service protection.
-- Focused live Settings navigation checks passed at desktop, 360px and 390px. Full-site rendered review, real-device/Safari behavior and assistive-technology validation remain pending.
-- No independent fresh-user test, penetration test, certified financial audit or production authentication review is claimed.
+- Rendered principal-page reviews and focused Settings navigation passed at desktop, 360px and 390px. The latest walkthrough checked eight surfaces at three widths with no document overflow. This is Chrome emulation; a full-site accessibility audit, physical phones and Safari remain untested.
+- The owner reports a fresh-user walkthrough with no problems found, without participant/task/timing records. The agent-operated browser review is not an independent human study. No penetration test, certified financial audit or production authentication review is claimed.
 - On Windows, deeply nested database/backup paths can fail in SQLite even when Python can create the parent directory. Use a short, writable local data path; no automatic data move or reset is performed.
 - No real-bank integration, real payment execution, lender matching integration or real-business pilot is demonstrated.
 

@@ -1,0 +1,80 @@
+{
+  "status": "passed for the bounded walkthrough",
+  "date": "2026-10-20",
+  "source_commit": "6ef6f60de561a69981ae70b856c8b2ef390b5927",
+  "source_version": "0.26.4",
+  "rendered_browser": "Chrome, existing synthetic visitor; initially zero DRAFTs and pending workflows",
+  "independent_human_study": false,
+  "layout_checks": 24,
+  "css_widths": [
+    360,
+    390,
+    1280
+  ],
+  "document_horizontal_overflow": false,
+  "live_provider": "OpenRouter",
+  "live_model": "qwen/qwen3.7-flash",
+  "fresh_live_translations_completed": 2,
+  "observed_live_429_or_timeout": false,
+  "live_translation_usage_provider_reported": {
+    "live_forecast": {
+      "prompt_tokens": 6637,
+      "completion_tokens": 173,
+      "total_tokens": 6810
+    },
+    "live_draft": {
+      "prompt_tokens": 6696,
+      "completion_tokens": 510,
+      "total_tokens": 7206
+    }
+  },
+  "total_provider_reported_tokens": 14016,
+  "dollar_cost": "not measured",
+  "live_task_results": [
+    "forecast selected correctly; USD/EUR match deterministic baseline",
+    "one USD100 early-payment DRAFT with exact invoice and requested date"
+  ],
+  "synthetic_action": "guided-b218cf18d6724cf19b0e70dddf822f2f",
+  "action_final_state": "draft; version1; not approved",
+  "separate_snapshot_owner_step": "save_forecast executed only after explicit browser owner checkbox/button",
+  "saved_result_reload": "one DRAFT, same terms; no duplicate observed",
+  "public_https_browser_simulation": {
+    "status": "passed",
+    "transport": "real public HTTPS to browser simulation; no real Telegram API",
+    "forecast": true,
+    "draft_requires_own_preparation_review": true,
+    "draft_stays_unapproved_after_separate_snapshot_approval": true,
+    "separate_snapshot_saved": true,
+    "reject_request_creates_no_extra_draft": true,
+    "accepted_request_replay_no_duplicate": true,
+    "main_ledger_unchanged": true,
+    "provider_calls": 0,
+    "real_telegram_calls": 0,
+    "rendered_browser_check": false
+  },
+  "local_regression_passed": 109,
+  "local_regression_file_counts": {
+    "tests/test_model_adapter.py": 19,
+    "tests/test_takeover_regressions.py": 19,
+    "tests/test_direct_tasks.py": 15,
+    "tests/test_guided_tasks.py": 42,
+    "tests/test_telegram_demo.py": 14
+  },
+  "ci": {
+    "conclusion": "success",
+    "head_sha": "6ef6f60de561a69981ae70b856c8b2ef390b5927",
+    "html_url": "https://github.com/ShahadatTest/fluxora/actions/runs/39415968720",
+    "status": "completed"
+  },
+  "real_telegram_delivery_tested_this_run": false,
+  "application_code_changed": false,
+  "deployment_changed": false,
+  "limitations": [
+    "Two live cases are a smoke check, not certification of all natural-language tasks.",
+    "Browser rendering uses desktop Chrome viewport emulation, not physical phones.",
+    "Existing Chrome visitor is not a new independent human participant.",
+    "Telegram practice uses simulated transport and no live AI; real Telegram delivery was not re-run.",
+    "No new process-restart test in this pass; previous disposable-canary evidence remains historical.",
+    "Provider billing and future availability were not independently verified."
+  ]
+}

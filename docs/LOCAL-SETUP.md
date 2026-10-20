@@ -4,9 +4,9 @@ This is the English synthetic sandbox, including its multipage website, workspac
 
 ## Windows: start in one step
 
-1. Extract the complete source folder to a writable directory, such as `Documents\Fluxora`. In a submission ZIP, open the inner `source` folder that contains `START_FLUXORA.cmd`.
+1. Extract the complete source folder to a short, writable directory, such as `C:/Fluxora`. In a submission ZIP, open the inner `source` folder that contains `START_FLUXORA.cmd`.
 2. Double-click **START_FLUXORA.cmd**. It creates `.venv` with your installed Python, uses the source directly, and opens the local product website. No pip install or network download is required. The terminal stays open while the app runs.
-3. Open **http://127.0.0.1:8765/app** for the workspace, `/welcome` for the website and `/docs` for the documentation. Use the displayed `127.0.0.1` address, not `localhost`, for the local Host/Origin checks.
+3. Open **http://127.0.0.1:8765/** for product Home, `/app` for the workspace and `/docs` for documentation. `/welcome` remains a Home alias. Use the displayed `127.0.0.1` address, not `localhost`, for the local Host/Origin checks.
 4. Stop with Ctrl+C. Run the same launcher again to continue the saved database. There is no 24-hour expiry or 128-visitor limit in this private single-user mode. Closing the browser does not stop the server.
 
 The CMD file uses a process-only PowerShell execution-policy override for this included script; it does not change the Windows policy globally. Inspect `tools/setup_local.ps1` if desired. You can also run directly from a terminal:
@@ -69,7 +69,7 @@ Use the hidden terminal prompt for a key, with the endpoint/model identifiers fr
 .\tools\setup_local.ps1 -Python python -PromptForModelKey -ModelBaseUrl 'YOUR_COMPATIBLE_HTTPS_ENDPOINT' -ModelName 'YOUR_MODEL_ID'
 ```
 
-The placeholders are not working credentials; replace endpoint/model with your own configuration. The script keeps prompted keys in process memory, passes them through environment only, restores previous process values when it exits, and saves no secret file. Never put keys in chat, URLs, screenshots or command arguments. No model request or qualification runs on startup. In the Agent UI, verify the connection and explicitly confirm the model qualification/data preview before live tasks. Provider network access and charges apply. Arbitrary model accuracy is not guaranteed; financial results come from deterministic tools.
+The placeholders are not working credentials; replace endpoint/model with your own configuration. The script keeps prompted keys in process memory, passes them through environment only, restores previous process values when it exits, and saves no secret file. Never put keys in chat, URLs, screenshots or command arguments. No model request or qualification runs on startup. In the Agent UI, verify and explicitly run the model qualification. Then read the inline disclosure and use Send; Options → Preview before sending provides the optional full data/interpretation review before preparation. Provider network access and charges apply. Arbitrary model accuracy is not guaranteed; financial results come from deterministic tools.
 
 ## Optional Telegram with the same local workspace
 
@@ -87,7 +87,7 @@ For the alternative environment/hidden-prompt setup, local deterministic Telegra
 
 Replace the public identity placeholders; enter the actual token only in the hidden prompt. Alternatively set `FLUXORA_TELEGRAM_ENABLED=1`, `FLUXORA_TELEGRAM_BOT_TOKEN`, `FLUXORA_TELEGRAM_OWNER_ID`, optional `FLUXORA_TELEGRAM_BOT_NAME` in the terminal environment and launch with `-Telegram`. Telegram is off without that explicit flag. Only the allowlisted private account can link/act; other accounts and groups are ignored.
 
-Open `/telegram`, acknowledge the destinations, generate a one-time code and send `/link CODE` only to your local bot. Then `/forecast`, `/plans`, `/draft ...` and `/snapshot ...` work with exact review. Preparation and owner approval stay separate. Only snapshot-save workflows can be approved through Telegram; other workflows need detailed Web review. No real payment or business-counterparty message is sent.
+Open `/telegram`, acknowledge the destinations, generate a one-time code and send `/link CODE` only to your local bot. Then `/forecast`, `/plans`, `/draft ...` and `/snapshot ...` work with exact review. Preparation and owner approval stay separate. Supported exact DRAFT approval/rejection and forecast-snapshot decisions use separate owner buttons; other workflow operations, source observations and counterparty acceptance need their detailed Web review. No real payment or business-counterparty message is sent.
 
 To also translate Telegram natural-language tasks, add `-UseTelegramModel` and configure the model environment/hidden prompt above. Run the explicit bot `/verify` and `/qualify` checks after cost confirmation. No automatic fallback, paid qualification or extra authority is added. Telegram/model traffic is online even though the workspace UI and financial computation are local.
 

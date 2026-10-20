@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "transport": "real public HTTPS to browser simulation; no real Telegram API",
+  "forecast": true,
+  "draft_requires_own_preparation_review": true,
+  "draft_stays_unapproved_after_separate_snapshot_approval": true,
+  "separate_snapshot_saved": true,
+  "reject_request_creates_no_extra_draft": true,
+  "accepted_request_replay_no_duplicate": true,
+  "main_ledger_unchanged": true,
+  "provider_calls": 0,
+  "real_telegram_calls": 0,
+  "rendered_browser_check": false
+}

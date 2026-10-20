@@ -9,6 +9,8 @@ recursive-include deploy *.py *.yml *.md Dockerfile
 recursive-include tests *.py *.js
 recursive-include docs *.md
 recursive-include docs/media *.jpg *.svg
+recursive-include docs/evidence *.json *.txt
+recursive-include presentation *.md *.pptx *.pdf
 recursive-include tools *.py *.ps1
 recursive-include examples *.json *.csv *.txt
 recursive-include cashflow_copilot/data *.json

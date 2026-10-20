@@ -1,6 +1,6 @@
 # Fluxora: technical documentation
 
-Cashflow Action Copilot. Complete local source 0.26.0. Reviewed 20 October 2026.
+Cashflow Action Copilot. Complete local source 0.26.4. Updated 20 October 2026.
 
 ## Purpose and contribution
 
@@ -16,7 +16,7 @@ The project targets Topic E, SME Finance Copilot. The current demonstrator conce
 | Hosted public demo | HTTPS and a separate expiring synthetic workspace for each browser cookie. Records live on the server. | Visitor guided requests can use a privately configured provider only with the explicit public-AI operator flag, qualification, disclosure and bounded allowances. API/Telegram settings are a disabled static preview. Browser Telegram practice is simulated. |
 | Optional private companion | One allowlisted Telegram account explicitly pairs one workspace. Pairing does not extend the workspace lifetime. | Opt-in real bot delivery about synthetic data. A separately enabled model requires the existing verification and qualification process. |
 
-The deployed UI uses a minimal hosted release, 0.24.0-09bfc35f9c27, with the same reviewed product refinement. The complete downloadable local source is 0.26.0 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
+At the latest application review, the deployed UI used minimal hosted release `0.24.4-8c53b6d99858`; complete downloadable local source is `0.26.4`, including private local settings and setup helpers. The two version labels identify packaging branches, not different claims of financial accuracy. Product Home is `/`; Business Overview is `/app`; `/welcome` remains a product-page alias. [The latest walkthrough](JUDGE-WALKTHROUGH-2026-10-20.md) records the tested hosted behavior. Documentation/package publication does not itself deploy a new hosted release.
 
 ## Autopilot worker
 
