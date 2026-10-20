@@ -1,0 +1,3 @@
+# Preserve presentation bytes and PDF cross-reference offsets on every platform.
+*.pptx binary
+*.pdf binary
