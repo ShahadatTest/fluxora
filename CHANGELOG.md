@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.26.3 — Rendered responsive review
+
+- Fit Overview financial values to their card width and allow complete long values to wrap; remove internal amount scrollbars from the public product preview.
+- Use a compact 52px floating guide button on mobile while keeping its accessible name and existing dialog behavior.
+- Return Telegram-practice submissions to the conversation below the sticky header, and remove extra wrapper margins between command shortcuts.
+- Record actual Chrome desktop/360px/390px page inspection, focused UI interactions and a fresh disposable worker/restart canary. Model, financial and approval rules are unchanged; slide/video work stays deferred.
+
 ## 0.26.2 — Local bot settings concurrency
 
 - Allow up to 250 ms for short bot housekeeping to release its existing lock before stopping the bot or changing local model settings. Persistent in-flight requests still refuse changes, and the same lock protects every configuration mutation.

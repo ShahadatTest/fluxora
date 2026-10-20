@@ -1,5 +1,7 @@
 # Final acceptance review, 20 October 2026
 
+**Later evidence:** the [rendered responsive review](VISUAL-REVIEW-2026-10-20.md) supersedes this report's browser-access blocker. Its earlier suite/provider results remain attributed to their original source version.
+
 Source version **0.26.1**. The corresponding restricted hosted packaging branch is **0.24.1-9a12ef4ee4a2**. This is a synthetic demonstration with no real bank integration, counterparty message execution or payment rail.
 
 ## Measured checks

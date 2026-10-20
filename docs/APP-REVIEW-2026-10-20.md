@@ -1,5 +1,7 @@
 # Broader application review
 
+**Subsequent update:** browser access became available later on 20 October. The [rendered responsive review](VISUAL-REVIEW-2026-10-20.md) supersedes the visual-access blocker below. The earlier HTTP evidence and its original limitations remain historical.
+
 Source **0.26.2**, 20 October 2026. Presentation and video work are deferred while application review continues. No new presentation or video was made for this correction.
 
 ## Hosted HTTP and workflow checks

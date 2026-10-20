@@ -24,11 +24,11 @@
 
 Fluxora helps a small-business owner understand **when cash becomes tight, which facts support the forecast, and what can be prepared for review**. Deterministic Python tools calculate the financial results; an optional constrained model helps interpret supported requests.
 
-Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.2**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.3**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
 
 **Presentation:** [Editable deck, PDF and timed English scripts](presentation/README.md). [Current acceptance evidence](docs/FINAL-REVIEW-2026-10-20.md) separates real provider checks, simulated transport and remaining visual review.
 
-The [application review](docs/APP-REVIEW-2026-10-20.md) records the broader 90-page audit, deployed Telegram-practice flow and local bot-settings concurrency correction. Rendered app review remains a separate requirement.
+The [application review](docs/APP-REVIEW-2026-10-20.md) records the broader 90-page audit, deployed Telegram-practice flow and local bot-settings concurrency correction. The subsequent [rendered review](docs/VISUAL-REVIEW-2026-10-20.md) covers ten principal pages at 360px, 390px and desktop, with focused menu, assistant and conversation checks. This is browser emulation, not a real-device or all-operation usability certification.
 
 Use **Send** for a one-submit report or DRAFT/pending preparation after the inline provider/data disclosure. **Options → Preview before sending** retains the full outbound and interpretation previews. Final approval stays separate; missing facts still require clarification. Inspect the selected task and exact terms in the result. For immediate answers without a provider, use the direct report links.
 

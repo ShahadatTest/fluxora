@@ -4,6 +4,10 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
+### Rendered responsive review, source 0.26.3
+
+The [rendered review](VISUAL-REVIEW-2026-10-20.md) records actual Chrome inspection of ten deployed pages at 360px, 390px and 1280px, plus menu, floating-guide and conversation interactions. This supersedes the earlier browser-access blocker. The affected selection passed **62 tests in 23.64s**. A new disposable VPS worker/owner-decision/restart canary passed with zero model calls and simulated Telegram transport. This review does not rerun arbitrary live-language evaluation, constitute an independent human study, or certify every feature on physical mobile devices. Slides and video remain deferred.
+
 ### Local bot contention, source 0.26.2
 
 The [broader application review](APP-REVIEW-2026-10-20.md) records **91 affected tests passed in 70.90s**, a new deployed 90-page/10-asset HTTP audit, and a complete isolated public Telegram-practice preparation/approval/replay flow with zero provider or real Telegram calls. It preserves the preceding Linux failure and the bounded lock-acquisition correction. Complete-suite evidence for 0.26.1 below remains explicitly historical; consult Actions for the subsequently published cross-platform result. Rendered app review is still unavailable, and slide/video work is deferred.

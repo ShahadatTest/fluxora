@@ -162,7 +162,7 @@ def mount(web):
         with web.LOCK:
             state,_=lesson(handler)
             body='<h1>Telegram interactive demo</h1><p><b>SIMULATED TRANSPORT · NO LIVE AI</b> · No Telegram account or token required.</p><section class="card"><h2>Try the private-chat workflow</h2><p>This disposable Atlas practice ledger is separate from your main workspace. Financial replies and changes use the existing deterministic tools. Chat delivery and user roles are simulated; your review button is an explicit human demo decision.</p><p>Try: forecast → DRAFT request → exact review → snapshot request → separate owner approval. For alerts: turn alerts on → check → apply the synthetic delay → check again.</p><p>Memory only: the lesson expires after 30 minutes, server restart or loss of the visitor session. Practice results are not saved into the main ledger. <a href="/telegram">Real private bot setup (operator access required)</a></p></section>'
-            body+='<div class="tg-demo-grid"><section class="card"><div class="eyebrow">BROWSER SIMULATION</div><h2>Fluxora practice chat</h2><div class="tg-demo-chat" data-telegram-demo-log role="log" aria-label="Simulated Telegram conversation">'
+            body+='<div class="tg-demo-grid" id="practice-chat"><section class="card"><div class="eyebrow">BROWSER SIMULATION</div><h2>Fluxora practice chat</h2><div class="tg-demo-chat" data-telegram-demo-log role="log" aria-label="Simulated Telegram conversation">'
             for message in state.messages:
                 body+='<article class="tg-demo-message '+message['role']+'"><small>'+('Demo user' if message['role']=='user' else 'Simulated Fluxora reply')+'</small><div>'+card_html(message['text'])+'</div>'
                 row=state.reviews.get(message['review'])
@@ -197,4 +197,4 @@ def mount(web):
                 if req.field('confirmed')!='yes':raise CashflowError('Confirm discarding only the disposable lesson.')
                 scope.telegram_demo=Practice()
             else:state.perform(req.field('request_id'),req.field('action'),req.field('command'),req.field('token'),req.field('decision'))
-        return handler._redirect('/telegram/demo')
+        return handler._redirect('/telegram/demo#practice-chat')

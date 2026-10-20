@@ -49,7 +49,7 @@ def render(path,public_demo=False):
         from .web import csrf_field
         composer='<form class="assistant-composer" method="post" action="/assistant/continue">'+csrf_field()+composer+'<button type="submit" class="assistant-continue">Continue in Agent</button><p>Continue sends only your typed question to this local/server app. Provider disclosure and confirmation follow in Agent; no model call occurs here.</p></form>'
     return '''<div class="floating-assistant" data-floating-assistant>
-<button type="button" class="assistant-launcher" data-assistant-open aria-haspopup="dialog" aria-controls="fluxora-assistant-dialog" aria-expanded="false" hidden><span aria-hidden="true">✦</span> Ask Fluxora</button>
+<button type="button" class="assistant-launcher" data-assistant-open aria-label="Ask Fluxora" aria-haspopup="dialog" aria-controls="fluxora-assistant-dialog" aria-expanded="false" hidden><span aria-hidden="true">✦</span> Ask Fluxora</button>
 <dialog id="fluxora-assistant-dialog" class="assistant-dialog" aria-labelledby="fluxora-assistant-title">
 <header class="assistant-header"><div><span class="assistant-eyebrow">YOUR WORKSPACE GUIDE</span><h2 id="fluxora-assistant-title">Ask Fluxora</h2></div><button type="button" class="assistant-close" data-assistant-close aria-label="Close Ask Fluxora">×</button></header>
 <p class="assistant-mode">LOCAL GUIDANCE · NO MODEL CALL</p>
