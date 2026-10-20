@@ -311,7 +311,7 @@ def test_agent_compare_uses_current_data_and_never_grants_permission(own):
 def test_http_own_dataset_pages_concurrent_submit_csrf_and_no_override(live_server, own):
     base, db = live_server
     save(db, own)
-    for path in ['/', '/plans', '/today', '/ledger', '/actions', '/stress', '/plans/examples']:
+    for path in ['/app', '/plans', '/today', '/ledger', '/actions', '/stress', '/plans/examples']:
         status, body = _get(base, path)
         assert status == 200
         assert 'SYNTHETIC' in body

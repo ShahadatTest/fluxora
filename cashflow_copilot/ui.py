@@ -9,7 +9,7 @@ REQUEST = local()
 # One canonical, discoverable home for every existing workspace page.
 GROUPS = (
     ('Workspace', (
-        ('/', 'Overview', 'grid', ()),
+        ('/app', 'Overview', 'grid', ()),
         ('/today', 'Today', 'sun', (('/review', 'Daily review'), ('/decision-brief', 'Decision brief'))),
         ('/agent/tasks', 'Agent', 'spark', (('/autopilot', 'Autopilot'),('/agent', 'Advanced agent & history'))),
     )),
@@ -123,12 +123,13 @@ def app_page(title, body, active, status, legacy_css=''):
     workspace_context='Your visitor session · synthetic data' if public_demo else ('Protected · synthetic data' if hosted else 'Local · synthetic data')
     sandbox_context='Visitor demo' if public_demo else ('Hosted owner demo' if hosted else 'Local sandbox')
     sandbox_notice='Your synthetic workspace is separate from other visitor sessions. Expires after 24 hours; clearing browser cookies loses access. Use synthetic data only.' if public_demo else 'Synthetic records only. No real money or bank connection. Counterparty messages are simulated; private Telegram delivery is separate.'
-    if path=='/app':path='/'
+    if path=='/':path='/app'
+    if active=='/':active='/app'
     match=nav_match(path) or nav_match(active)
     group=match[0] if match else 'Workspace'
     label=match[2] if match else title
     children=match[4] if match else ()
-    url=match[1] if match else '/'
+    url=match[1] if match else '/app'
     page_label=next((t for p,t in children if match and p==match[-1]),label)
     localnav=''
     if children:
@@ -143,9 +144,9 @@ def app_page(title, body, active, status, legacy_css=''):
     from .getting_started import panel
     guidance=panel() if not path.startswith('/settings/connections') else ''
     shell=f'''<div class="app-frame">
-<details class="mobile-menu"><summary aria-label="Open navigation">☰ <span>Menu</span></summary><nav aria-label="Mobile navigation">{nav_html(path)}<a class="side-link" href="/workspace/features">All workspace features</a><a class="side-link" href="/welcome">Product website</a></nav></details>
-<aside class="sidebar"><a class="brand" href="/welcome" aria-label="Fluxora product home">{wordmark()}</a><div class="workspace-label"><span class="workspace-avatar">F</span><span>Demo workspace<small>{workspace_context}</small></span></div><nav aria-label="Main navigation">{nav_html(path)}</nav><div class="sidebar-utilities"><a class="side-link" href="/start">{icon('book')} Get started</a><a class="side-link" href="/workspace/features">{icon('grid')} All workspace features</a><a class="sidebar-bottom" href="/welcome">Product website {icon('arrow')}</a></div></aside>
-<div class="app-main"><header class="workspace-top"><a class="brand mobile-brand" href="/welcome" aria-label="Fluxora product home">{wordmark()}</a><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/workspace/features">{escape(group)}</a><span aria-hidden="true">/</span><b aria-current="page">{escape(page_label)}</b></nav><div class="top-tools"><a href="/search" class="workspace-search" aria-label="Search records">{icon('search')}<span>Search records</span></a><a class="help-link" href="/docs/{help_slug}">{icon('book')}<span>Help</span></a><span class="demo-tag">SYNTHETIC DEMO</span><a class="today-link" href="/today">{icon('sun')}<span>Today</span></a></div></header>
+<details class="mobile-menu"><summary aria-label="Open navigation">☰ <span>Menu</span></summary><nav aria-label="Mobile navigation">{nav_html(path)}<a class="side-link" href="/workspace/features">All workspace features</a><a class="side-link" href="/">Home</a></nav></details>
+<aside class="sidebar"><a class="brand" href="/" aria-label="Fluxora product home">{wordmark()}</a><div class="workspace-label"><span class="workspace-avatar">F</span><span>Demo workspace<small>{workspace_context}</small></span></div><nav aria-label="Main navigation">{nav_html(path)}</nav><div class="sidebar-utilities"><a class="side-link" href="/start">{icon('book')} Get started</a><a class="side-link" href="/workspace/features">{icon('grid')} All workspace features</a><a class="sidebar-bottom" href="/">Home {icon('arrow')}</a></div></aside>
+<div class="app-main"><header class="workspace-top"><a class="brand mobile-brand" href="/" aria-label="Fluxora product home">{wordmark()}</a><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/workspace/features">{escape(group)}</a><span aria-hidden="true">/</span><b aria-current="page">{escape(page_label)}</b></nav><div class="top-tools"><a href="/search" class="workspace-search" aria-label="Search records">{icon('search')}<span>Search records</span></a><a class="help-link" href="/docs/{help_slug}">{icon('book')}<span>Help</span></a><span class="demo-tag">SYNTHETIC DEMO</span><a class="today-link" href="/today">{icon('sun')}<span>Today</span></a></div></header>
 <div class="workspace-notice"><span class="sandbox-label"><span class="sandbox-dot" aria-hidden="true"></span>{sandbox_notice}</span><details class="connection-status"><summary><span class="status-dot {status_class}" aria-hidden="true"></span>{'Model verified' if status_class=='connected' else 'Model status'}<span aria-hidden="true">⌄</span></summary><div><b>Current connection</b><p>{escape(status)}</p><a href="/agent">Connection details →</a></div></details></div>
 <div class="content-area">{guidance}{localnav}<main id="main" class="feature-workspace" tabindex="-1">{body}</main></div>
 <footer class="workspace-footer"><span>Fluxora · Cashflow Action Copilot</span><span>{sandbox_context} · financial results from deterministic tools · model prose is unverified</span><a href="/docs/security">Boundaries & limitations</a></footer></div></div>'''

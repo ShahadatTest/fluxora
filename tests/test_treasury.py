@@ -370,7 +370,7 @@ def form_data(l,op,**values):
                 evidence_id='src',note='Checked synthetic owner operation.',**values)
 
 
-@pytest.mark.parametrize('path',['/party-register','/cash-accounts','/cash-availability','/','/entries','/reports','/review','/agent'])
+@pytest.mark.parametrize('path',['/party-register','/cash-accounts','/cash-availability','/app','/entries','/reports','/review','/agent'])
 def test_populated_http_pages_discoverable_and_escaped(live_server,ledger,path):
     if path == '/agent':
         from cashflow_copilot import web, agent_web

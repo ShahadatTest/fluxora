@@ -46,7 +46,7 @@ def request(server,path='/',*,auth=True,method='GET',origin=None,fields=None,hos
     except urllib.error.HTTPError as r:return r.code,r.read(),r.headers
 
 
-@pytest.mark.parametrize('path',['/welcome','/app','/agent/tasks','/ledger','/audit/export','/assets/fluxora.js'])
+@pytest.mark.parametrize('path',['/','/welcome','/app','/agent/tasks','/ledger','/audit/export','/assets/fluxora.js'])
 def test_all_data_and_assets_require_owner_authentication(server,path):
     _,db=server;before=copy.deepcopy(vars(_load(db)))
     status,body,headers=request(server,path,auth=False)

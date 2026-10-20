@@ -4,6 +4,10 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
+### Home and workspace routing, source 0.26.4
+
+Complete local suite: **2,219 passed in 429.90s (0:07:09)**. Affected selection: **143 passed in 85.22s**. The [routing report](HOME-ROUTING.md) records actual local/hosted HTTP regressions, cookie-free public Home access, preserved workspace navigation and Chrome checks at 360/390/1024/1280 CSS pixels. Fresh VPS canary, actual container restart and public HTTPS routing passed without real provider or Telegram calls. Existing financial and model boundaries are unchanged.
+
 ### Rendered responsive review, source 0.26.3
 
 The [rendered review](VISUAL-REVIEW-2026-10-20.md) records actual Chrome inspection of ten deployed pages at 360px, 390px and 1280px, plus menu, floating-guide and conversation interactions. This supersedes the earlier browser-access blocker. The affected selection passed **62 tests in 23.64s**. A new disposable VPS worker/owner-decision/restart canary passed with zero model calls and simulated Telegram transport. This review does not rerun arbitrary live-language evaluation, constitute an independent human study, or certify every feature on physical mobile devices. Slides and video remain deferred.

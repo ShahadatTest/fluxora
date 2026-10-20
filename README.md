@@ -16,7 +16,8 @@
 </p>
 
 <p align="center">
-  <a href="https://fluxora.sklab.cc/welcome"><strong>Explore the demo</strong></a> ·
+  <a href="https://fluxora.sklab.cc/"><strong>Home</strong></a> ·
+  <a href="https://fluxora.sklab.cc/app"><strong>Open demo workspace</strong></a> ·
   <a href="https://fluxora.sklab.cc/start"><strong>Take the judge tour</strong></a> ·
   <a href="docs/README.md"><strong>Read the docs</strong></a> ·
   <a href="#quickstart"><strong>Run locally</strong></a>
@@ -24,9 +25,9 @@
 
 Fluxora helps a small-business owner understand **when cash becomes tight, which facts support the forecast, and what can be prepared for review**. Deterministic Python tools calculate the financial results; an optional constrained model helps interpret supported requests.
 
-Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.3**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.4**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
 
-**Presentation:** [Editable deck, PDF and timed English scripts](presentation/README.md). [Current acceptance evidence](docs/FINAL-REVIEW-2026-10-20.md) separates real provider checks, simulated transport and remaining visual review.
+**Presentation:** [Editable deck, PDF and timed English scripts](presentation/README.md). [Earlier acceptance evidence](docs/FINAL-REVIEW-2026-10-20.md) separates real provider checks, simulated transport and the limitations of that review. [Home and workspace routing](docs/HOME-ROUTING.md) records the current entry flow and verification.
 
 The [application review](docs/APP-REVIEW-2026-10-20.md) records the broader 90-page audit, deployed Telegram-practice flow and local bot-settings concurrency correction. The subsequent [rendered review](docs/VISUAL-REVIEW-2026-10-20.md) covers ten principal pages at 360px, 390px and desktop, with focused menu, assistant and conversation checks. This is browser emulation, not a real-device or all-operation usability certification.
 
@@ -126,7 +127,7 @@ Install your operating system's matching `venv` package if it is missing. Local 
 
 | Destination | Local URL |
 | --- | --- |
-| Product website | <http://127.0.0.1:8765/welcome> |
+| Home / product website | <http://127.0.0.1:8765/> |
 | Business workspace | <http://127.0.0.1:8765/app> |
 | Guided introduction | <http://127.0.0.1:8765/start> |
 | Documentation | <http://127.0.0.1:8765/docs> |
@@ -196,14 +197,14 @@ The badge at the top reports the actual GitHub Actions workflow. Local measured 
 
 | Evidence | Recorded outcome | Scope |
 | --- | --- | --- |
-| **Fresh complete source suite (0.26.1)** | **2,211 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
+| **Complete source suite (0.26.4)** | **2,219 passed in 429.90s** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers; separate from live-model evaluation |
 | **Clean build & install** | Source package, wheel and fresh offline installation passed | Assets, fixture examples and bundled skills present |
-| **Focused browser checks** | Settings navigation passed at desktop, 360px and 390px | Not a complete device/accessibility audit |
+| **Focused browser checks** | Ten principal pages inspected at desktop, 360px and 390px; current Home navigation also checked at 1024px | Chrome emulation and selected interactions; not a complete device/accessibility audit |
 | **Public live guided AI** | One-submit forecast: 4.312s; exact DRAFT: 9.094s over public HTTPS | Two measured live tasks plus separate canary/restart checks; samples, not a latency or language-accuracy guarantee |
 | **Telegram checks** | Browser practice, real private API delivery acknowledgments and simulated decision/restart tests passed | Real API acknowledgment does not prove reading; latest approval/rejection transport was simulated |
 | **Fresh-user walkthrough** | User reports completion with no problems found | Detailed participant/device/task/timing records were not supplied |
 
-The earlier deep-path Windows test failure, its reproduction and the short-path workaround are retained in [validation](docs/VALIDATION.md). New rendered desktop/360px/390px review remains blocked by browser availability. Broad live-language evaluation and a real-business security/operations review remain open. The user-reported walkthrough is useful feedback, rather than a documented usability study.
+The earlier deep-path Windows test failure, its reproduction and the short-path workaround are retained in [validation](docs/VALIDATION.md). The subsequent [rendered review](docs/VISUAL-REVIEW-2026-10-20.md) resolved the browser-access blocker. Broader live-language evaluation and a real-business security/operations review remain open. The user-reported walkthrough is useful feedback, rather than a documented usability study.
 
 <details>
 <summary><strong>Run the tests yourself</strong></summary>

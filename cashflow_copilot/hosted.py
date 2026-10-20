@@ -261,13 +261,13 @@ class Handler(web.Handler):
                     values=query.get('example',['atlas'])
                     if set(query)-{'example'} or len(values)!=1 or values[0] not in EXAMPLES:return self._reply(400,'Choose one displayed demo example')
                     return self._send_html(200,render(web,values[0]))
-                public=path in {'/welcome','/product','/how-it-works','/trust','/about','/docs','/start'} or bool(re.fullmatch('/docs/[a-z0-9-]+',path))
+                public=path in {'/','/welcome','/product','/how-it-works','/trust','/about','/docs','/start'} or bool(re.fullmatch('/docs/[a-z0-9-]+',path))
                 asset=path.startswith('/assets/') and path[len('/assets/'):] in assets
                 if public or asset:return super()._handle()
                 if path.startswith('/assets/') or path=='/favicon.ico' or web.match_route('GET',path)[0] is None:
                     return self._send_html(404,public_page('Not found','<h1>Page not found</h1><p><a href="/welcome">Product home</a></p>',path))
             example='atlas'
-            if path in {'/app','/'}:
+            if path=='/app':
                 query=parse_qs(parsed.query,keep_blank_values=True)
                 values=query.get('demo_example',['atlas'])
                 if len(values)!=1 or values[0] not in EXAMPLES:return self._reply(400,'Choose one displayed demo example')

@@ -63,7 +63,7 @@ def test_public_preview_is_synthetic_fixture_and_cannot_disclose_private_active_
 
 def test_dashboard_uses_engine_values_and_keeps_currency_and_authority_boundaries(live_server):
     base,db=live_server
-    _,body=_get(base,'/')
+    _,body=_get(base,'/app')
     for expected in ('USD 10,000.00','EUR 1,000.00','USD 6,000.00','2026-10-28','2026-10-16','Expected collections','conditional','Protected','No real money'):
         assert expected in body,expected
     assert 'No floor breach under assumptions' in body

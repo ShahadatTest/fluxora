@@ -27,6 +27,7 @@ def context(path):
         '/how-it-works':('How it works','follow evidence, deterministic tools, proposals and owner review','guided-agent'),
         '/trust':('Trust & limitations','inspect the project scope and limitations','security'),
         '/about':('About Fluxora','understand this synthetic project','getting-started')}
+    if path=='/':path='/welcome'
     if path in public:return public[path]
     if path=='/docs' or path.startswith('/docs/'):return ('Documentation','find setup instructions, workflow guides and known limitations','getting-started')
     purpose,_,doc=profile(path)

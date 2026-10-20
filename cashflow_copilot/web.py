@@ -602,7 +602,7 @@ def gap_causes_html(ledger: Ledger, fc) -> str:
     return "".join(items)
 
 
-@route("GET", "/")
+@route("GET", "/app")
 def overview(handler: Handler, req: Request):
     def build(ledger: Ledger):
         fc = forecast(ledger, ledger.as_of, ledger.horizon_days)
@@ -689,7 +689,7 @@ def overview(handler: Handler, req: Request):
 <div class="card"><h2>Assumptions</h2><ul>{assumptions}</ul>
 <h2>Open clarifications</h2><ul>{clarifs}</ul></div>
 """
-        return page("Overview", body, active="/")
+        return page("Overview", body, active="/app")
     return handler._send_html(200, read_state(build))
 
 
@@ -2149,7 +2149,7 @@ def _demo_steps(ledger: Ledger) -> list[dict]:
         {"title": "Inspect the gap and its evidence",
          "desc": "See the floor breach, its causes and source records.",
          "done": bool(checks.get("inspected")),
-         "widget": ("<a class='btn' href='/'>Open overview</a> "
+         "widget": ("<a class='btn' href='/app'>Open overview</a> "
                     + post_button("/demo/check", "Mark inspected",
                                   fields={"check": "inspected"}))},
         {"title": "Compare Plan A, Plan B and an insufficient response",
@@ -2235,7 +2235,8 @@ def demo_apply_delay(handler: Handler, req: Request):
     mutate_state(do)
     back = req.headers.get("Referer", "/demo")
     path = urlparse(back).path if back.startswith("http") else back
-    return handler._redirect(path if path in ("/", "/demo", "/plans") else "/demo")
+    if path=="/":path="/app"
+    return handler._redirect(path if path in ("/app", "/demo", "/plans") else "/demo")
 
 
 @route("POST", "/demo/check")

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from . import ui
 
-SITE_NAV=(('/product','Product'),('/how-it-works','How it works'),('/trust','Trust'),('/docs','Docs'))
+SITE_NAV=(('/','Home'),('/product','Product'),('/how-it-works','How it works'),('/trust','Trust'),('/docs','Docs'))
 assets={'fluxora.css':'text/css; charset=utf-8','fluxora-polish.css':'text/css; charset=utf-8','fluxora-workspace.css':'text/css; charset=utf-8','fluxora.js':'text/javascript; charset=utf-8','fluxora.svg':'image/svg+xml','fluxora-mark-v1.png':'image/png','fluxora-planning-v1.png':'image/png','fluxora-evidence-v1.png':'image/png'}
 assets.update({'fluxora-assistant.css':'text/css; charset=utf-8','fluxora-assistant.js':'text/javascript; charset=utf-8'})
 assets.update({'fluxora-motion.css':'text/css; charset=utf-8','fluxora-motion.js':'text/javascript; charset=utf-8'})
@@ -14,11 +14,12 @@ assets.update({'fluxora-guide.css':'text/css; charset=utf-8','fluxora-guide.js':
 
 
 def public_page(title,body,path):
+    if path=='/welcome':path='/'
     links=''.join('<a href="'+url+'"'+(' aria-current="page"' if path==url or (url=='/docs' and path.startswith('/docs/')) else '')+'>'+label+'</a>' for url,label in SITE_NAV)
     links+='<a href="/demo/examples">Demo examples</a>'
     cta='<a class="btn primary" href="/app">Open workspace '+ui.icon('arrow')+'</a>'
-    header='<header class="site-header"><div class="site-container site-header-inner"><a class="brand" href="/welcome" aria-label="Fluxora home">'+ui.wordmark()+'</a><nav class="site-nav" aria-label="Product navigation">'+links+cta+'</nav><details class="site-mobile-nav"><summary>Menu</summary><nav aria-label="Product mobile navigation">'+links+'<a href="/about">About</a>'+cta+'</nav></details></div></header>'
-    footer='<footer class="site-footer"><div class="site-container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/welcome">'+ui.wordmark()+'</a><p>See ahead.<br>Act with clarity.</p><span class="demo-tag">SYNTHETIC DEMONSTRATION</span></div><nav aria-label="Product footer links"><h2>Product</h2><a href="/product">Overview</a><a href="/how-it-works">How it works</a><a href="/app">Demo workspace</a><a href="/trust">Trust &amp; limitations</a></nav><nav aria-label="Resource footer links"><h2>Resources</h2><a href="/start">Get started</a><a href="/docs">Documentation</a><a href="/docs/local-setup">Local setup</a><a href="/docs/guided-agent">Agent guide</a><a href="/docs/troubleshooting">Troubleshooting</a></nav><nav aria-label="Project footer links"><h2>Project</h2><a href="/about">About Fluxora</a><a href="/docs/security">Security boundaries</a><a href="/workspace/features">All features</a><a href="/docs/recovery">Backup &amp; recovery</a></nav></div><div class="footer-bottom"><span>Fluxora · Cashflow Action Copilot</span><span>No real bank connection, counterparty messages or payments.</span><button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Motion off</button></div><p class="footer-disclosure">Forecasts depend on recorded inputs; they are not guarantees. Fluxora is a working project name; brand availability has not been cleared.</p></div></footer>'
+    header='<header class="site-header"><div class="site-container site-header-inner"><a class="brand" href="/" aria-label="Fluxora home">'+ui.wordmark()+'</a><nav class="site-nav" aria-label="Product navigation">'+links+cta+'</nav><details class="site-mobile-nav"><summary>Menu</summary><nav aria-label="Product mobile navigation">'+links+'<a href="/about">About</a>'+cta+'</nav></details></div></header>'
+    footer='<footer class="site-footer"><div class="site-container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/">'+ui.wordmark()+'</a><p>See ahead.<br>Act with clarity.</p><span class="demo-tag">SYNTHETIC DEMONSTRATION</span></div><nav aria-label="Product footer links"><h2>Product</h2><a href="/product">Overview</a><a href="/how-it-works">How it works</a><a href="/app">Demo workspace</a><a href="/trust">Trust &amp; limitations</a></nav><nav aria-label="Resource footer links"><h2>Resources</h2><a href="/start">Get started</a><a href="/docs">Documentation</a><a href="/docs/local-setup">Local setup</a><a href="/docs/guided-agent">Agent guide</a><a href="/docs/troubleshooting">Troubleshooting</a></nav><nav aria-label="Project footer links"><h2>Project</h2><a href="/about">About Fluxora</a><a href="/docs/security">Security boundaries</a><a href="/workspace/features">All features</a><a href="/docs/recovery">Backup &amp; recovery</a></nav></div><div class="footer-bottom"><span>Fluxora · Cashflow Action Copilot</span><span>No real bank connection, counterparty messages or payments.</span><button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Motion off</button></div><p class="footer-disclosure">Forecasts depend on recorded inputs; they are not guarantees. Fluxora is a working project name; brand availability has not been cleared.</p></div></footer>'
     return ui.document(title,header+'<main id="main" class="site-container" tabindex="-1">'+body+'</main>'+footer,kind='site')
 
 
@@ -110,7 +111,7 @@ DOCS = {
 <pre><code>.\\tools\\setup_local.ps1 -Python python
 .\\tools\\setup_local.ps1 -Python python -CheckOnly</code></pre>
 <p>On macOS/Linux: <code>python3 -m tools.local_setup --start --open-browser</code>. The default persistent database is <code>.runtime/local/state.sqlite</code>. This single-owner local workspace has no 24-hour visitor expiry. Use the exact displayed 127.0.0.1 address; Host, Origin and CSRF checks protect local forms.</p>
-<p>Open <a href="/welcome">the product website</a>, <a href="/app">the app</a>, or <a href="/docs">documentation</a> at the same local port. The default local CLI binds to 127.0.0.1. A new database starts with the synthetic fixture; an existing database is preserved.</p>
+<p>Open <a href="/">the product website</a>, <a href="/app">the app</a>, or <a href="/docs">documentation</a> at the same local port. The default local CLI binds to 127.0.0.1. A new database starts with the synthetic fixture; an existing database is preserved.</p>
 <h2>Restart without losing work</h2><p>Stop the server with Ctrl+C and run the same command with the <strong>same database path</strong>. Saved requests and approved local work remain. Connection verification starts unverified after restart. In-progress staged reviews may expire and must be reviewed again.</p>
 <h2>Model-free use</h2><p>The ledger, deterministic reports, scenarios and reviewed owner forms work without a model key. Natural-language task translation needs internet and an external compatible model. See <a href="/docs/model-configuration">model configuration</a>.</p>
 <h2>API and Telegram Web settings</h2><p>In the persistent local launcher, open <strong>Settings &amp; help → API &amp; Telegram</strong> at <code>/settings/connections</code>. Add multiple compatible API/model profiles and choose one active connection. Configure, test and explicitly start/stop a private Telegram bot on this same ledger. Default credentials are session memory; optional Windows Remember uses current-account DPAPI encryption. Restart loads remembered settings unverified and never starts the bot automatically. Hosted/legacy modes do not expose these credential forms.</p><p>Do not run a second poller for the active VPS bot; use a separate local bot. Computer and app must stay on for replies. Read <code>docs/LOCAL-SETUP.md</code> for Web settings, alternative hidden terminal prompts, existing data paths, backup/move and troubleshooting. No model/bot call occurs during readiness checks. The legacy serve command does not enable this local adapter or run lock.</p>
@@ -219,7 +220,7 @@ def docs_page(slug):
     body=re.sub(r'<h2>(.*?)</h2>',heading,body,flags=re.S)
     contents='<nav class="docs-contents" aria-label="On this guide"><b>On this guide</b>'+''.join('<a href="#'+ident+'">'+text+'</a>' for ident,text in headings)+'</nav>' if len(headings)>1 else ''
     keys=list(DOCS);index=keys.index(slug);prev=keys[index-1] if index else None;nextkey=keys[index+1] if index+1<len(keys) else None
-    footer='<nav class="docs-end" aria-label="Documentation pagination">'+('<a href="/docs/'+prev+'">← '+DOCS[prev][0]+'</a>' if prev else '<a href="/welcome">← Product home</a>')+('<a href="/docs/'+nextkey+'">'+DOCS[nextkey][0]+' →</a>' if nextkey else '<a href="/app">Open workspace →</a>')+'</nav>'
+    footer='<nav class="docs-end" aria-label="Documentation pagination">'+('<a href="/docs/'+prev+'">← '+DOCS[prev][0]+'</a>' if prev else '<a href="/">← Product home</a>')+('<a href="/docs/'+nextkey+'">'+DOCS[nextkey][0]+' →</a>' if nextkey else '<a href="/app">Open workspace →</a>')+'</nav>'
     return '<div class="docs-layout"><aside class="docs-nav"><div class="nav-label">Fluxora documentation</div><nav aria-label="Documentation">'+nav+'</nav></aside><div><details class="docs-mobile"><summary>Documentation · '+title+'</summary><nav aria-label="Mobile documentation">'+nav+'</nav></details><article class="docs-article"><div class="eyebrow">Fluxora documentation</div><h1>'+title+'</h1><p class="section-lead">'+subtitle+'</p>'+contents+body+footer+'</article></div></div>'
 
 
@@ -283,6 +284,7 @@ def mount(web):
         handler.send_response(200);handler.send_header('Content-Type',assets[name]);handler.send_header('Content-Length',str(len(data)))
         handler.send_header('X-Content-Type-Options','nosniff');handler.send_header('Cache-Control','no-cache');handler.end_headers();handler.wfile.write(data)
 
+    @web.route('GET','/')
     @web.route('GET','/welcome')
     def home(handler,req):
         from .errors import CashflowError
@@ -322,9 +324,8 @@ def mount(web):
         return handler._send_html(200,public_page(DOCS[slug][0],docs_page(slug),req.path))
 
     @web.route('GET','/app')
-    @web.route('GET','/')
     def overview(handler,req):
-        return handler._send_html(200,web.read_state(lambda l:web.page('Overview',dashboard(web,l),active='/')))
+        return handler._send_html(200,web.read_state(lambda l:web.page('Overview',dashboard(web,l),active='/app')))
 
     @web.route('GET','/forecast')
     def forecast_page(handler,req):

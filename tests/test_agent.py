@@ -565,7 +565,7 @@ def test_agent_ask_over_http_with_mock_provider(tmp_path, monkeypatch):
         assert len(list_agent_runs(db)) == 1
 
         # Overview leads to guided tasks; legacy advanced controls stay on /agent.
-        s, home = _get("/")
+        s, home = _get("/app")
         assert s == 200 and "Ask Fluxora" in home and 'href="/agent/tasks"' in home
     finally:
         server.shutdown()

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.26.4 — Home and workspace routes
+
+- Open the product Home at `/`; keep the business workspace at `/app` and preserve `/welcome` as a product-page alias.
+- Add a visible Home item to product navigation, point brand/Home links to `/`, and keep workspace Overview links at `/app`.
+- Serve hosted public Home before visitor admission, so reading the product page does not create a workspace or consume visitor capacity. Authenticated hosting retains its existing authentication boundary.
+- Cover local/hosted routing, fixture-only Home content, workspace state preservation, selected navigation and full-capacity access with regressions.
+
 ## 0.26.3 — Rendered responsive review
 
 - Fit Overview financial values to their card width and allow complete long values to wrap; remove internal amount scrollbars from the public product preview.

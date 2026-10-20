@@ -70,7 +70,7 @@ def _load(db):
 
 def test_all_views_return_200_with_honest_labels(live_server):
     base, _ = live_server
-    for path in ("/", "/ledger", "/plans", "/actions", "/demo"):
+    for path in ("/app", "/ledger", "/plans", "/actions", "/demo"):
         status, html = _get(base, path)
         assert status == 200, path
         assert "AI not connected" in html, path

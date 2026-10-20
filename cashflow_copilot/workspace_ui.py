@@ -15,7 +15,7 @@ import re
 # Purpose, screen family, documentation chapter. One entry per workspace route.
 SCREENS = {
     '/settings/connections': ('Review connection options for private local setup; hosted demo controls remain locked.', 'settings', 'model-configuration'),
-    '/': ('Review the recorded cash position and decide what needs attention.', 'overview', 'getting-started'),
+    '/app': ('Review the recorded cash position and decide what needs attention.', 'overview', 'getting-started'),
     '/today': ('Work through the current priorities, then open the supporting records.', 'review', 'getting-started'),
     '/review': ('Review cash pressure, missing facts and pending decisions in one place.', 'review', 'getting-started'),
     '/decision-brief': ('Prepare a source-linked brief for the next owner decision.', 'report', 'forecasts'),
@@ -100,7 +100,8 @@ FAMILIES = {
 
 
 def profile(path, active=''):
-    if path == '/app': path = '/'
+    if path == '/': path = '/app'
+    if active == '/': active = '/app'
     if path in SCREENS: return SCREENS[path]
     if path.startswith('/agent/tasks/report/'):
         return ('Inspect this local report, its assumptions and cited evidence.', 'report', 'forecasts')

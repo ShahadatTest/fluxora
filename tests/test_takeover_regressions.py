@@ -42,7 +42,7 @@ def test_http_verification_survives_reload_and_invalidates_config(stub, live_ser
     _StubHandler.responses = [(200, _completion('pong'))]
     code, body = _post(base, '/agent/verify', {'csrf': web.CSRF_TOKEN})
     assert code == 200
-    for path in ('/', '/agent', '/plans'):
+    for path in ('/app', '/agent', '/plans'):
         code, body = _get(base, path)
         assert code == 200
         assert 'Live provider: verified' in body
