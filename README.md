@@ -52,7 +52,7 @@ Fluxora brings that work into one multipage workspace:
 
 ![Fluxora product website](docs/media/welcome.jpg)
 
-*Actual local application screenshot, captured with the bundled synthetic Atlas example. Decorative hero artwork is illustrative; it is not a financial result.*
+*Earlier local application screenshot, source 0.25.9, captured with the bundled synthetic Atlas example. Current hosted captures are in the latest walkthrough. Decorative hero artwork is illustrative; it is not a financial result.*
 
 <details>
 <summary><strong>Open the workspace screenshots</strong> — forecasts, guided tasks and Telegram practice</summary>
@@ -256,7 +256,7 @@ deploy/vps/        Optional container deployment, backup and rollback
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change. Use invented data in a [bug report](https://github.com/ShahadatTest/fluxora/issues/new/choose), preserve financial/permission boundaries and include relevant verification. The [security policy](SECURITY.md) explains what must stay out of public issues and screenshots.
 
-Application source is **0.26.0**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
+Application source is **0.26.4**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
 
 ---
 
