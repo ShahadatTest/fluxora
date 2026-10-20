@@ -4,9 +4,17 @@ This page distinguishes automated synthetic tests, local HTTP stubs, mocked prov
 
 ## Publication tree
 
-The GitHub preparation contains complete source **0.25.9**, including scrolling and Settings navigation corrections. Application, tests, tools, examples and deployment files are byte-identical to the reviewed source snapshot. Cleanup changes the README, ignore rules and selected documentation; it does not remove tests, safety comments, dummy security fixtures, bundled skill instructions or financial controls.
+The GitHub preparation contains complete source **0.25.9**, including scrolling and Settings navigation corrections. Application runtime, tools, examples and deployment files are unchanged from the reviewed source snapshot. Repository presentation adds documentation, media, contributor templates and CI. One HTTP retry test was made independent of Windows opener initialization time, as described below. No tests, safety comments, dummy security fixtures, bundled skill instructions or financial controls were removed.
 
 **Fresh full publication-tree result: 2136 passed in 371.02s.** The command ran from this repository with bytecode/cache/test outputs directed outside the publication folder. It used the existing development environment and synthetic tests, local HTTP stubs and mocks. No new live-model or real Telegram delivery evaluation was run. The clean standard-library readiness check passed with six bundled skills, three synthetic examples and zero model/Telegram calls. Source-distribution and wheel builds passed in a separate copy; all 103 application files/assets matched the publication source. The first build attempt lacked setuptools in the development environment; separately installing build dependencies resolved that environment blocker without changing runtime dependencies or the app.
+
+## GitHub Actions
+
+The [cross-platform workflow](https://github.com/ShahadatTest/fluxora/actions/workflows/tests.yml) runs the complete synthetic suite on Python 3.12, Windows and Linux, without optional provider credentials. Its badge reports the actual workflow result; current logs are linked from that page.
+
+The [first run](https://github.com/ShahadatTest/fluxora/actions/runs/39374834372) returned **2,130 passed / 6 skipped on Linux in 277.20s**, and **2,135 passed / 1 failed on Windows in 309.86s**. The Windows failure expected exactly one HTTP request within a 100 ms whole-run budget. The budget expired before the opener reached the stub, so zero requests were correctly made. This is a test timing assumption, rather than evidence that a late financial result was accepted.
+
+That regression now allows the local request to start, then supplies a controlled clock with exactly 100 ms remaining to the real retry policy when the real HTTP stub returns 429. It asserts one request, no backoff sleep, no tool execution and no credential in the answer. Separate real timeout and late-result tests still exercise whole-run deadlines. The focused local HTTP-adapter/takeover selection passed **38 tests in 21.37s** after the change. No runtime deadline, retry policy or financial permission was relaxed. Subsequent complete outcomes are available in the workflow logs.
 
 ## Earlier measured results
 

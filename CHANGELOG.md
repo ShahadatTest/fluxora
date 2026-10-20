@@ -8,6 +8,7 @@ This summary records implemented behavior. Test results and their boundaries liv
 - Preserve native disclosure, keyboard behavior and the locked hosted settings boundary.
 - Publish a clean source tree with current English guides, setup instructions and no runtime data or credentials.
 - Refine the repository presentation with original project artwork, actual synthetic screenshots, clearer documentation navigation and automated CI.
+- Make the HTTP retry-budget regression independent of Windows opener initialization time; preserve runtime deadlines and retain the first CI failure in validation evidence.
 
 ## 0.25.8 — 20 October 2026
 

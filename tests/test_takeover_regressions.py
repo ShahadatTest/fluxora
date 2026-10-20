@@ -103,12 +103,32 @@ def test_http_timeout_uses_remaining_run_deadline(stub, ledger):
     assert run.tool_calls == []
 
 
-def test_http_retry_backoff_does_not_exceed_remaining_budget(stub, ledger):
+def test_http_retry_backoff_does_not_exceed_remaining_budget(stub, ledger, monkeypatch):
+    from types import SimpleNamespace
+    from cashflow_copilot import model_adapter
+
     _StubHandler.responses = [(429, {'error': {'message': CANARY_KEY}})] * 10
-    start = time.monotonic()
-    run = run_agent_question(ledger, 'q', _adapter(stub), time_budget_s=0.1)
-    assert time.monotonic() - start < 0.5
+    adapter = _adapter(stub)
+    retry = adapter._maybe_retry
+    attempts, sleeps = [], []
+
+    def retry_near_deadline(exc, attempt, deadline):
+        attempts.append((exc.code, attempt))
+        # Exercise a real HTTP 429, then give the real retry policy exactly
+        # 100 ms remaining. Windows HTTPS-opener initialization can itself
+        # exceed 100 ms, so a tiny whole-run budget may never reach the stub.
+        clock = SimpleNamespace(monotonic=lambda: deadline - 0.1,
+                                sleep=sleeps.append)
+        with monkeypatch.context() as scoped:
+            scoped.setattr(model_adapter, 'time', clock)
+            return retry(exc, attempt, deadline)
+
+    monkeypatch.setattr(adapter, '_maybe_retry', retry_near_deadline)
+    run = run_agent_question(ledger, 'q', adapter, time_budget_s=5)
+    assert attempts == [(429, 0)]
+    assert sleeps == []
     assert len(_StubHandler.requests) == 1
+    assert run.tool_calls == []
     assert CANARY_KEY not in run.answer
 
 
