@@ -56,6 +56,12 @@ class LocalWorkspace:
         yield self.state
 
 
+class Server(web.ThreadingHTTPServer):
+    def server_close(self):
+        if getattr(self,'autopilot',None):self.autopilot.close()
+        super().server_close()
+
+
 class Handler(web.Handler):
     def setup(self):super().setup();self.connection.settimeout(15)
     def send_header(self,key,value):
@@ -99,7 +105,7 @@ class Handler(web.Handler):
 def create_server(database,port=8765,*,example='atlas',telegram=False,api=None,telegram_config=None):
     database=Path(database).resolve();database.parent.mkdir(parents=True,exist_ok=True)
     # Bind before seeding so an occupied port does not create an unused ledger.
-    server=web.ThreadingHTTPServer(('127.0.0.1',port),Handler)
+    server=Server(('127.0.0.1',port),Handler)
     try:
         if not database.exists():
             store=SQLiteStore(str(database))
@@ -111,6 +117,8 @@ def create_server(database,port=8765,*,example='atlas',telegram=False,api=None,t
         try:store.load_ledger()
         finally:store.close()
         server.workspace_database=str(database);server.visitors=LocalWorkspace(database);server.telegram=None
+        from .autopilot import Service
+        server.autopilot=Service(server)
         from .local_connections import Connections
         from . import local_settings_web
         server.local_connections=Connections(server);local_settings_web.mount(web)
@@ -147,6 +155,7 @@ def main(argv=None):
             print('Persistent synthetic database: '+str(database),flush=True)
             print('No model call on startup. Ctrl+C stops this app; data is retained.',flush=True)
             if server.telegram:server.telegram.start()
+            server.autopilot.start()
             if args.open_browser:
                 import webbrowser
                 webbrowser.open(url+'/welcome')

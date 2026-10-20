@@ -144,8 +144,8 @@ def help_card():
     return card('Your cash-flow companion',
         bold('Read your position')+'\n/forecast — cash-floor risks and dates\n/plans — compare conditional options\n/status — connection and workspace status',
         bold('Prepare for review')+'\n'+code('/draft INVOICE_ID USD 100 YYYY-MM-DD')+'\nPrepare an early-payment DRAFT with exact terms.\n'+code('/snapshot LABEL')+'\nPrepare a forecast snapshot; separate approval follows.',
-        bold('Settings')+'\n/link CODE — link your own browser workspace\n/alerts on · /alerts off — opt-in updates\n/unlink — disconnect and revoke pending buttons',
-        bold('Optional private model')+'\n/verify · /qualify — confirmed checks that may incur charges.\nOther text uses one model translation only when configured and qualified. Your question and static task catalog go to that provider; ledger/attachments are not sent. You review its exact interpretation.',
+        bold('Settings')+'\n/link CODE — link your own browser workspace\n/alerts on · /alerts off — opt-in updates\n/autopilot — status\n/autopilot on · /autopilot off — scheduled read/DRAFT work and opted-in updates\n/unlink — disconnect and revoke pending buttons',
+        bold('Optional private model')+'\n/verify · /qualify — confirmed checks that may incur charges.\nOther text uses one model translation only when configured and qualified. Your question and static task catalog go to that provider; ledger/attachments are not sent. With Autopilot ON, validated tasks run reports or prepare DRAFT/pending work directly. With it OFF, interpretation review remains. Final approval stays separate.',
         'Use synthetic data only. Reports and DRAFTs do not approve work, prove payment or send business messages.')
 
 

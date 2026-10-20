@@ -2461,3 +2461,5 @@ floating_assistant.mount(sys.modules[__name__])
 
 from . import getting_started
 getting_started.mount(sys.modules[__name__])
+from . import autopilot_web
+autopilot_web.mount(sys.modules[__name__])

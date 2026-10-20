@@ -11,7 +11,7 @@ GROUPS = (
     ('Workspace', (
         ('/', 'Overview', 'grid', ()),
         ('/today', 'Today', 'sun', (('/review', 'Daily review'), ('/decision-brief', 'Decision brief'))),
-        ('/agent/tasks', 'Agent', 'spark', (('/agent', 'Advanced agent & history'),)),
+        ('/agent/tasks', 'Agent', 'spark', (('/autopilot', 'Autopilot'),('/agent', 'Advanced agent & history'))),
     )),
     ('Cash planning', (
         ('/forecast', 'Forecast', 'chart', (('/weekly-cashflow', 'Thirteen-week view'), ('/account-forecast', 'Account funding'), ('/variance', 'Forecast vs actual'))),

@@ -24,7 +24,7 @@
 
 Fluxora helps a small-business owner understand **when cash becomes tight, which facts support the forecast, and what can be prepared for review**. Deterministic Python tools calculate the financial results; an optional constrained model helps interpret supported requests.
 
-Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.25.12**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
+Built for **Topic E — SME Finance Copilot** of the 2026 Shenzhen International FinTech Competition. Current application source: **0.26.0**. All bundled examples are synthetic. No real bank connection or payment execution is provided.
 
 Use **Send** for a one-submit report or DRAFT/pending preparation after the inline provider/data disclosure. **Options → Preview before sending** retains the full outbound and interpretation previews. Final approval stays separate; missing facts still require clarification. Inspect the selected task and exact terms in the result. For immediate answers without a provider, use the direct report links.
 
@@ -161,6 +161,12 @@ These are variable names, not values. Enter credentials only through private set
 - Payroll is protected. Currencies stay separate. Display-only FX creates no spendable cash.
 - Deterministic financial cards are authoritative for the computed result. Advanced model prose remains explicitly unverified; even a valid structured task can misunderstand intent.
 
+## Opt-in Autopilot
+
+[Autopilot](https://fluxora.sklab.cc/autopilot) watches recorded financial inputs, runs deterministic analysis, prepares a bounded eligible DRAFT batch and a separately approved forecast snapshot, and records follow-up/digest jobs. It makes **zero model calls for scheduled checks**. Optional qualified models still interpret explicitly submitted tasks.
+
+Policies have separate currency limits, saved owner opt-in and a pause control. Private Telegram delivery needs the workspace’s current owner pairing and notification consent. Exact DRAFT approval/rejection and snapshot decisions are supported; no real sending/payment, invented consent or receipt is added. Public visitors have isolated policies and cannot message the operator’s private chat. Read [setup, limits and recovery](docs/AUTOPILOT.md).
+
 ## Architecture
 
 ```mermaid
@@ -186,7 +192,7 @@ The badge at the top reports the actual GitHub Actions workflow. Local measured 
 
 | Evidence | Recorded outcome | Scope |
 | --- | --- | --- |
-| **Previous complete source suite (0.25.11)** | **2,172 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
+| **Fresh complete source suite (0.26.0)** | **2,209 passed** on 20 October 2026 | Automated synthetic tests, local HTTP stubs and mocked providers |
 | **Clean build & install** | Source package, wheel and fresh offline installation passed | Assets, fixture examples and bundled skills present |
 | **Focused browser checks** | Settings navigation passed at desktop, 360px and 390px | Not a complete device/accessibility audit |
 | **Public live guided AI** | One-submit forecast: 4.312s; exact DRAFT: 9.094s over public HTTPS | Two measured live tasks plus separate canary/restart checks; samples, not a latency or language-accuracy guarantee |
@@ -238,7 +244,7 @@ deploy/vps/        Optional container deployment, backup and rollback
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change. Use invented data in a [bug report](https://github.com/ShahadatTest/fluxora/issues/new/choose), preserve financial/permission boundaries and include relevant verification. The [security policy](SECURITY.md) explains what must stay out of public issues and screenshots.
 
-Application source is **0.25.12**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
+Application source is **0.26.0**; recent changes are summarized in the [changelog](CHANGELOG.md). No distribution license has been selected automatically. Review usage/distribution rights before reuse; there is no implied open-source license grant. Generated artwork and trademark limitations are documented in [asset provenance](docs/BRAND-ASSETS-0.20.1.md).
 
 ---
 

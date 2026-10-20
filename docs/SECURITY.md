@@ -1,6 +1,6 @@
 # Fluxora security self-assessment
 
-Source 0.25.12. Reviewed 20 October 2026. Synthetic demonstration only.
+Source 0.26.0. Reviewed 20 October 2026. Synthetic demonstration only.
 
 ## Assets and trusted boundaries
 
@@ -22,6 +22,8 @@ External model and Telegram providers form separate trust boundaries. Questions 
 An agent can prepare supported local changes for review. This does not let it approve itself. A server executor may apply the reviewed local scope after the owner decides. Documents never grant a permission. A receipt, acceptance event or bank observation cannot be invented to make a plan feasible.
 
 The one-submit route may prepare an unintended but schema-valid DRAFT/pending instruction. Literal values, deterministic validation and the read/DRAFT boundary constrain it; they do not prove intent. Exact selected terms are shown in results and require separate owner approval before any supported local execution. Use Options → Preview before sending when interpretation needs checking before preparation. A changed ledger or expired deadline rejects candidate work. Durable replay prevents a repeated completed submission from contacting the provider or creating another draft.
+
+Autopilot adds explicitly authorized background jobs, not model approval authority. Policies require owner role and current workspace/business scope. The worker has no model/network tool, uses an agent context and checks the existing read/DRAFT-only invariant before committing. A separate job claim, policy revision, unchanged ledger generation and deadline gate precede the atomic ledger/effect-journal commit. The scheduling index can recover a committed journal after restart. Telegram messages use the current paired owner only, with notification opt-in, escaped exact review cards and durable delivery keys. Unknown sends are not automatically repeated. A host compromise, same-account software, false input evidence, resource exhaustion or arbitrary future model intent remains outside those guarantees. See [Autopilot](AUTOPILOT.md).
 
 ## Implemented controls and evidence
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.26.0 — Opt-in bounded Autopilot
+
+- Persist workspace/business-scoped owner policies, scheduled jobs, separate currency DRAFT limits and conditional deterministic planning. Changed financial inputs prepare eligible DRAFTs and pending snapshot review; status changes and periodic digests are read-only.
+- Commit effects and a result journal atomically; recover the separate scheduling index without repeating effects. Gate commits on policy revision, active claim, current ledger generation, deadline and read/DRAFT invariant. Preserve rolling limits across restart/history pruning.
+- Queue private-owner Telegram updates once with eligible exact DRAFT approval/rejection and separate snapshot decisions. Cancel unsent Autopilot updates on pause; do not retry unknown sends. Other source/consent workflows keep detailed Web review.
+- While explicitly ON, validated private Telegram tasks prepare read/DRAFT work directly; carry the remaining translation deadline into local execution. Scheduled jobs make no model calls. No real banking, counterparty transport or payment was added.
+
+
 ## 0.25.12 — Single Send control
 
 - The default Agent composer and assistant handoff show one Send button. Skill selection and optional preview stay in a closed native Options disclosure; a link selecting a specific skill opens it for inspection.

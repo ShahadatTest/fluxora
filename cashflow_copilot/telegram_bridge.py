@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS updates (id INTEGER PRIMARY KEY,status TEXT NOT NULL)
 CREATE TABLE IF NOT EXISTS reviews (token TEXT PRIMARY KEY,generation TEXT NOT NULL,digest TEXT NOT NULL,
  business TEXT NOT NULL,revision TEXT NOT NULL,kind TEXT NOT NULL,payload TEXT NOT NULL,expires REAL NOT NULL,status TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS deliveries (id INTEGER PRIMARY KEY AUTOINCREMENT, payload TEXT NOT NULL,status TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS delivery_keys (key TEXT PRIMARY KEY,delivery_id INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY,value TEXT NOT NULL);
 '''
 
@@ -104,7 +105,7 @@ class TelegramBridge:
 
     def state(self,database):
         digest=self.server.visitors.workspace_digest(database)
-        with self.lock,self.db() as db:
+        with self.db() as db:
             row=db.execute('SELECT * FROM binding WHERE id=1 AND digest=?',(digest,)).fetchone()
             uncertain=db.execute("SELECT count(*) FROM deliveries WHERE status='unknown'").fetchone()[0] if row else 0
         return dict(linked=bool(row),alerts=bool(row['alerts']) if row else False,uncertain_deliveries=uncertain,
@@ -142,11 +143,16 @@ class TelegramBridge:
         if buttons:payload['reply_markup']={'inline_keyboard':buttons}
         return payload
 
-    def queue(self,text,buttons=None):
+    def _enqueue(self,db,payload,key=None):
+        if key and db.execute('SELECT 1 FROM delivery_keys WHERE key=?',(key,)).fetchone():return
+        if db.execute("SELECT count(*) FROM deliveries WHERE status='queued'").fetchone()[0]>=32:raise CashflowError('Telegram delivery queue full.')
+        delivery=db.execute('INSERT INTO deliveries(payload,status) VALUES (?,?)',(json.dumps(payload),'queued')).lastrowid
+        if key:db.execute('INSERT INTO delivery_keys VALUES (?,?)',(key,delivery))
+
+    def queue(self,text,buttons=None,*,key=None):
         payload=self._payload(text,buttons)
         with self.db() as db:
-            if db.execute("SELECT count(*) FROM deliveries WHERE status='queued'").fetchone()[0]>=32:raise CashflowError('Telegram delivery queue full.')
-            db.execute('INSERT INTO deliveries(payload,status) VALUES (?,?)',(json.dumps(payload),'queued'))
+            db.execute('BEGIN IMMEDIATE');self._enqueue(db,payload,key)
 
     def flush(self):
         with self.lock,self.db() as db:
@@ -160,20 +166,46 @@ class TelegramBridge:
     def _load(self):
         return web.read_state(lambda ledger:ledger)
 
-    def _review(self,binding,ledger,kind,payload,text,confirm):
+    def _review(self,binding,ledger,kind,payload,text,confirm,*,key=None,view=None):
         token=secrets.token_hex(12)
         buttons=[[{'text':confirm,'callback_data':'yes:'+token},{'text':'Reject','callback_data':'no:'+token}]]
-        self._payload(text,buttons)  # Refuse oversized terms before storing a review.
+        if view and getattr(getattr(self.server,'config',None),'domain',None):
+            buttons.append([{'text':'View details','url':'https://'+self.server.config.domain+view}])
+        delivery=self._payload(text,buttons)  # Refuse oversized terms before storing a review.
         with self.db() as db:
+            db.execute('BEGIN IMMEDIATE')
+            if key and db.execute('SELECT 1 FROM delivery_keys WHERE key=?',(key,)).fetchone():return
             db.execute('DELETE FROM reviews WHERE expires<?',(self.clock()-86400,))
             if db.execute("SELECT count(*) FROM reviews WHERE status='pending' AND expires>?",(self.clock(),)).fetchone()[0]>=40:
                 raise CashflowError('Review capacity reached. Reject or let old reviews expire.')
             db.execute('INSERT INTO reviews VALUES (?,?,?,?,?,?,?,?,?)',(token,binding['generation'],binding['digest'],ledger.business_id,
                 workflows.revision(ledger),kind,json.dumps(payload),self.clock()+900,'pending'))
-        self.queue(text,buttons)
+            self._enqueue(db,delivery,key)
 
-    def _plan(self,binding,ledger,plan,question):
+    def _plan(self,binding,ledger,plan,question,*,translated=None,deadline=None):
         plan=tasks.validate_plan(ledger,plan,question,ctx=RequestContext('telegram-reader','agent',ledger.business_id))
+        engine=getattr(self.server,'autopilot',None)
+        if engine and not engine.stop.is_set() and json.loads(engine.policy(web.database_path(),ledger,ctx=RequestContext('telegram-reader','agent',ledger.business_id))['policy'])['enabled']:
+            from .agent_requests import run_request
+            from .agent_disclosure import disclosure_revision
+            ident=uuid4().hex
+            remaining=10 if deadline is None else min(30,deadline-time.monotonic())
+            if remaining<=0:raise CashflowError('Task deadline expired before preparing work.')
+            execution=tasks.TaskExecutionAdapter(plan,ident,provider='local deterministic Telegram Autopilot execution',
+                translation_provider=self.adapter.provider_label if translated else None,
+                translation_usage=translated.get('usage') if translated else None,skill=translated.get('skill') if translated else None)
+            outcome=run_request(web.database_path(),ident,question,'guided',execution,
+                ctx=RequestContext('telegram-owner','owner',ledger.business_id),lock=web.LOCK,data_mode='minimized',expected_revision=disclosure_revision(ledger),time_budget_s=remaining)
+            self.queue(wording.completion(plan,outcome))
+            if outcome.status=='completed':
+                current=self._load()
+                if plan['task']=='proposal':
+                    job=current.agent_workflows.get('guided-'+ident)
+                    if job:self._workflow_card(binding,current,job,key='direct:'+binding['generation']+':'+ident)
+                elif plan['task']=='action_proposal':
+                    action=current.actions.get('guided-'+ident)
+                    if action:self._action_card(binding,current,action,key='direct:'+binding['generation']+':'+ident)
+            return
         text=wording.review(plan,tasks.title(plan['task']),ledger.as_of)
         self._review(binding,ledger,'task',{'plan':plan,'question':question,'request_id':uuid4().hex},text,
             'Create DRAFT' if plan['task']=='action_proposal' else 'Prepare for approval' if plan['task']=='proposal' else 'Run reviewed report')
@@ -188,11 +220,23 @@ class TelegramBridge:
             text=wording.card('Report ready in Web','The complete report exceeds the Telegram message limit. Open '+('Forecast' if task=='forecast' else 'Plan Comparison')+' in your linked browser for all currencies, assumptions and source references. No report values were shortened into a financial conclusion.')
         self.queue(text)
 
-    def _workflow_card(self,binding,ledger,job):
+    def _workflow_card(self,binding,ledger,job,*,key=None):
         if (any(s['operation']!='save_forecast' for s in job['steps']) or job['requires_observed_confirmation'] or job['requires_counterparty_confirmation']):
             self.queue('Pending workflow '+job['id']+' needs detailed Web review. Telegram approval is available only for forecast snapshots; observations/consent need separate source-backed confirmation.');return
         text=wording.snapshot_review(ledger,job)
-        self._review(binding,ledger,'workflow',{'id':job['id'],'review_token':job['review_token']},text,'Approve & save snapshot')
+        self._review(binding,ledger,'workflow',{'id':job['id'],'review_token':job['review_token']},text,'Approve & save snapshot',key=key,view='/agent/workflows/'+job['id'])
+
+    def _action_card(self,binding,ledger,action,*,key):
+        from .planning import _hash
+        from .money import format_amount
+        target=action.terms.get('receivable_id') or action.terms.get('outflow_id')
+        source=ledger.receivables.get(target) or ledger.outflows.get(target)
+        if source is None:raise TelegramNotice('changed_review')
+        terms=wording.card('DRAFT approval required',
+            'Action: '+wording.code(action.id)+'\nKind: '+wording.text(action.kind.replace('_',' ')),
+            'Target: '+wording.code(target)+'\nAmount: '+wording.text(format_amount(action.terms['amount_minor'],source.currency))+'\nProposed date: '+wording.code(action.terms['date'])+'\nSource: '+wording.code(source.evidence_id),
+            'Approve DRAFT records owner approval of these exact current terms only. It does not send anything, change a supplier agreement, record consent or create a payment. Reject cancels this unapproved draft. Expires in 15 minutes.')
+        self._review(binding,ledger,'action',dict(id=action.id,version=action.version,terms_hash=_hash(action.terms)),terms,'Approve DRAFT',key=key,view='/actions/'+action.id)
 
     def _message(self,message):
         text=message.get('text','')
@@ -225,6 +269,20 @@ class TelegramBridge:
             if text in {'/alerts on','/alerts off'}:
                 with self.db() as db:db.execute('UPDATE binding SET alerts=?,alert_hash=? WHERE id=1',(int(text.endswith(' on')),''))
                 self.queue('Financial-change alerts '+('enabled. Updates leave this workspace via Telegram.' if text.endswith(' on') else 'disabled.'));return
+            if text in {'/autopilot','/autopilot on','/autopilot off'}:
+                engine=getattr(self.server,'autopilot',None)
+                if engine is None:raise CashflowError('Autopilot is unavailable.')
+                owner=RequestContext('telegram-owner','owner',ledger.business_id)
+                row=engine.policy(web.database_path(),ledger,ctx=owner);policy=json.loads(row['policy'])
+                if text!='/autopilot':
+                    policy['enabled']=text.endswith(' on')
+                    # This explicit private command opts into Autopilot updates,
+                    # but never chooses new monetary limits or a draft strategy.
+                    if policy['enabled']:policy['notify']=True
+                    engine.save(web.database_path(),ledger,policy,ctx=owner,expected=row['revision'])
+                self.queue(wording.card('Autopilot '+('ON' if policy['enabled'] else 'OFF'),
+                    'Strategy: '+wording.text(policy['strategy'])+'\nCheck interval: '+str(policy['interval_seconds'])+' seconds',
+                    'While ON, supported private tasks run reports or prepare DRAFT/pending work without a preparation-review click. Final approval stays separate. Configure exact per-currency limits and strategy in Web → Autopilot. Background checks use local deterministic tools, with zero model calls. /autopilot off stops future preparations.'));return
             if text in {'/forecast','/plans'}:self._report(ledger,text[1:]);return
             if text.startswith('/draft '):
                 fields=text.split()
@@ -245,9 +303,10 @@ class TelegramBridge:
             if not self.adapter:raise TelegramNotice('model_missing')
             from . import task_qualification as qualification
             if qualification.status(self.qualification_path(),self.adapter)!='qualified':raise TelegramNotice('qualification')
-            result=tasks.translate(ledger,text,self.adapter,ctx=RequestContext('telegram-agent','agent',ledger.business_id),deadline=time.monotonic()+30)
+            deadline=time.monotonic()+30
+            result=tasks.translate(ledger,text,self.adapter,ctx=RequestContext('telegram-agent','agent',ledger.business_id),deadline=deadline)
             if result['status']!='review':self.queue(tasks.REASONS[result['reason']]);return
-            self._plan(binding,ledger,result['plan'],text)
+            self._plan(binding,ledger,result['plan'],text,translated=result,deadline=deadline)
 
     def qualification_path(self):return self.path.parent/'telegram-model-qualification.json'
 
@@ -265,6 +324,15 @@ class TelegramBridge:
                     payload=json.loads(row['payload'])
                     web.mutate_state(lambda ledger:workflows.decide(ledger,payload['id'],payload['review_token'],'reject',
                         ctx=RequestContext('telegram-owner','owner',ledger.business_id)))
+                elif row['kind']=='action':
+                    payload=json.loads(row['payload'])
+                    def reject(current):
+                        from . import actions
+                        from .planning import _hash
+                        action=current.actions.get(payload['id'])
+                        if current.business_id!=row['business'] or not action or action.version!=payload['version'] or _hash(action.terms)!=payload['terms_hash']:raise TelegramNotice('changed_review')
+                        actions.cancel_draft(action,ctx=RequestContext('telegram-owner','owner',current.business_id))
+                    web.mutate_state(reject)
                 with self.db() as db:db.execute("UPDATE reviews SET status='rejected' WHERE token=?",(token,))
                 self.queue('Review rejected. No financial operation was applied.');return
             ledger=self._load()
@@ -297,6 +365,18 @@ class TelegramBridge:
                     result=web.mutate_state(apply);self.queue(wording.card('Snapshot saved' if result['status']=='executed' else 'Snapshot workflow update',
                         'Workflow: '+wording.code(result['id'])+'\nStatus: '+wording.text(result['status']),
                         'Next: open saved forecasts in your linked browser. Current recorded cash is unchanged. No payment, receipt or counterparty consent was recorded.'))
+                elif row['kind']=='action':
+                    def approve(current):
+                        from . import actions
+                        from .adaptive import validate_current_request
+                        from .planning import _hash
+                        action=current.actions.get(payload['id'])
+                        if workflows.revision(current)!=row['revision'] or not action or action.version!=payload['version'] or _hash(action.terms)!=payload['terms_hash']:raise TelegramNotice('changed_review')
+                        validate_current_request(current,action)
+                        actions.approve(action,actor='telegram-owner',ctx=RequestContext('telegram-owner','owner',current.business_id))
+                    web.mutate_state(approve)
+                    self.queue(wording.card('DRAFT owner-approved','Action: '+wording.code(payload['id']),
+                        'No message, consent, receipt or payment was created. Review any later sandbox lifecycle step separately in Web.'))
                 else:raise CashflowError('Unsupported review.')
                 status='completed'
             except Exception:
@@ -391,6 +471,7 @@ class TelegramBridge:
         if self.stop.is_set():return
         if time.monotonic()>=self.next_alert:
             self.notifications();self.next_alert=time.monotonic()+30
+        if getattr(self.server,'autopilot',None):self.server.autopilot.notify(self)
         for _ in range(8):
             if self.stop.is_set():break
             self.flush()

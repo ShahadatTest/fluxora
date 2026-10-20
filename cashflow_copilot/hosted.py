@@ -98,8 +98,13 @@ class DemoServer(ThreadingHTTPServer):
             from .public_ai import create
             self.public_ai_adapter=create(config.database,config.public_ai_daily_limit)
         self.visitors=Visitors(Path(config.database).resolve().parent/'visitors',capacity=config.visitor_capacity) if config.public_demo else None
+        from .autopilot import Service
+        self.autopilot=Service(self)
         self.slots=threading.BoundedSemaphore(config.workers)
         super().__init__(address,handler)
+    def server_close(self):
+        if getattr(self,'autopilot',None):self.autopilot.close()
+        super().server_close()
     def process_request(self,request,address):
         if not self.slots.acquire(False):
             try:
@@ -295,6 +300,7 @@ def main():
         adapter=OpenAICompatibleAdapter.from_env(max_retries=0,timeout_s=25,total_budget_s=30) if tg_config.use_model else None
         server.telegram=TelegramBridge(server,tg_config,api,adapter=adapter)
         server.telegram.start()
+    server.autopilot.start()
     def stop(*_):threading.Thread(target=server.shutdown,daemon=True).start()
     signal.signal(signal.SIGTERM,stop);signal.signal(signal.SIGINT,stop)
     print(('Public isolated visitor demo' if config.public_demo else 'Protected synthetic owner demo')+' started; private network listener.',flush=True)

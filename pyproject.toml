@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cashflow-copilot"
-version = "0.25.12"
+version = "0.26.0"
 description = "Synthetic SME cashflow decision support with a constrained draft-only agent"
 requires-python = ">=3.10"
 dependencies = []

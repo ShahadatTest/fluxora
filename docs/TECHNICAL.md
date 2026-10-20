@@ -1,6 +1,6 @@
 # Fluxora: technical documentation
 
-Cashflow Action Copilot. Complete local source 0.25.12. Reviewed 20 October 2026.
+Cashflow Action Copilot. Complete local source 0.26.0. Reviewed 20 October 2026.
 
 ## Purpose and contribution
 
@@ -16,7 +16,15 @@ The project targets Topic E, SME Finance Copilot. The current demonstrator conce
 | Hosted public demo | HTTPS and a separate expiring synthetic workspace for each browser cookie. Records live on the server. | Visitor guided requests can use a privately configured provider only with the explicit public-AI operator flag, qualification, disclosure and bounded allowances. API/Telegram settings are a disabled static preview. Browser Telegram practice is simulated. |
 | Optional private companion | One allowlisted Telegram account explicitly pairs one workspace. Pairing does not extend the workspace lifetime. | Opt-in real bot delivery about synthetic data. A separately enabled model requires the existing verification and qualification process. |
 
-The deployed UI uses a minimal hosted release, 0.23.15-613369295ce1, with the same reviewed product refinement. The complete downloadable local source is 0.25.12 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
+The deployed UI uses a minimal hosted release, 0.24.0-09bfc35f9c27, with the same reviewed product refinement. The complete downloadable local source is 0.26.0 and includes private local settings and setup helpers. The two version labels identify distinct packaging branches, not separate claims of financial accuracy.
+
+## Autopilot worker
+
+`autopilot.py` keeps owner policies, bounded queued jobs, leased claims and notification metadata in `autopilot-control.sqlite`, separate from credentials. Financial effects and `autopilot_runs` result journal commit together in the selected ledger database. The worker then completes the scheduling index; a crash between commits recovers the saved journal without re-running effects. A persistent job-attempt table preserves the rolling allowance across history pruning/restart. A progress chain distinguishes A→B→A financial-input transitions without looping on its own actions/workflows.
+
+Scheduled analysis reuses forecast, missing-fact and adaptive planning tools. Only a selected sufficient strategy within all per-currency caps can create a complete DRAFT batch; snapshots remain pending owner approval. No LLM call is needed. Existing role/domain boundaries remain the final authority. A validated private Telegram task can use the optional configured model for one interpretation while Autopilot is on; the remaining deadline carries through local preparation.
+
+The hosted and persistent local entrypoints start the worker. Policies default off. Enabled saved policies explicitly resume on restart while the app runs. Telegram polling/start and model qualification remain separate. Public visitor expiry is preserved and expired policies/job summaries are pruned. See [Autopilot](AUTOPILOT.md).
 
 ## Architecture
 
