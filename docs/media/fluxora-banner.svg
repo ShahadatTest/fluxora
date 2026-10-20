@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="350" viewBox="0 0 1200 350" role="img" aria-labelledby="title desc">
+<title id="title">Fluxora — clarity before your next cash decision</title>
+<desc id="desc">Editorial project banner. Evidence leads to a forecast, a draft and separate owner review. This is a concept diagram, not financial data.</desc>
+<defs><linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7fbf8"/><stop offset="1" stop-color="#e7f1eb"/></linearGradient></defs>
+<rect width="1200" height="350" rx="20" fill="url(#paper)"/>
+<path d="M1010 -90C870 70 1200 110 1080 290M1110 -60C970 100 1290 150 1170 330" fill="none" stroke="#d0e3d7" stroke-width="46" opacity=".42"/>
+<text x="52" y="55" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2.1" fill="#336c58">CASHFLOW ACTION COPILOT</text>
+<text x="48" y="132" font-family="Arial,sans-serif" font-size="72" font-weight="700" letter-spacing="-3.6" fill="#1b3034">Fluxora<tspan fill="#116754">.</tspan></text>
+<text x="52" y="182" font-family="Arial,sans-serif" font-size="26" fill="#285e4e">Clarity before your next cash decision.</text>
+<text x="52" y="214" font-family="Arial,sans-serif" font-size="17" fill="#506469">Evidence you can trace. Financial tools you can inspect.</text>
+<path d="M169 274H322 M551 274H635 M818 274H933" stroke="#bed3c8" stroke-width="2"/>
+<g font-family="Arial,sans-serif" font-size="14" font-weight="700">
+<circle cx="66" cy="274" r="7" fill="#116754"/><text x="85" y="279" fill="#255647">Evidence</text>
+<circle cx="340" cy="274" r="7" fill="#116754"/><text x="359" y="279" fill="#255647">Deterministic forecast</text>
+<circle cx="653" cy="274" r="7" fill="#116754"/><text x="672" y="279" fill="#255647">DRAFT preparation</text>
+<circle cx="951" cy="274" r="7" fill="#a36a26"/><text x="970" y="279" fill="#715020">Owner review</text>
+</g><text x="52" y="325" font-family="Arial,sans-serif" font-size="12" fill="#60766b">LOCAL-FIRST WORKSPACE</text><text x="1146" y="325" text-anchor="end" font-family="Arial,sans-serif" font-size="12" fill="#60766b">SYNTHETIC DEMONSTRATION · NO REAL PAYMENTS</text>
+</svg>

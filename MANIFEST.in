@@ -1,11 +1,14 @@
 include README.md
 include SECURITY.md
+include CONTRIBUTING.md
+include CHANGELOG.md
 include START_FLUXORA.cmd
 include .gitignore
 include .dockerignore
 recursive-include deploy *.py *.yml *.md Dockerfile
 recursive-include tests *.py *.js
 recursive-include docs *.md
+recursive-include docs/media *.jpg *.svg
 recursive-include tools *.py *.ps1
 recursive-include examples *.json *.csv *.txt
 recursive-include cashflow_copilot/data *.json

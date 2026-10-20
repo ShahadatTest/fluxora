@@ -12,7 +12,7 @@ Start with [local setup](LOCAL-SETUP.md) or the [judge quickstart](JUDGE-QUICKST
 | [Hosted settings preview](HOSTED-CONNECTION-PREVIEW.md) | Locked controls and private configuration boundary |
 | [Telegram practice](TELEGRAM-INTERACTIVE-DEMO.md) | Isolated lesson, DRAFT review and separate snapshot approval |
 | [Floating guide](FLOATING-ASSISTANT.md) | Local guidance, supported links and private Agent handoff |
-| [Validation](README.md) | Actual commands/results and what remains unverified |
+| [Validation](VALIDATION.md) | Actual commands/results and what remains unverified |
 | [Independent-user protocol](USABILITY-SESSION.md) | Neutral tasks and honest observation recording |
 | [Asset provenance](BRAND-ASSETS-0.20.1.md) | Generated illustrations, usage and trademark limitations |
 | [Competition context](COMPETITION.md) | Official references and entry boundaries |

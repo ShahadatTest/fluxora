@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a reproducible problem using synthetic data.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Use invented data only. Do not include keys, tokens, cookies, pairing codes, private databases or real business documents."
+  - type: input
+    id: location
+    attributes:
+      label: Page or command
+      description: The route or local command where the problem occurs.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Synthetic reproduction
+      description: List the smallest steps needed to reproduce it with invented records.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and observed behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Version and environment
+      description: App version, OS, browser and local or hosted mode.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence
+      description: Optional redacted synthetic screenshot or error category; no raw provider responses or secrets.
